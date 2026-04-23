@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Growth Package — SomaSync AI</title>
+  <meta name="description" content="Go fully client-ready with a professional website, online booking, local SEO, and policy pages — done for you.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero { padding: 72px 0 56px; }
+    .hero-headline { font-size: clamp(30px, 5vw, 50px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.08; margin-bottom: 18px; }
+    .hero-sub { font-size: 18px; color: var(--text-secondary); line-height: 1.6; max-width: 580px; margin-bottom: 36px; }
+
+    .content-grid { display: grid; grid-template-columns: 1fr 340px; gap: 24px; align-items: start; }
+    
+    .deliverable-card { margin-bottom: 12px; }
+    .deliverable-card .card-body { padding: 22px 24px; }
+    .d-icon { font-size: 22px; margin-bottom: 10px; }
+    .d-title { font-size: 16px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 6px; }
+    .d-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; }
+
+    .order-card .card-body { padding: 28px; }
+    .price-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 4px; }
+    .order-price { font-size: 40px; font-weight: 700; letter-spacing: -1.5px; color: var(--text-primary); }
+    .order-orig { font-size: 17px; color: var(--text-tertiary); text-decoration: line-through; }
+    .order-note { font-size: 13px; color: var(--text-tertiary); margin-bottom: 24px; }
+    .order-features { margin-bottom: 24px; }
+
+    .compare-bar { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px 24px; margin-top: 24px; }
+    .compare-title { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 14px; }
+    .compare-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.06); font-size: 13px; }
+    .compare-row:last-child { border-bottom: none; }
+    .compare-label { color: var(--text-secondary); }
+    .compare-val { font-weight: 600; color: var(--text-primary); }
+
+    .timeline { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+    .timeline-item { display: flex; gap: 20px; }
+    .timeline-left { display: flex; flex-direction: column; align-items: center; }
+    .timeline-dot { width: 28px; height: 28px; border-radius: 50%; background: var(--accent-soft); border: 1px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); flex-shrink: 0; }
+    .timeline-line { width: 1px; flex: 1; background: var(--border); margin: 4px 0; min-height: 32px; }
+    .timeline-content { padding-bottom: 28px; padding-top: 3px; }
+    .timeline-title { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+    .timeline-desc { font-size: 13.5px; color: var(--text-secondary); line-height: 1.6; }
+
+    @media(max-width:720px) {
+      .content-grid { grid-template-columns: 1fr; }
+      .order-card { position: static !important; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Soma<span>Sync</span> AI</a>
+    <div class="nav-links">
+      <a href="free.html">Starter</a>
+      <a href="growth.html">Growth</a>
+      <a href="elite.html">Elite</a>
+      <a href="apply.html" class="nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="hero">
+    <div style="margin-bottom:16px;" class="fade-up"><span class="badge badge-blue">Most Popular · Student Pricing Available</span></div>
+    <h1 class="hero-headline fade-up delay-1">Go fully<br>client-ready.</h1>
+    <p class="hero-sub fade-up delay-2">Everything a licensed massage therapist needs to launch a professional presence — website, booking, SEO, and policies — built for you in days, not months.</p>
+  </section>
+
+  <div class="content-grid">
+    <!-- LEFT: Deliverables -->
+    <div>
+      <p style="font-size:13px;color:var(--text-tertiary);margin-bottom:20px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;">What you get</p>
+
+      <div class="card deliverable-card fade-up delay-1">
+        <div class="card-body">
+          <div class="d-icon">🌐</div>
+          <div class="d-title">Custom Professional Website</div>
+          <p class="d-desc">A clean, mobile-first website built to convert visitors into clients. Includes your bio, services &amp; pricing page, photo section, testimonials block, and a clear call-to-action. Built on a platform you can edit yourself (no tech skills needed) and transferred to your ownership when complete.</p>
+        </div>
+      </div>
+
+      <div class="card deliverable-card fade-up delay-2">
+        <div class="card-body">
+          <div class="d-icon">📅</div>
+          <div class="d-title">Online Booking Integration</div>
+          <p class="d-desc">We connect your site to a booking platform — Square Appointments, Jane App, or Acuity Scheduling — so clients can book and pay 24/7 without you lifting a finger. Includes service setup, availability configuration, confirmation emails, and payment processing.</p>
+        </div>
+      </div>
+
+      <div class="card deliverable-card fade-up delay-3">
+        <div class="card-body">
+          <div class="d-icon">📍</div>
+          <div class="d-title">Google Business Profile Setup &amp; Local SEO</div>
+          <p class="d-desc">Your Google Business listing is often the first thing potential clients see. We claim and optimize your profile with photos, services, categories, hours, and a compelling description. We also walk you through the basics of local SEO so you continue ranking as you grow.</p>
+        </div>
+      </div>
+
+      <div class="card deliverable-card fade-up delay-1">
+        <div class="card-body">
+          <div class="d-icon">📋</div>
+          <div class="d-title">Policy &amp; Legal Pages</div>
+          <p class="d-desc">Professional practices need professional policies. We create your cancellation &amp; late-arrival policy, client intake form, informed consent documentation, and privacy policy — tailored to your state's massage therapy regulations and embedded directly on your site.</p>
+        </div>
+      </div>
+
+      <div class="card deliverable-card fade-up delay-2">
+        <div class="card-body">
+          <div class="d-icon">📞</div>
+          <div class="d-title">1 Live Onboarding Call (45 min)</div>
+          <p class="d-desc">Before we build anything, we sit down with you (via video call) to gather your vision, preferences, and content. After launch, we walk you through your new system so you feel confident managing everything independently.</p>
+        </div>
+      </div>
+
+      <!-- What happens -->
+      <div style="margin-top:48px;">
+        <p style="font-size:13px;color:var(--text-tertiary);margin-bottom:20px;font-weight:600;letter-spacing:0.5px;text-transform:uppercase;">Your timeline</p>
+        <div class="timeline">
+          <div class="timeline-item fade-up delay-1">
+            <div class="timeline-left"><div class="timeline-dot">1</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Apply &amp; Onboard (Day 1)</div>
+              <p class="timeline-desc">Fill out the application. We review it and book your onboarding call within 24 hours.</p>
+            </div>
+          </div>
+          <div class="timeline-item fade-up delay-2">
+            <div class="timeline-left"><div class="timeline-dot">2</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">We Build Your System (Days 2–5)</div>
+              <p class="timeline-desc">Website, booking, Google listing, and all policy pages are built and reviewed.</p>
+            </div>
+          </div>
+          <div class="timeline-item fade-up delay-3">
+            <div class="timeline-left"><div class="timeline-dot">3</div><div class="timeline-line"></div></div>
+            <div class="timeline-content">
+              <div class="timeline-title">Launch Call &amp; Handoff (Day 6–7)</div>
+              <p class="timeline-desc">We walk you through everything live, transfer full ownership, and you go live.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Order -->
+    <div>
+      <div class="card order-card fade-up" style="position:sticky;top:72px;">
+        <div class="card-body">
+          <div class="price-row">
+            <span class="order-price">$119</span>
+            <span class="order-orig">$199</span>
+          </div>
+          <p class="order-note">Student pricing · One-time payment · No subscription</p>
+          <ul class="feature-list order-features">
+            <li class="feature-item">
+              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Custom website, built for you
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Booking system integration
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Google Business + local SEO
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Policy & legal pages
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              1 live onboarding call (45 min)
+            </li>
+            <li class="feature-item">
+              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              Done in 7 days or less
+            </li>
+          </ul>
+          <a href="apply.html?package=growth" class="btn btn-primary btn-full">Apply for Growth →</a>
+          <p style="font-size:12px;color:var(--text-tertiary);text-align:center;margin-top:14px;">We'll confirm your spot and send payment instructions via email</p>
+        </div>
+      </div>
+
+      <div class="compare-bar fade-up delay-2">
+        <div class="compare-title">Growth vs. doing it yourself</div>
+        <div class="compare-row"><span class="compare-label">Time to launch</span><span class="compare-val">7 days vs. 3–6 months</span></div>
+        <div class="compare-row"><span class="compare-label">Tech know-how needed</span><span class="compare-val">None vs. significant</span></div>
+        <div class="compare-row"><span class="compare-label">Professional result</span><span class="compare-val">Guaranteed vs. uncertain</span></div>
+      </div>
+
+      <div style="text-align:center;margin-top:20px;">
+        <p style="font-size:13px;color:var(--text-tertiary);">Need the full system? <a href="elite.html" style="color:var(--accent);">See Elite Package →</a></p>
+      </div>
+    </div>
+  </div>
+
+  <footer style="border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text-tertiary);font-size:13px;margin-top:72px;">
+    <p>© 2025 SomaSync AI · <a href="index.html" style="color:var(--text-tertiary);">Home</a> · <a href="apply.html" style="color:var(--text-tertiary);">Apply</a></p>
+  </footer>
+</div>
+
+</body>
+</html>

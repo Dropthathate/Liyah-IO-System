@@ -1,17 +1,125 @@
-<h1>Client Acquisition System</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Acquisition System — SomaSync AI</title>
+  <meta name="description" content="A repeatable system that brings massage clients to you. Stop waiting and start building.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .hero { padding: 72px 0 56px; text-align: center; }
+    .hero .headline { margin: 16px auto; max-width: 700px; }
+    .hero .subhead { max-width: 560px; margin: 0 auto 36px; }
 
-<p>
-Stop waiting for clients. Build a repeatable system that brings them to you.
-</p>
+    .system-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+    .system-card .card-body { padding: 28px; }
+    .system-icon { font-size: 26px; margin-bottom: 14px; }
+    .system-title { font-size: 17px; font-weight: 700; letter-spacing: -0.4px; margin-bottom: 8px; }
+    .system-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin-bottom: 14px; }
 
-<h3>Inside:</h3>
-<ul>
-  <li>Brand setup for therapists</li>
-  <li>Social media system</li>
-  <li>Content templates</li>
-  <li>Outreach scripts</li>
-</ul>
+    .cta-strip { text-align: center; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 56px 48px; margin: 64px 0; }
+    .cta-strip .headline { font-size: clamp(24px, 4vw, 38px); margin-bottom: 12px; }
+    .cta-strip .subhead { font-size: 17px; max-width: 500px; margin: 0 auto 28px; }
 
-<h2>Become visible in your local market</h2>
+    @media(max-width:680px){ .system-grid { grid-template-columns: 1fr; } .cta-strip { padding: 36px 20px; } }
+  </style>
+</head>
+<body>
 
-<button>Get Access</button>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Soma<span>Sync</span> AI</a>
+    <div class="nav-links">
+      <a href="free.html">Starter</a>
+      <a href="growth.html">Growth</a>
+      <a href="elite.html">Elite</a>
+      <a href="apply.html" class="nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <section class="hero">
+    <span class="badge badge-purple fade-up">Client Acquisition System</span>
+    <h1 class="headline fade-up delay-1">Stop waiting.<br>Start building.</h1>
+    <p class="subhead fade-up delay-2">A repeatable system that brings massage clients to you — through brand visibility, local authority, content, and direct outreach.</p>
+    <div class="fade-up delay-3">
+      <a href="apply.html?package=elite" class="btn btn-primary">Get the Full System</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div style="text-align:center;margin-bottom:48px;">
+      <span class="eyebrow">The system</span>
+      <h2 class="headline" style="font-size:clamp(24px,4vw,38px);">Four pillars. One consistent flow.</h2>
+    </div>
+
+    <div class="system-grid">
+      <div class="card system-card fade-up delay-1">
+        <div class="card-body">
+          <div class="system-icon">🎨</div>
+          <div class="system-title">Brand Identity That Attracts</div>
+          <p class="system-desc">Clients choose therapists they trust. Your brand — name, visual identity, bio, and positioning — is often the first thing they see. We build a brand kit that makes you look established, specific, and worth booking.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Logo + color palette</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Specialty positioning statement</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Tone of voice guide</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card system-card fade-up delay-2">
+        <div class="card-body">
+          <div class="system-icon">📱</div>
+          <div class="system-title">Social Media That Books</div>
+          <p class="system-desc">Content that educates, builds authority, and converts — without feeling like you're constantly selling. We give you a 30-day content calendar, caption templates, and a simple repeatable posting rhythm.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>30-day content calendar</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Caption templates for 8 post types</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Instagram + Facebook profile optimization</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card system-card fade-up delay-3">
+        <div class="card-body">
+          <div class="system-icon">🤝</div>
+          <div class="system-title">Local Outreach Scripts</div>
+          <p class="system-desc">Your best referral sources aren't random people online — they're the chiropractors, physical therapists, CrossFit boxes, and fitness studios in your zip code. We give you exact scripts to open those relationships.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Cold outreach email templates</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>In-person intro script</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Referral agreement one-pager</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card system-card fade-up delay-1">
+        <div class="card-body">
+          <div class="system-icon">🔄</div>
+          <div class="system-title">Referral Program Setup</div>
+          <p class="system-desc">Your happiest clients are your best marketers — if you make it easy for them. We set up a simple referral program so every satisfied client becomes a consistent source of new bookings.</p>
+          <ul class="feature-list">
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Referral incentive structure</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Client referral ask scripts</li>
+            <li class="feature-item"><svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>Follow-up sequence for referred leads</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-strip fade-up">
+    <span class="eyebrow">Part of Elite</span>
+    <h2 class="headline">The full system starts at $297.</h2>
+    <p class="subhead">The Client Acquisition System is included in the Elite package alongside automation, a custom website, AALIYAH AI access, and live coaching.</p>
+    <a href="apply.html?package=elite" class="btn btn-primary btn-lg">Apply for Elite →</a>
+  </div>
+
+  <footer style="border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text-tertiary);font-size:13px;margin-top:0;">
+    <p>© 2025 SomaSync AI · <a href="index.html" style="color:var(--text-tertiary);">Home</a> · <a href="apply.html" style="color:var(--text-tertiary);">Apply</a></p>
+  </footer>
+</div>
+
+</body>
+</html>

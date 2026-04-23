@@ -1,7 +1,238 @@
-<h1>System Dashboard</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — SomaSync AI</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .dash-layout { display: grid; grid-template-columns: 220px 1fr; min-height: 100vh; }
+    
+    /* Sidebar */
+    .sidebar {
+      background: rgba(255,255,255,0.03);
+      border-right: 1px solid var(--border);
+      padding: 24px 16px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .sidebar-logo { font-size: 14px; font-weight: 700; padding: 0 8px; margin-bottom: 28px; }
+    .sidebar-logo span { color: var(--accent); }
+    .sidebar-label { font-size: 10px; font-weight: 700; letter-spacing: 0.9px; text-transform: uppercase; color: var(--text-tertiary); padding: 0 8px; margin-bottom: 8px; margin-top: 20px; display: block; }
+    .sidebar-link { display: flex; align-items: center; gap: 9px; font-size: 13.5px; color: var(--text-secondary); padding: 8px 10px; border-radius: 8px; cursor: pointer; transition: background 0.15s, color 0.15s; margin-bottom: 2px; }
+    .sidebar-link:hover, .sidebar-link.active { background: rgba(255,255,255,0.07); color: var(--text-primary); }
+    .sidebar-link.active { color: var(--accent); background: var(--accent-soft); }
 
-<button onclick="loadLeads()">Refresh</button>
+    /* Main */
+    .dash-main { padding: 36px; overflow-y: auto; }
+    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+    .dash-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; }
 
-<div id="data"></div>
+    /* Stats row */
+    .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 28px; }
+    .stat-card .card-body { padding: 20px; }
+    .stat-card-label { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 8px; }
+    .stat-card-value { font-size: 30px; font-weight: 700; letter-spacing: -1px; line-height: 1; color: var(--text-primary); }
+    .stat-card-delta { font-size: 12px; color: var(--green); margin-top: 4px; }
 
-<script src="dashboard.js"></script>
+    /* Table */
+    .table-card .card-body { padding: 0; overflow: hidden; border-radius: var(--radius-md); }
+    .table-top { display: flex; align-items: center; justify-content: space-between; padding: 18px 20px; border-bottom: 1px solid var(--border); }
+    .table-top-title { font-size: 15px; font-weight: 600; }
+    .status-dot { display: inline-flex; align-items: center; gap: 5px; font-size: 12px; padding: 3px 10px; border-radius: 20px; }
+    .status-new    { background: var(--accent-soft); color: var(--accent); }
+    .status-review { background: var(--gold-soft); color: var(--gold); }
+    .status-active { background: var(--green-soft); color: var(--green); }
+
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--text-tertiary); }
+    .empty-icon { font-size: 36px; margin-bottom: 12px; }
+    .empty-title { font-size: 15px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+    .empty-desc { font-size: 13px; line-height: 1.6; }
+
+    @media(max-width:768px){
+      .dash-layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .stats-row { grid-template-columns: repeat(2,1fr); }
+      .dash-main { padding: 20px 16px; }
+    }
+  </style>
+</head>
+<body style="background:var(--bg-primary);">
+
+<div class="dash-layout" style="position:relative;z-index:1;">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-logo">Soma<span>Sync</span> AI</div>
+    <span class="sidebar-label">Admin</span>
+    <div class="sidebar-link active" onclick="showSection('leads')">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/></svg>
+      Leads
+    </div>
+    <div class="sidebar-link" onclick="showSection('applications')">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/></svg>
+      Applications
+    </div>
+    <div class="sidebar-link">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/></svg>
+      Analytics
+    </div>
+    <span class="sidebar-label">Actions</span>
+    <div class="sidebar-link" onclick="loadData()">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/></svg>
+      Refresh Data
+    </div>
+    <div class="sidebar-link" onclick="window.location='index.html'">
+      <svg width="15" height="15" viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/></svg>
+      View Site
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="dash-main">
+    <div class="dash-header">
+      <div class="dash-title" id="section-title">Leads</div>
+      <button onclick="loadData()" class="btn btn-secondary btn-sm">↻ Refresh</button>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="card stat-card">
+        <div class="card-body">
+          <div class="stat-card-label">Total Leads</div>
+          <div class="stat-card-value" id="stat-total">—</div>
+          <div class="stat-card-delta" id="stat-delta">Loading…</div>
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="card-body">
+          <div class="stat-card-label">New (24h)</div>
+          <div class="stat-card-value" id="stat-new">—</div>
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="card-body">
+          <div class="stat-card-label">Applications</div>
+          <div class="stat-card-value" id="stat-apps">—</div>
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="card-body">
+          <div class="stat-card-label">Packages Requested</div>
+          <div class="stat-card-value" id="stat-pkg">—</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leads table -->
+    <div class="card table-card" id="leads-section">
+      <div class="card-body">
+        <div class="table-top">
+          <div class="table-top-title">All Leads</div>
+          <span style="font-size:12px;color:var(--text-tertiary);" id="last-updated">Not yet loaded</span>
+        </div>
+        <div id="table-container">
+          <div class="empty-state">
+            <div class="empty-icon">📭</div>
+            <div class="empty-title">No data loaded</div>
+            <p class="empty-desc">Click Refresh to pull in lead data from your connected sheet.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+const API = "YOUR_APPS_SCRIPT_URL"; // ← replace with your deployed Google Apps Script URL
+
+function showSection(name) {
+  document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+  event.target.closest('.sidebar-link').classList.add('active');
+  document.getElementById('section-title').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+}
+
+async function loadData() {
+  document.getElementById('stat-delta').textContent = 'Loading…';
+  document.getElementById('table-container').innerHTML = `
+    <div class="empty-state">
+      <div class="empty-icon" style="animation:spin 1s linear infinite;display:inline-block;">⟳</div>
+      <div class="empty-title">Fetching data…</div>
+    </div>`;
+
+  if (API === "YOUR_APPS_SCRIPT_URL") {
+    // Demo mode — show example data
+    renderDemo();
+    return;
+  }
+
+  try {
+    const res = await fetch(API);
+    const data = await res.json();
+    renderTable(data);
+    updateStats(data);
+    document.getElementById('last-updated').textContent = 'Updated just now';
+  } catch (err) {
+    document.getElementById('table-container').innerHTML = `<div class="empty-state"><div class="empty-title">Error loading data</div><p class="empty-desc">Check your API URL in dashboard.js and try again.</p></div>`;
+  }
+}
+
+function renderDemo() {
+  const demo = [
+    { name: "Jordan Smith",  email: "jordan@example.com", path: "Growth",  tag: "New",    time: "2 min ago" },
+    { name: "Kayla Reyes",   email: "kayla@example.com",  path: "Elite",   tag: "Review", time: "1 hr ago" },
+    { name: "Marcus T.",     email: "marcus@example.com", path: "Starter", tag: "Active", time: "3 hr ago" },
+    { name: "Lena Park",     email: "lena@example.com",   path: "Elite",   tag: "New",    time: "Yesterday" },
+    { name: "Devon Wu",      email: "devon@example.com",  path: "Growth",  tag: "Active", time: "2 days ago" },
+  ];
+  renderTable(demo);
+  updateStats(demo);
+  document.getElementById('last-updated').textContent = 'Demo data';
+}
+
+function statusClass(tag) {
+  const map = { New: 'status-new', Review: 'status-review', Active: 'status-active' };
+  return map[tag] || 'status-new';
+}
+
+function renderTable(data) {
+  if (!data.length) {
+    document.getElementById('table-container').innerHTML = `<div class="empty-state"><div class="empty-title">No leads yet</div><p class="empty-desc">Leads will appear here as people sign up.</p></div>`;
+    return;
+  }
+  let html = `<table class="data-table">
+    <thead><tr>
+      <th>Name</th><th>Email</th><th>Package</th><th>Status</th><th>Time</th>
+    </tr></thead><tbody>`;
+  data.forEach(l => {
+    html += `<tr>
+      <td style="font-weight:500;color:var(--text-primary);">${l.name || '—'}</td>
+      <td>${l.email || '—'}</td>
+      <td>${l.path || '—'}</td>
+      <td><span class="status-dot ${statusClass(l.tag)}">${l.tag || 'New'}</span></td>
+      <td>${l.time || '—'}</td>
+    </tr>`;
+  });
+  html += '</tbody></table>';
+  document.getElementById('table-container').innerHTML = html;
+}
+
+function updateStats(data) {
+  document.getElementById('stat-total').textContent = data.length;
+  document.getElementById('stat-new').textContent = data.filter(d => d.tag === 'New').length;
+  document.getElementById('stat-apps').textContent = data.filter(d => d.path !== 'Starter').length;
+  document.getElementById('stat-pkg').textContent = [...new Set(data.map(d => d.path))].length;
+  document.getElementById('stat-delta').textContent = '↑ All time';
+}
+
+// Auto-load demo on page open
+loadData();
+</script>
+<style>
+@keyframes spin { to { transform: rotate(360deg); } }
+</style>
+</body>
+</html>

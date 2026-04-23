@@ -1,29 +1,230 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Apply - SomaSync AI</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply — SomaSync AI</title>
+  <meta name="description" content="Apply for access to SomaSync AI. Tell us where you are in your practice and we'll match you to the right package.">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .apply-layout {
+      display: grid;
+      grid-template-columns: 1fr 420px;
+      gap: 48px;
+      align-items: start;
+      padding: 72px 0;
+    }
+    .apply-left { padding-right: 16px; }
+    .apply-headline { font-size: clamp(28px, 5vw, 44px); font-weight: 700; letter-spacing: -1.5px; line-height: 1.1; margin: 16px 0; }
+    .apply-sub { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 36px; }
+
+    .trust-item { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 18px; }
+    .trust-icon { width: 32px; height: 32px; border-radius: 8px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .trust-title { font-size: 14px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; }
+    .trust-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.5; }
+
+    .form-card .card-body { padding: 32px; }
+    .form-section-title { font-size: 12px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--text-tertiary); margin-bottom: 16px; margin-top: 24px; }
+    .form-section-title:first-child { margin-top: 0; }
+
+    .radio-group { display: flex; flex-direction: column; gap: 8px; }
+    .radio-option { display: flex; align-items: center; gap: 10px; padding: 12px 14px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: var(--radius-sm); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+    .radio-option:hover { background: rgba(255,255,255,0.07); border-color: var(--border-hover); }
+    .radio-option input[type="radio"] { accent-color: var(--accent); width: 16px; height: 16px; flex-shrink: 0; }
+    .radio-label { font-size: 14px; color: var(--text-secondary); line-height: 1.4; }
+    .radio-label strong { color: var(--text-primary); display: block; font-size: 14.5px; }
+
+    .success-state { text-align: center; padding: 40px 20px; display: none; }
+    .success-icon { font-size: 48px; margin-bottom: 16px; }
+    .success-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 8px; }
+    .success-desc { font-size: 15px; color: var(--text-secondary); line-height: 1.6; }
+
+    @media(max-width:720px) {
+      .apply-layout { grid-template-columns: 1fr; gap: 32px; }
+      .apply-left { padding-right: 0; }
+    }
+  </style>
 </head>
+<body>
 
-<body style="font-family:Arial; padding:40px; background:#020617; color:white;">
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">Soma<span>Sync</span> AI</a>
+    <div class="nav-links">
+      <a href="free.html">Starter</a>
+      <a href="growth.html">Growth</a>
+      <a href="elite.html">Elite</a>
+      <a href="apply.html" class="nav-cta">Apply Now</a>
+    </div>
+  </div>
+</nav>
 
-<h1>Apply for Your Package</h1>
+<div class="container">
+  <div class="apply-layout">
 
-<form action="https://formspree.io/f/YOUR_ID" method="POST">
+    <!-- LEFT: Context -->
+    <div class="apply-left">
+      <span class="eyebrow fade-up">Application</span>
+      <h1 class="apply-headline fade-up delay-1">Tell us about<br>your practice.</h1>
+      <p class="apply-sub fade-up delay-2">We review every application personally and match you with the right package. You'll hear back within 24 hours.</p>
 
-<input type="text" name="name" placeholder="Your Name" required><br><br>
-<input type="email" name="email" placeholder="Email" required><br><br>
+      <div class="fade-up delay-3">
+        <div class="trust-item">
+          <div class="trust-icon" style="background:rgba(48,209,88,0.12);">⚡</div>
+          <div>
+            <div class="trust-title">Fast turnaround</div>
+            <div class="trust-desc">We review applications within 24 hours and confirm your spot by email.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" style="background:rgba(79,142,247,0.12);">🎯</div>
+          <div>
+            <div class="trust-title">Right fit, every time</div>
+            <div class="trust-desc">We'll tell you honestly which package fits your stage — including if you should start free.</div>
+          </div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-icon" style="background:rgba(212,168,67,0.12);">🔒</div>
+          <div>
+            <div class="trust-title">No pressure</div>
+            <div class="trust-desc">Applying doesn't commit you to anything. We'll share options and you decide.</div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-<select name="package">
-  <option>Starter</option>
-  <option>Growth</option>
-  <option>Super Pack</option>
-</select><br><br>
+    <!-- RIGHT: Form -->
+    <div class="fade-up delay-2">
+      <div class="card form-card">
+        <div class="card-body">
 
-<textarea name="message" placeholder="Tell us what you need"></textarea><br><br>
+          <div id="form-content">
+            <p class="form-section-title">Your info</p>
 
-<button type="submit">Submit</button>
+            <div class="form-group">
+              <label class="form-label">Full name <span style="color:#ff453a;">*</span></label>
+              <input class="form-input" id="f-name" type="text" placeholder="Jordan Smith" required>
+            </div>
 
-</form>
+            <div class="form-group">
+              <label class="form-label">Email address <span style="color:#ff453a;">*</span></label>
+              <input class="form-input" id="f-email" type="email" placeholder="you@email.com" required>
+            </div>
 
+            <div class="form-group">
+              <label class="form-label">Phone number <span style="color:var(--text-tertiary);font-weight:400;">(optional)</span></label>
+              <input class="form-input" id="f-phone" type="tel" placeholder="(559) 000-0000">
+            </div>
+
+            <p class="form-section-title">Your practice stage</p>
+
+            <div class="form-group">
+              <label class="form-label">Where are you right now? <span style="color:#ff453a;">*</span></label>
+              <div class="radio-group" id="f-stage">
+                <label class="radio-option">
+                  <input type="radio" name="stage" value="student">
+                  <span class="radio-label"><strong>Currently in massage school</strong>Building skills, preparing to launch</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="stage" value="new-grad">
+                  <span class="radio-label"><strong>Recently licensed (0–12 months)</strong>Have my license, need clients</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="stage" value="established">
+                  <span class="radio-label"><strong>Practicing but underbooked</strong>Have some clients, want more consistency</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="stage" value="scaling">
+                  <span class="radio-label"><strong>Booked out, ready to scale</strong>Want systems, automation, and AI tools</span>
+                </label>
+              </div>
+            </div>
+
+            <p class="form-section-title">Package interest</p>
+
+            <div class="form-group">
+              <label class="form-label">Which package are you most interested in?</label>
+              <div class="radio-group" id="f-package">
+                <label class="radio-option">
+                  <input type="radio" name="package" value="starter">
+                  <span class="radio-label"><strong>Starter</strong> — Free · Get my first 5 clients</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="package" value="growth">
+                  <span class="radio-label"><strong>Growth</strong> — $119 · Custom website + booking system</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="package" value="elite">
+                  <span class="radio-label"><strong>Elite</strong> — $297 · Full practice operating system</span>
+                </label>
+                <label class="radio-option">
+                  <input type="radio" name="package" value="unsure">
+                  <span class="radio-label"><strong>Not sure yet</strong> — Help me figure out the right fit</span>
+                </label>
+              </div>
+            </div>
+
+            <p class="form-section-title">Additional context</p>
+
+            <div class="form-group">
+              <label class="form-label">Anything else you want us to know? <span style="color:var(--text-tertiary);font-weight:400;">(optional)</span></label>
+              <textarea class="form-textarea" id="f-message" placeholder="Your goals, timeline, specific challenges — whatever helps us help you."></textarea>
+            </div>
+
+            <button onclick="handleApply()" class="btn btn-primary btn-full" style="margin-top:8px;" id="submit-btn">
+              Submit Application →
+            </button>
+            <p style="font-size:12px;color:var(--text-tertiary);text-align:center;margin-top:12px;">We'll be in touch within 24 hours. No spam, ever.</p>
+          </div>
+
+          <!-- Success state -->
+          <div class="success-state" id="success-state">
+            <div class="success-icon">✅</div>
+            <div class="success-title">Application received!</div>
+            <p class="success-desc">Thanks for applying. We'll review your info and follow up within 24 hours with next steps. Keep an eye on your inbox.</p>
+            <a href="index.html" class="btn btn-secondary" style="margin-top:24px;">Back to Home</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer style="border-top:1px solid var(--border);padding:32px 0;text-align:center;color:var(--text-tertiary);font-size:13px;margin-top:0;">
+    <p>© 2025 SomaSync AI · <a href="index.html" style="color:var(--text-tertiary);">Home</a> · <a href="mailto:hello@somasyncai.com" style="color:var(--text-tertiary);">hello@somasyncai.com</a></p>
+  </footer>
+</div>
+
+<script>
+  // Pre-select package from URL param
+  const params = new URLSearchParams(window.location.search);
+  const pkg = params.get('package');
+  if (pkg) {
+    const radio = document.querySelector(`input[name="package"][value="${pkg}"]`);
+    if (radio) radio.checked = true;
+  }
+
+  function handleApply() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const stage = document.querySelector('input[name="stage"]:checked');
+    
+    if (!name || !email || !stage) {
+      alert('Please fill in your name, email, and practice stage.');
+      return;
+    }
+
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Submitting…';
+    btn.disabled = true;
+
+    // Simulate submission
+    setTimeout(() => {
+      document.getElementById('form-content').style.display = 'none';
+      document.getElementById('success-state').style.display = 'block';
+    }, 1200);
+  }
+</script>
 </body>
 </html>
