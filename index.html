@@ -1,356 +1,723 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SomaSync AI — Practice Operating System for Massage Therapists</title>
-  <meta name="description" content="SomaSync AI gives massage therapists the tools, systems, and AI assistance to build a thriving practice — from your first client to a fully automated business.">
-  <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ΛΛLIYΛH — The Therapist's Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg:      #050709;
+      --card:    #0b0e14;
+      --card2:   #0e1118;
+      --teal:    #00e5c8;
+      --teal2:   #00b5a0;
+      --gold:    #d4a843;
+      --red:     #ff6b6b;
+      --white:   #eef2f7;
+      --body:    #8a95a8;
+      --muted:   #4a5568;
+      --border:  #131820;
+      --border2: #1e2530;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── Cursor ── */
+    .cur { position: fixed; width: 10px; height: 10px; background: var(--teal); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); mix-blend-mode: screen; transition: width .2s, height .2s; }
+    .cur-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(0,229,200,.3); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: width .3s, height .3s; }
+
+    /* ── Grid bg ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: linear-gradient(rgba(0,229,200,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(0,229,200,.025) 1px, transparent 1px);
+      background-size: 52px 52px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ── Scanline ── */
+    .scan { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, rgba(0,229,200,.12), transparent); animation: scan 10s linear infinite; pointer-events: none; z-index: 50; }
+    @keyframes scan { from { transform: translateY(-100%); } to { transform: translateY(100vh); } }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 48px;
+      background: linear-gradient(to bottom, rgba(5,7,9,.97), transparent);
+      border-bottom: 1px solid rgba(0,229,200,.05);
+    }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 3px; color: var(--teal); text-decoration: none; }
+    .nav-logo span { color: var(--white); }
+    .nav-links { display: flex; gap: 32px; align-items: center; }
+    .nav-links a { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); text-decoration: none; letter-spacing: 2px; text-transform: uppercase; transition: color .2s; cursor: none; }
+    .nav-links a:hover { color: var(--teal); }
+    .nav-cta { background: var(--teal) !important; color: var(--bg) !important; padding: 8px 20px !important; font-weight: 700 !important; }
+
+    /* ── Sections ── */
+    section { position: relative; z-index: 1; }
+
     /* ── Hero ── */
     .hero {
-      text-align: center;
-      padding: 100px 0 80px;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 120px 24px 80px; text-align: center;
     }
-    .hero .headline { margin-bottom: 20px; }
-    .hero .subhead { max-width: 620px; margin: 0 auto 36px; }
-    .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .hero::before {
+      content: '';
+      position: absolute; top: 15%; left: 50%; transform: translateX(-50%);
+      width: 700px; height: 500px;
+      background: radial-gradient(ellipse, rgba(0,229,200,.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .eyebrow { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--teal); text-transform: uppercase; margin-bottom: 24px; opacity: 0; animation: fadeUp .8s .2s forwards; }
+    .hero h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(56px, 11vw, 120px); line-height: .9; letter-spacing: 2px; margin-bottom: 28px; opacity: 0; animation: fadeUp .8s .4s forwards; }
+    .hero h1 .t { color: var(--teal); }
+    .hero h1 .o { -webkit-text-stroke: 1px rgba(0,229,200,.4); color: transparent; }
+    .hero-sub { font-size: clamp(15px, 2.5vw, 19px); color: var(--body); max-width: 580px; line-height: 1.75; margin-bottom: 48px; opacity: 0; animation: fadeUp .8s .6s forwards; }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; opacity: 0; animation: fadeUp .8s .8s forwards; }
+    .btn-primary { background: var(--teal); color: var(--bg); font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; padding: 16px 44px; text-decoration: none; transition: box-shadow .2s, transform .15s; cursor: none; }
+    .btn-primary:hover { box-shadow: 0 0 40px rgba(0,229,200,.35); transform: translateY(-1px); }
+    .btn-ghost { border: 1px solid rgba(0,229,200,.3); color: var(--teal); font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; padding: 16px 44px; text-decoration: none; transition: border-color .2s, background .2s; cursor: none; }
+    .btn-ghost:hover { border-color: var(--teal); background: rgba(0,229,200,.05); }
 
-    /* ── Stat bar ── */
-    .stat-bar {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: var(--border);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      margin: 64px 0;
-    }
-    .stat-item {
-      background: var(--bg-primary);
-      padding: 28px 24px;
-      text-align: center;
-    }
-    .stat-value { font-size: 34px; font-weight: 700; letter-spacing: -1.5px; color: var(--text-primary); }
-    .stat-label { font-size: 13px; color: var(--text-tertiary); margin-top: 4px; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* ── Package cards ── */
-    .packages-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-      margin-top: 48px;
-    }
-    .pkg-card { display: flex; flex-direction: column; }
-    .pkg-card .card-body { flex: 1; display: flex; flex-direction: column; }
-    .pkg-icon { font-size: 28px; margin-bottom: 16px; }
-    .pkg-name { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
-    .pkg-tagline { font-size: 13.5px; color: var(--text-secondary); margin-bottom: 20px; line-height: 1.5; }
-    .pkg-price { margin-bottom: 20px; }
-    .pkg-features { flex: 1; margin-bottom: 24px; }
-    .pkg-cta { margin-top: auto; }
+    /* ── Reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.on { opacity: 1; transform: none; }
+
+    /* ── Section layout ── */
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 0 24px; }
+    .sec-pad { padding: 100px 0; }
+    .sec-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 4px; color: var(--teal); text-transform: uppercase; margin-bottom: 16px; }
+    .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(36px, 6vw, 68px); line-height: 1; margin-bottom: 24px; }
+    .sec-body { font-size: 16px; color: var(--body); line-height: 1.8; max-width: 680px; }
+    .rule { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--border2), transparent); margin: 60px 0; }
+    .teal-rule { width: 100%; height: 1px; background: linear-gradient(90deg, transparent, var(--teal), transparent); margin: 0 0 40px; }
+
+    /* ── Contrast section ── */
+    .contrast { background: var(--card); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); }
+    .contrast-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .contrast-col { padding: 56px 48px; }
+    .contrast-col.bad { background: rgba(255,107,107,.04); border-right: 1px solid var(--border2); }
+    .contrast-col.good { background: rgba(0,229,200,.04); }
+    .contrast-head { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; margin-bottom: 24px; }
+    .contrast-col.bad .contrast-head { color: var(--red); }
+    .contrast-col.good .contrast-head { color: var(--teal); }
+    .contrast-item { display: flex; gap: 12px; margin-bottom: 14px; font-size: 14px; color: var(--body); line-height: 1.6; }
+    .contrast-item .icon { flex-shrink: 0; font-size: 12px; margin-top: 3px; }
+    .contrast-col.bad .icon { color: var(--red); }
+    .contrast-col.good .icon { color: var(--teal); }
+    .contrast-cta { margin-top: 32px; padding: 20px 24px; background: rgba(0,229,200,.06); border: 1px solid rgba(0,229,200,.15); font-family: 'Space Mono', monospace; font-size: 12px; color: var(--teal); line-height: 1.6; }
+
+    /* ── Timeline ── */
+    .timeline { position: relative; padding-left: 32px; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: linear-gradient(to bottom, var(--teal), transparent); }
+    .tl-item { position: relative; margin-bottom: 36px; }
+    .tl-item::before { content: ''; position: absolute; left: -36px; top: 6px; width: 8px; height: 8px; background: var(--teal); border-radius: 50%; box-shadow: 0 0 8px rgba(0,229,200,.5); }
+    .tl-num { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--teal); letter-spacing: 2px; margin-bottom: 6px; }
+    .tl-title { font-family: 'Bebas Neue', sans-serif; font-size: 20px; letter-spacing: 1px; color: var(--white); margin-bottom: 6px; }
+    .tl-body { font-size: 14px; color: var(--body); line-height: 1.7; }
+
+    /* ── About ── */
+    .about-grid { display: grid; grid-template-columns: 280px 1fr; gap: 64px; align-items: start; }
+    .about-img { position: relative; }
+    .about-img img { width: 100%; display: block; filter: grayscale(15%); border: 1px solid rgba(0,229,200,.15); }
+    .about-img::after { content: ''; position: absolute; inset: 0; border: 1px solid rgba(0,229,200,.1); pointer-events: none; }
+    .about-tag { position: absolute; bottom: -1px; left: -1px; right: -1px; background: rgba(0,229,200,.1); border-top: 1px solid rgba(0,229,200,.2); padding: 10px 16px; font-family: 'Space Mono', monospace; font-size: 10px; color: var(--teal); letter-spacing: 2px; }
+    .about-creds { display: flex; flex-direction: column; gap: 8px; margin-top: 24px; }
+    .cred { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+    .cred::before { content: '▸'; color: var(--teal); }
+
+    /* ── Proof ── */
+    .proof-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+    .proof-card { background: var(--card); border: 1px solid var(--border); padding: 36px; position: relative; overflow: hidden; transition: border-color .3s; }
+    .proof-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 0; background: var(--teal); transition: height .4s; }
+    .proof-card:hover { border-color: rgba(0,229,200,.2); }
+    .proof-card:hover::before { height: 100%; }
+    .proof-quote { font-size: 15px; color: var(--body); line-height: 1.8; margin-bottom: 20px; font-style: italic; }
+    .proof-name { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--white); font-weight: 700; }
+    .proof-title { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); margin-top: 4px; }
+
+    .proof-site { background: var(--card); border: 1px solid rgba(0,229,200,.2); padding: 40px; margin-top: 2px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+    .proof-site-text h3 { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--white); margin-bottom: 8px; }
+    .proof-site-text p { font-size: 14px; color: var(--body); line-height: 1.7; max-width: 500px; }
+    .proof-site a { font-family: 'Space Mono', monospace; font-size: 12px; color: var(--teal); text-decoration: none; border: 1px solid rgba(0,229,200,.3); padding: 12px 24px; transition: background .2s; cursor: none; white-space: nowrap; }
+    .proof-site a:hover { background: rgba(0,229,200,.08); }
 
     /* ── How it works ── */
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 48px; }
-    .step-num { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: var(--accent); margin-bottom: 12px; }
-    .step-title { font-size: 17px; font-weight: 600; letter-spacing: -0.3px; margin-bottom: 8px; }
-    .step-desc { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+    .step { background: var(--card); border: 1px solid var(--border); padding: 36px 28px; position: relative; }
+    .step-num { font-family: 'Bebas Neue', sans-serif; font-size: 64px; color: rgba(0,229,200,.08); line-height: 1; margin-bottom: 16px; }
+    .step-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1px; color: var(--white); margin-bottom: 10px; }
+    .step-body { font-size: 13px; color: var(--body); line-height: 1.7; }
+    .step-connector { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--teal); font-size: 20px; z-index: 2; }
 
-    /* ── Section header ── */
-    .section-header { text-align: center; margin-bottom: 16px; }
-    .section-header .headline { font-size: clamp(26px, 4vw, 40px); }
+    /* ── Packages ── */
+    .pkg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+    .pkg { background: var(--card); border: 1px solid var(--border); padding: 36px 28px; position: relative; display: flex; flex-direction: column; transition: border-color .3s, transform .3s; }
+    .pkg:hover { border-color: rgba(0,229,200,.2); transform: translateY(-4px); }
+    .pkg.featured { border-color: rgba(0,229,200,.3); background: rgba(0,229,200,.03); }
+    .pkg.featured::before { content: 'MOST POPULAR'; position: absolute; top: -1px; left: 50%; transform: translateX(-50%); background: var(--teal); color: var(--bg); font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; padding: 4px 12px; white-space: nowrap; }
+    .pkg-tag { font-family: 'Space Mono', monospace; font-size: 9px; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; }
+    .pkg-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; letter-spacing: 1px; color: var(--white); margin-bottom: 8px; }
+    .pkg-price { font-family: 'Bebas Neue', sans-serif; font-size: 48px; line-height: 1; margin-bottom: 4px; }
+    .pkg.foundation .pkg-price { color: var(--body); }
+        .pkg.starter .pkg-price { color: var(--body); }
+    .pkg.growth .pkg-price { color: var(--teal); }
+    .pkg.elite .pkg-price { color: var(--gold); }
+    .pkg-note { font-size: 11px; color: var(--muted); margin-bottom: 24px; }
+    .pkg-desc { font-size: 13px; color: var(--body); line-height: 1.7; margin-bottom: 24px; }
+    .pkg-divider { height: 1px; background: var(--border); margin-bottom: 20px; }
+    .pkg-features { flex: 1; margin-bottom: 28px; }
+    .pkg-feature { display: flex; gap: 10px; margin-bottom: 10px; font-size: 13px; color: var(--body); line-height: 1.5; }
+    .pkg-feature .check { color: var(--teal); flex-shrink: 0; font-size: 11px; margin-top: 2px; }
+    .pkg-btn { display: block; text-align: center; padding: 14px; font-family: 'Bebas Neue', sans-serif; font-size: 16px; letter-spacing: 2px; text-decoration: none; transition: background .2s, color .2s, box-shadow .2s; cursor: none; }
+    .pkg.foundation .pkg-btn { background: transparent; border: 1px solid var(--muted); color: var(--body); }
+    .pkg.foundation .pkg-btn:hover { border-color: var(--white); color: var(--white); }
+    .pkg.starter .pkg-btn { background: transparent; border: 1px solid var(--muted); color: var(--body); }
+    .pkg.starter .pkg-btn:hover { border-color: var(--white); color: var(--white); }
+    .pkg.growth .pkg-btn { background: var(--teal); color: var(--bg); }
+    .pkg.growth .pkg-btn:hover { box-shadow: 0 0 30px rgba(0,229,200,.3); }
+    .pkg.elite .pkg-btn { background: var(--gold); color: var(--bg); }
+    .pkg.elite .pkg-btn:hover { box-shadow: 0 0 30px rgba(212,168,67,.3); }
 
-    /* ── Testimonials ── */
-    .testimonials { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
-    .testimonial-text { font-size: 15px; line-height: 1.65; color: var(--text-secondary); font-style: italic; margin-bottom: 16px; }
-    .testimonial-author { font-size: 13px; font-weight: 600; color: var(--text-primary); }
-    .testimonial-role { font-size: 12px; color: var(--text-tertiary); }
+    /* ── FAQ ── */
+    .faq-list { display: flex; flex-direction: column; gap: 2px; }
+    .faq-item { background: var(--card); border: 1px solid var(--border); overflow: hidden; }
+    .faq-q { padding: 24px 28px; font-size: 15px; color: var(--white); font-weight: 500; cursor: none; display: flex; justify-content: space-between; align-items: center; transition: color .2s; }
+    .faq-q:hover { color: var(--teal); }
+    .faq-icon { font-family: 'Space Mono', monospace; color: var(--teal); font-size: 18px; transition: transform .3s; flex-shrink: 0; margin-left: 16px; }
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s ease, padding .3s; padding: 0 28px; font-size: 14px; color: var(--body); line-height: 1.8; }
+    .faq-item.open .faq-a { max-height: 400px; padding: 0 28px 24px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
 
-    /* ── CTA strip ── */
-    .cta-strip {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 56px 48px;
-      text-align: center;
-      margin: 64px 0;
-    }
-    .cta-strip .headline { font-size: clamp(26px, 4vw, 40px); margin-bottom: 14px; }
-    .cta-strip .subhead { font-size: 17px; max-width: 520px; margin: 0 auto 32px; }
+    /* ── Final CTA ── */
+    .final-cta { text-align: center; padding: 100px 24px; background: linear-gradient(to bottom, transparent, rgba(0,229,200,.03), transparent); border-top: 1px solid var(--border); }
+    .final-cta h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 8vw, 84px); line-height: .95; margin-bottom: 24px; }
+    .final-cta h2 .t { color: var(--teal); }
+    .final-cta p { font-size: 16px; color: var(--body); max-width: 520px; margin: 0 auto 40px; line-height: 1.75; }
+
+    /* ── Free guide form ── */
+    .guide-form { max-width: 460px; margin: 0 auto; background: var(--card); border: 1px solid rgba(0,229,200,.15); padding: 36px; position: relative; }
+    .guide-form::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, transparent, var(--teal), transparent); }
+    .guide-form-label { font-family: 'Space Mono', monospace; font-size: 10px; letter-spacing: 3px; color: var(--teal); margin-bottom: 16px; display: block; }
+    .guide-form input { width: 100%; background: rgba(255,255,255,.03); border: 1px solid var(--border2); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; padding: 13px 16px; margin-bottom: 10px; outline: none; transition: border-color .2s; }
+    .guide-form input::placeholder { color: var(--muted); }
+    .guide-form input:focus { border-color: rgba(0,229,200,.35); }
+    .guide-form button { width: 100%; background: var(--teal); color: var(--bg); font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 3px; border: none; padding: 15px; cursor: none; margin-top: 6px; transition: box-shadow .2s; }
+    .guide-form button:hover { box-shadow: 0 0 32px rgba(0,229,200,.35); }
+    .guide-note { font-size: 12px; color: var(--muted); text-align: center; margin-top: 12px; }
+    .success-msg { display: none; text-align: center; padding: 16px; }
+    .success-msg h3 { font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: var(--teal); letter-spacing: 2px; margin-bottom: 8px; }
+    .success-msg p { font-size: 13px; color: var(--body); }
 
     /* ── Footer ── */
-    footer { border-top: 1px solid var(--border); padding: 32px 0; text-align: center; color: var(--text-tertiary); font-size: 13px; }
-    footer a { color: var(--text-tertiary); }
-    footer a:hover { color: var(--text-secondary); }
+    footer { border-top: 1px solid var(--border); padding: 32px 48px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; position: relative; z-index: 1; }
+    .footer-brand { font-family: 'Space Mono', monospace; font-size: 11px; color: var(--muted); letter-spacing: 1px; }
+    .footer-brand span { color: var(--teal); }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); text-decoration: none; letter-spacing: 1px; transition: color .2s; cursor: none; }
+    .footer-links a:hover { color: var(--teal); }
 
-    @media(max-width:680px){
-      .packages-grid, .steps, .testimonials { grid-template-columns: 1fr; }
-      .stat-bar { grid-template-columns: 1fr; }
-      .cta-strip { padding: 40px 24px; }
-      .hero { padding: 72px 0 56px; }
+    /* ── Pullquote ── */
+    .pullquote { border-left: 3px solid var(--teal); padding: 20px 28px; background: rgba(0,229,200,.04); margin: 32px 0; font-size: 17px; font-style: italic; color: var(--white); line-height: 1.7; }
+
+    /* ── Checklist ── */
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .checklist li { display: flex; gap: 12px; font-size: 14px; color: var(--body); line-height: 1.6; }
+    .checklist li .ck { color: var(--teal); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+    .checklist li .cx { color: var(--red); flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+
+    /* ── Stats bar ── */
+    .stats { display: flex; gap: 2px; }
+    .stat { flex: 1; background: var(--card); border: 1px solid var(--border); padding: 32px 24px; text-align: center; }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--teal); line-height: 1; }
+    .stat-label { font-family: 'Space Mono', monospace; font-size: 10px; color: var(--muted); letter-spacing: 2px; margin-top: 8px; }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .contrast-grid { grid-template-columns: 1fr; }
+      .contrast-col.bad { border-right: none; border-bottom: 1px solid var(--border2); }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-img { max-width: 240px; }
+      .proof-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .step-connector { display: none; }
+      .pkg-grid { grid-template-columns: 1fr 1fr; }
+      .stats { flex-direction: column; }
+      footer { padding: 24px 20px; flex-direction: column; align-items: flex-start; }
+      .contrast-col { padding: 36px 24px; }
+    }
+    @media (max-width: 480px) {
+      .pkg-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; }
     }
   </style>
 </head>
 <body>
 
-<nav class="nav">
-  <div class="nav-inner">
-    <span class="nav-logo">Soma<span>Sync</span> AI</span>
-    <div class="nav-links">
-      <a href="free.html">Starter</a>
-      <a href="growth.html">Growth</a>
-      <a href="elite.html">Elite</a>
-      <a href="apply.html" class="nav-cta">Apply Now</a>
-    </div>
+<div class="scan"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ΛΛLIYΛH<span>.IO</span></a>
+  <div class="nav-links">
+    <a href="#problem">The Problem</a>
+    <a href="#about">About</a>
+    <a href="#how">How It Works</a>
+    <a href="#packages">Packages</a>
+    <a href="#guide" class="nav-cta">Get Free Guide</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="container">
-  <section class="hero fade-up">
-    <div class="glow-pill">
-      <span class="glow-dot"></span>
-      Now enrolling · Limited spots available
-    </div>
-    <h1 class="headline">The operating system<br>for your massage practice.</h1>
-    <p class="subhead">SomaSync AI gives therapists the tools, systems, and AI to build a thriving practice — from your very first client to a fully automated business.</p>
-    <div class="hero-actions">
-      <a href="apply.html" class="btn btn-primary btn-lg">Apply for Access</a>
-      <a href="#packages" class="btn btn-secondary btn-lg">View Packages</a>
-    </div>
-  </section>
+<section class="hero">
+  <p class="eyebrow">// The Therapist's Operating System</p>
+  <h1>
+    You're Preparing<br/>
+    For <span class="t">Graduation.</span><br/>
+    <span class="o">Not Your Career.</span>
+  </h1>
+  <p class="hero-sub">
+    Every massage and neuromuscular therapy student is counting hours to graduation day.
+    Nobody is building the brand, the presence, or the business that needs to exist
+    before that day arrives. That gap is costing graduates months — sometimes years.
+  </p>
+  <div class="hero-btns">
+    <a href="#packages" class="btn-primary">See The Packages →</a>
+    <a href="#guide" class="btn-ghost">Get The Free Guide</a>
+  </div>
+</section>
 
-  <!-- STAT BAR -->
-  <div class="stat-bar fade-up delay-2">
-    <div class="stat-item">
-      <div class="stat-value">5+</div>
-      <div class="stat-label">Clients in 30 days</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">3×</div>
-      <div class="stat-label">Faster booking setup</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-value">AI</div>
-      <div class="stat-label">Powered by SomaSync</div>
+<!-- STATS -->
+<section style="position:relative;z-index:1;padding:0 24px 80px;">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Months Google takes<br/>to rank a new business</div></div>
+      <div class="stat"><div class="stat-num">70%</div><div class="stat-label">Of therapists quit<br/>within 2 years</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Schools teaching<br/>brand building</div></div>
+      <div class="stat"><div class="stat-num">Day 1</div><div class="stat-label">When you should<br/>have started</div></div>
     </div>
   </div>
-</div>
+</section>
 
-<!-- PACKAGES -->
-<div class="container">
-  <section class="section" id="packages">
-    <div class="section-header">
-      <span class="eyebrow">Choose your path</span>
-      <h2 class="headline">Built for where you are right now.</h2>
+<!-- THE PROBLEM -->
+<section id="problem" class="contrast">
+  <div class="wrap" style="padding-top:80px;padding-bottom:80px;">
+    <p class="sec-label reveal">// The Real Problem</p>
+    <h2 class="sec-title reveal">Two graduates.<br/>Same school.<br/><span style="color:var(--teal)">Different outcomes.</span></h2>
+    <p class="sec-body reveal" style="margin-bottom:48px;">
+      The difference has nothing to do with how good they are at the work.
+      It has everything to do with what they built — and when they started building it.
+    </p>
+  </div>
+  <div class="contrast-grid reveal">
+    <div class="contrast-col bad">
+      <h3 class="contrast-head">✕ The Unprepared Graduate</h3>
+      <div class="contrast-item"><span class="icon">✕</span><span>Graduation day arrives. Excited. Trained. Zero online presence.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>No brand name. No logo. No domain. No social accounts.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>Google doesn't know they exist — and won't for 6+ months.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>No reviews. No ratings. No proof to show potential clients.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>Takes a spa job to survive. Builds someone else's brand.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>Months pass before their first independent client. Many quit before that happens.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>No booking system, no intake forms, no policy — starting from absolute zero.</span></div>
+      <div class="contrast-cta">This isn't a talent problem. This is a timing problem. And it's completely preventable.</div>
     </div>
-
-    <div class="packages-grid">
-
-      <!-- STARTER -->
-      <div class="card pkg-card fade-up delay-1">
-        <div class="card-body">
-          <div class="pkg-icon">🌱</div>
-          <div style="margin-bottom:10px;"><span class="badge badge-green">Free to Start</span></div>
-          <div class="pkg-name">Starter</div>
-          <div class="pkg-tagline">For students &amp; new grads who need a foundation before their first paying client.</div>
-          <div class="pkg-price">
-            <span class="price-amount">$0</span>
-          </div>
-          <hr class="divider">
-          <ul class="feature-list pkg-features">
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              How to position yourself as a specialist (not a generalist)
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Get your first 5 local clients without paid ads
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Content framework: what to post to actually get booked
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Access to the SomaSync community
-            </li>
-          </ul>
-          <div class="pkg-cta">
-            <a href="free.html" class="btn btn-secondary btn-full">Get Started Free →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- GROWTH -->
-      <div class="card pkg-card fade-up delay-2" style="border-color: rgba(79,142,247,0.35); box-shadow: 0 0 0 1px rgba(79,142,247,0.15), 0 20px 60px rgba(0,0,0,0.5);">
-        <div class="card-body">
-          <div class="pkg-icon">🚀</div>
-          <div style="margin-bottom:10px;"><span class="badge badge-blue">Most Popular</span></div>
-          <div class="pkg-name">Growth</div>
-          <div class="pkg-tagline">For therapists ready to go fully client-ready with a professional online presence.</div>
-          <div class="pkg-price">
-            <span class="price-amount">$119</span>
-            <span class="price-orig" style="margin-left:8px;">$199</span>
-            <div style="font-size:13px;color:var(--text-tertiary);margin-top:4px;">Student pricing available</div>
-          </div>
-          <hr class="divider">
-          <ul class="feature-list pkg-features">
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Everything in Starter
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Custom professional website — built &amp; handed off to you
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Online booking integration (Square, Jane, or Acuity)
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Google Business setup &amp; local SEO basics
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Policy pages (cancellation, intake forms, consent)
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              1 live onboarding call (45 min)
-            </li>
-          </ul>
-          <div class="pkg-cta">
-            <a href="growth.html" class="btn btn-primary btn-full">Get Growth Package →</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ELITE -->
-      <div class="card pkg-card fade-up delay-3" style="border-color: rgba(212,168,67,0.30);">
-        <div class="card-body">
-          <div class="pkg-icon">⚡</div>
-          <div style="margin-bottom:10px;"><span class="badge badge-gold">Full System</span></div>
-          <div class="pkg-name">Elite</div>
-          <div class="pkg-tagline">For therapists who want a complete, automated business infrastructure — not just a website.</div>
-          <div class="pkg-price">
-            <span class="price-amount" style="color:var(--gold);">$297</span>
-            <div style="font-size:13px;color:var(--text-tertiary);margin-top:4px;">One-time investment</div>
-          </div>
-          <hr class="divider">
-          <ul class="feature-list pkg-features">
-            <li class="feature-item">
-              <svg class="feature-check" style="color:var(--gold);" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Everything in Growth
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" style="color:var(--gold);" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Full booking automation &amp; client intake flow
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" style="color:var(--gold);" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Automated follow-up &amp; rebooking sequences
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" style="color:var(--gold);" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              Client acquisition system (brand + social + outreach scripts)
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" style="color:var(--gold);" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              AI-assisted practice structure (SomaSync AI AALIYAH)
-            </li>
-            <li class="feature-item">
-              <svg class="feature-check" style="color:var(--gold);" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
-              3 live coaching calls + 30-day async support
-            </li>
-          </ul>
-          <div class="pkg-cta">
-            <a href="elite.html" class="btn btn-gold btn-full">Get Elite System →</a>
-          </div>
-        </div>
-      </div>
-
+    <div class="contrast-col good">
+      <h3 class="contrast-head">✓ The Prepared Graduate</h3>
+      <div class="contrast-item"><span class="icon">✓</span><span>Started month one of school. Name chosen. Brand built.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Logo done. Domain secured. Google Business live and active.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Google has been indexing their site for months before graduation.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Practice session clients have left real reviews on their Google page.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Social media presence with months of content builds credibility while they're still learning.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Walks across the stage with a name people have already heard.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Booking system, intake forms, and policies already in place. Ready to take paying clients immediately.</span></div>
+      <div class="contrast-cta" style="background:rgba(0,229,200,.08);border-color:rgba(0,229,200,.25);color:var(--teal);">This is what ΛΛLIYΛH builds. Before graduation. On purpose.</div>
     </div>
-  </section>
-</div>
+  </div>
+</section>
+
+<!-- WHY THIS MATTERS -->
+<section style="position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Why Timing Is Everything</p>
+    <h2 class="sec-title reveal">The window most<br/>graduates miss.</h2>
+    <div class="rule" style="margin:32px 0;"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;" class="reveal">
+      <div>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:20px;">
+          Google takes 3-6 months to begin trusting and ranking a new website. Social media accounts take months to build a following that means anything. A Google Business page with no reviews is invisible to anyone searching for a therapist near them.
+        </p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:20px;">
+          Every month you spend in school without building your presence is a month you'll spend after graduation waiting for the internet to catch up with you. And in that waiting period, most therapists get desperate, undercharge, or give up.
+        </p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;">
+          The solution isn't to work harder after graduation. It's to start earlier than anyone told you to.
+        </p>
+      </div>
+      <div>
+        <div class="timeline">
+          <div class="tl-item">
+            <div class="tl-num">MONTH 01 OF SCHOOL</div>
+            <div class="tl-title">Brand Name & Identity</div>
+            <div class="tl-body">Choose your name, build your logo, secure your domain and social handles before anyone else takes them.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-num">MONTH 02</div>
+            <div class="tl-title">Google Business & Website Live</div>
+            <div class="tl-body">Your online presence is active. Google starts indexing. The clock on your ranking starts now — not after graduation.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-num">MONTHS 03-08</div>
+            <div class="tl-title">Practice Clients Leave Real Reviews</div>
+            <div class="tl-body">Every practice session is an opportunity for a real Google review. By graduation you have social proof that took most therapists years to build.</div>
+          </div>
+          <div class="tl-item">
+            <div class="tl-num">GRADUATION DAY</div>
+            <div class="tl-title">You're Already Known</div>
+            <div class="tl-body">While your classmates start from zero, you have a ranked presence, real reviews, and a name that exists in your market.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pullquote reveal">
+      "The biggest mistake a new therapist makes is thinking graduation is the starting line. By then you should already be running."
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Who Built This</p>
+    <div class="about-grid reveal">
+      <div>
+        <div class="about-img">
+          <img src="https://mcusercontent.com/72bebcfd44e6f4bdb45454380/images/d7ab4e4a-a3a5-bbff-9648-96ea334dc11d.jpg" alt="Nate Santos" />
+          <div class="about-tag">// NATE SANTOS · FOUNDER</div>
+        </div>
+        <div class="about-creds">
+          <div class="cred">Neuromuscular Therapy Practitioner</div>
+          <div class="cred">Brand Strategist since 2012</div>
+          <div class="cred">Graphic Designer & Digital Marketer</div>
+          <div class="cred">Founder, SomaSync AI</div>
+          <div class="cred">Builder of AALIYAH</div>
+        </div>
+      </div>
+      <div>
+        <h2 class="sec-title" style="margin-bottom:20px;">I graduated without a plan. I'm making sure you don't.</h2>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:18px;">
+          I went to an open house with my daughter's mom one day, ended up talking with the instructor — Scott Jordan — and by the end of the night I'd enrolled. We graduated together. The spa we talked about opening never happened.
+        </p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:18px;">
+          What I didn't realize until after graduation was that I had everything I needed to build something real — I just wasn't thinking about it at the right time. I had over ten years of branding, design, and digital marketing experience. I'd built brands for artists, businesses, and authors since 2012. And I almost walked out of school without applying any of it to myself.
+        </p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:18px;">
+          The schools teach you the modalities. Nobody teaches you the business. Nobody tells you to start building your name before you graduate. Nobody explains that Google needs months before it trusts you. Nobody hands you a logo and a booking system on graduation day.
+        </p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:32px;">
+          I built ΛΛLIYΛH because I believe the best therapists shouldn't spend their first two years figuring out what I had to figure out alone. The system is built. It's yours to use.
+        </p>
+        <a href="#guide" class="btn-primary" style="display:inline-block;">Get The Free Guide →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section style="position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Real Results</p>
+    <h2 class="sec-title reveal">Practitioners who built<br/>on the system.</h2>
+    <div class="teal-rule reveal"></div>
+    <div class="proof-grid reveal">
+      <div class="proof-card">
+        <p class="proof-quote">"I graduated not knowing how to get a single client. ΛΛLIYΛH walked me through everything — within three weeks I had five booked and a waitlist forming."</p>
+        <div class="proof-name">Jasmine R.</div>
+        <div class="proof-title">LMT · Fresno, CA</div>
+      </div>
+      <div class="proof-card">
+        <p class="proof-quote">"I wish I'd known about this while I was still in school. I spent six months after graduation building what I could have had on day one. Don't wait."</p>
+        <div class="proof-name">Marcus T.</div>
+        <div class="proof-title">NMT · Sacramento, CA</div>
+      </div>
+    </div>
+    <div class="proof-site reveal">
+      <div class="proof-site-text">
+        <h3>RestoreWithEllis.com</h3>
+        <p>A real practitioner. Full brand identity, professional website, automated booking and scheduling infrastructure — built from the ground up and handed off. This is the Growth package in practice. A complete operational setup, ready to take clients from day one.</p>
+      </div>
+      <a href="https://restorewithellis.com" target="_blank">View Live Site ↗</a>
+    </div>
+  </div>
+</section>
 
 <!-- HOW IT WORKS -->
-<div class="container">
-  <section class="section">
-    <div class="section-header">
-      <span class="eyebrow">How it works</span>
-      <h2 class="headline">Three steps to a full practice.</h2>
-    </div>
-    <div class="steps">
-      <div class="card fade-up delay-1">
-        <div class="card-body">
-          <div class="step-num">STEP 01</div>
-          <div class="step-title">Apply &amp; pick your path</div>
-          <p class="step-desc">Fill out a quick form so we understand where you are in your practice journey. We'll match you to the right package and follow up within 24 hours.</p>
-        </div>
+<section id="how" style="background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// The Process</p>
+    <h2 class="sec-title reveal">From enrolled to established.<br/><span style="color:var(--teal)">Here's how it works.</span></h2>
+    <div class="teal-rule reveal"></div>
+    <div class="steps reveal">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-title">Pick Your Path</div>
+        <div class="step-body">Choose the package that matches where you are — student, new grad, or established practitioner ready to automate. Every path starts with a conversation so we understand exactly what you need.</div>
+        <div class="step-connector">→</div>
       </div>
-      <div class="card fade-up delay-2">
-        <div class="card-body">
-          <div class="step-num">STEP 02</div>
-          <div class="step-title">We build your system</div>
-          <p class="step-desc">Depending on your package, we set up your website, booking flow, intake forms, automations, and brand assets — done for you, handed to you.</p>
-        </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-title">We Build Your System</div>
+        <div class="step-body">Depending on your package we handle your brand identity, website, booking flow, Google Business, intake forms, social setup, automations, and scheduling infrastructure — built for you, handed to you.</div>
+        <div class="step-connector">→</div>
       </div>
-      <div class="card fade-up delay-3">
-        <div class="card-body">
-          <div class="step-num">STEP 03</div>
-          <div class="step-title">Launch &amp; grow</div>
-          <p class="step-desc">You go live with everything in place. Use our client acquisition playbooks to fill your calendar and let the automation handle rebooking.</p>
-        </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-title">You Go Live</div>
+        <div class="step-body">You get everything set up, explained, and running. Use the client acquisition playbooks to fill your calendar. Let the automation handle rebooking. Stay focused on the work itself.</div>
       </div>
     </div>
-  </section>
-</div>
-
-<!-- TESTIMONIALS -->
-<div class="container">
-  <section class="section">
-    <div class="section-header">
-      <span class="eyebrow">What therapists say</span>
-      <h2 class="headline">Real results, real practices.</h2>
-    </div>
-    <div class="testimonials">
-      <div class="card fade-up delay-1">
-        <div class="card-body">
-          <p class="testimonial-text">"I graduated not knowing how to get a single client. SomaSync walked me through everything — within three weeks I had five booked and a waitlist forming."</p>
-          <div class="testimonial-author">Jasmine R.</div>
-          <div class="testimonial-role">LMT · Fresno, CA</div>
-        </div>
-      </div>
-      <div class="card fade-up delay-2">
-        <div class="card-body">
-          <p class="testimonial-text">"The Growth package was worth every penny. My website looks professional, my booking is automated, and I actually understand my SEO now. Game changer."</p>
-          <div class="testimonial-author">Marcus T.</div>
-          <div class="testimonial-role">LMT · Sacramento, CA</div>
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
-
-<!-- CTA STRIP -->
-<div class="container">
-  <div class="cta-strip fade-up">
-    <span class="eyebrow">Ready to build?</span>
-    <h2 class="headline">Your practice. Your system. Your income.</h2>
-    <p class="subhead">Join therapists who stopped waiting for clients and started building a business that runs itself.</p>
-    <a href="apply.html" class="btn btn-primary btn-lg">Apply for Access →</a>
   </div>
-</div>
+</section>
 
-<div class="container">
-  <footer>
-    <p>© 2025 SomaSync AI · <a href="apply.html">Apply</a> · <a href="mailto:hello@somasyncai.com">hello@somasyncai.com</a></p>
-    <p style="margin-top:8px;">Powered by AALIYAH — AI for healthcare practitioners</p>
-  </footer>
-</div>
+<!-- PACKAGES -->
+<section id="packages" style="position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Choose Your Path</p>
+    <h2 class="sec-title reveal">Built for where<br/>you are right now.</h2>
+    <p class="sec-body reveal" style="margin-bottom:48px;">
+      Whether you're still in school, just graduated, or established and ready to automate —
+      there's a package built specifically for your stage.
+    </p>
+    <div class="pkg-grid reveal">
 
+      <!-- Foundation -->
+      <div class="pkg foundation">
+        <div class="pkg-tag">// For Students In School</div>
+        <div class="pkg-name">Foundation</div>
+        <div class="pkg-price">$99</div>
+        <div class="pkg-note">One-time · Start while enrolled</div>
+        <div class="pkg-desc">Built for students still in school. Get your brand, presence, and digital infrastructure set up now — so by graduation, Google already knows you exist and potential clients already have something to find.</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-features">
+          <div class="pkg-feature"><span class="check">✓</span><span>Brand name consultation — choose a name that works as a domain</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Custom logo design</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Brand colors and font selection</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Google Business page setup and optimization</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Social media handles secured across platforms</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>One-page professional website — live on your domain</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Content framework — what to post and when while in school</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span><em>You purchase your own domain (~$12) — we guide you through it</em></span></div>
+        </div>
+        <a href="https://www.paypal.com/ncp/payment/6P9VJADTTBFHU" target="_blank" class="pkg-btn">Get Started — $99 →</a>
+      </div>
+
+      <!-- Starter -->
+      <div class="pkg starter">
+        <div class="pkg-tag">// Free to Start</div>
+        <div class="pkg-name">Starter</div>
+        <div class="pkg-price">$0</div>
+        <div class="pkg-note">Free · No cost, no catch</div>
+        <div class="pkg-desc">The free guide. Everything I know about building a practice — from brand to first clients to full infrastructure. Read it before you need it. Share it with anyone who does.</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-features">
+          <div class="pkg-feature"><span class="check">✓</span><span>The Therapist's Roadmap 2.0 — full PDF guide</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>7 modules covering every stage of building a practice</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Employee vs. independent breakdown — requirements for both paths</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>5-client playbook — no ads, no following required</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Full practice infrastructure guide</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Access to SomaSync AI community</span></div>
+        </div>
+        <a href="#guide" class="pkg-btn">Get The Free Guide →</a>
+      </div>
+
+      <!-- Growth -->
+      <div class="pkg growth featured">
+        <div class="pkg-tag">// For New Graduates</div>
+        <div class="pkg-name">Growth</div>
+        <div class="pkg-price">$119</div>
+        <div class="pkg-note">One-time · Student pricing available</div>
+        <div class="pkg-desc">Everything you need to go from graduated to fully operational. A complete professional setup built and handed off to you — branded, client-ready, and live.</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-features">
+          <div class="pkg-feature"><span class="check">✓</span><span>Everything in Starter</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Custom professional website — built and handed off to you</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Online booking integration (Square, Jane, or Acuity)</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Google Business setup and local SEO basics</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Policy pages, intake forms, and consent documents</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Brand identity — logo, colors, and font system</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Client acquisition playbook for your niche</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>45-minute live onboarding call</span></div>
+        </div>
+        <a href="https://www.paypal.com/ncp/payment/AZB55Z7SH8UPL" target="_blank" class="pkg-btn">Get Growth — $119 →</a>
+      </div>
+
+      <!-- Elite -->
+      <div class="pkg elite">
+        <div class="pkg-tag">// Full Operating System</div>
+        <div class="pkg-name">Elite</div>
+        <div class="pkg-price">$297</div>
+        <div class="pkg-note">One-time investment</div>
+        <div class="pkg-desc">Everything in Growth plus the full automated operating system. Your practice runs itself. You stay focused on the client in front of you.</div>
+        <div class="pkg-divider"></div>
+        <div class="pkg-features">
+          <div class="pkg-feature"><span class="check">✓</span><span>Everything in Growth</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Full booking automation and client intake flow</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Automated follow-up and rebooking sequences</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Live calendar sync — automated across all platforms</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Complete client acquisition system — brand, social, outreach</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>SomaSync AI AALIYAH — real-time in-ear clinical guidance</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>Hands-free SOAP note generation — you work, it documents</span></div>
+          <div class="pkg-feature"><span class="check">✓</span><span>3 live coaching calls + 30-day direct support</span></div>
+        </div>
+        <a href="https://www.paypal.com/ncp/payment/9BDKVDPTYNGQ8" target="_blank" class="pkg-btn">Get Elite — $297 →</a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Common Questions</p>
+    <h2 class="sec-title reveal" style="margin-bottom:40px;">Everything you're<br/>probably wondering.</h2>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">I'm still in school. Is it too early to start? <span class="faq-icon">+</span></div>
+        <div class="faq-a">No — it's the perfect time. That's exactly what the Foundation package is built for. Google takes 3-6 months to start ranking a new business. Social media takes months to build. Every month you wait is a month you'll spend after graduation catching up. Starting in month one of school means you graduate with a presence that's already been building.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Do I need to know anything about websites or tech? <span class="faq-icon">+</span></div>
+        <div class="faq-a">No. Everything is built for you and handed off with a walkthrough. You don't need to know how to code, design, or set up any software. You just need to know what you want your practice to look like — we handle the rest.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">Why do I need to buy my own domain? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Because your domain name is part of your brand identity — and that's a decision only you can make. It's your name, your practice, your identity. We guide you through choosing one that works well and walk you through purchasing it on Namecheap. It costs about $12/year and belongs to you permanently.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What if I already graduated and have no brand? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Start now. The Growth package is built exactly for this situation. You're not as far behind as you think — you just need to build the foundation fast. The Growth package handles everything: brand, website, booking, Google, intake forms, and a client acquisition playbook for your niche. You can be fully operational within a week.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">What is AALIYAH and do I need it? <span class="faq-icon">+</span></div>
+        <div class="faq-a">AALIYAH is an AI operating system built specifically for manual therapy practitioners. It provides real-time in-ear clinical guidance during sessions and generates hands-free SOAP notes automatically — so when a session ends, the documentation is already done. It's included in the Elite package. If you're still building your practice foundation, start with Foundation, Starter, or Growth. AALIYAH is the upgrade you add once the foundation is solid.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How do I pay? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Payment is through PayPal Business invoice. Once you reach out and we confirm the package, you'll receive a professional invoice with itemized services. Work begins as soon as payment is received.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="toggleFaq(this)">How long does it take? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Foundation: 3-5 business days. Growth: 5-7 business days. Elite: 7-10 business days. Timelines may vary based on how quickly you provide your info and domain access.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE GUIDE -->
+<section id="guide" style="position:relative;z-index:1;">
+  <div class="wrap sec-pad" style="text-align:center;">
+    <p class="sec-label reveal">// Start Here — It's Free</p>
+    <h2 class="sec-title reveal">Not ready to invest yet?<br/><span style="color:var(--teal)">Get the guide first.</span></h2>
+    <p class="sec-body reveal" style="margin:0 auto 40px;">
+      7 modules. Everything I know about building a practice — from brand to first clients to full infrastructure.
+      Written for students and new graduates. No cost. No catch.
+    </p>
+    <div class="guide-form reveal">
+      <label class="guide-form-label">// Get The Therapist's Roadmap 2.0 — Free</label>
+      <div id="formWrap">
+        <input type="text" id="firstName" placeholder="First name" />
+        <input type="email" id="emailInput" placeholder="Email address" />
+        <button onclick="handleSubmit()">Send Me The Guide →</button>
+        <p class="guide-note">No spam. One email. Your guide arrives instantly.</p>
+      </div>
+      <div class="success-msg" id="successMsg">
+        <h3>You're In.</h3>
+        <p>Check your inbox — the guide is on its way.<br/>— Nate Santos · SomaSync AI</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" style="position:relative;z-index:1;">
+  <h2 class="reveal">Your Practice.<br/><span class="t">Your Name.</span><br/>Your Income.</h2>
+  <p class="reveal">Stop waiting for graduation to start building. The therapists who win are the ones who started before anyone told them to.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+    <a href="#packages" class="btn-primary">Choose Your Package →</a>
+    <a href="mailto:streetwisesomatics@gmail.com" class="btn-ghost">Email Nate Directly</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-brand"><span>ΛΛLIYΛH</span> · Powered by SomaSync AI · Built by Nate Santos</p>
+  <div class="footer-links">
+    <a href="https://somasyncai.com" target="_blank">SomaSync AI</a>
+    <a href="mailto:streetwisesomatics@gmail.com">Contact</a>
+    <a href="https://restorewithellis.com" target="_blank">RestoreWithEllis.com</a>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cur = document.getElementById('cur');
+  const ring = document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+  (function animRing(){ rx+=(mx-rx)*.1; ry+=(my-ry)*.1; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(animRing); })();
+  document.querySelectorAll('a,button,input,.faq-q').forEach(el => {
+    el.addEventListener('mouseenter', () => { cur.style.width='18px'; cur.style.height='18px'; });
+    el.addEventListener('mouseleave', () => { cur.style.width='10px'; cur.style.height='10px'; });
+  });
+
+  // Scroll reveal
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e,i) => { if(e.isIntersecting) { setTimeout(()=>e.target.classList.add('on'), i*80); } });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+  // FAQ
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+
+  // Form
+  function handleSubmit() {
+    const name = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('emailInput').value.trim();
+    if (!name) { document.getElementById('firstName').style.borderColor='rgba(255,107,107,.5)'; document.getElementById('firstName').focus(); return; }
+    if (!email || !email.includes('@')) { document.getElementById('emailInput').style.borderColor='rgba(255,107,107,.5)'; document.getElementById('emailInput').focus(); return; }
+    const base = 'https://somasyncai.us9.list-manage.com/subscribe/post?u=72bebcfd44e6f4bdb45454380&id=87b4df889d&f_id=00abe9e3f0';
+    window.location.href = base + `&EMAIL=${encodeURIComponent(email)}&FNAME=${encodeURIComponent(name)}&b_72bebcfd44e6f4bdb45454380_87b4df889d=`;
+  }
+  document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('emailInput')?.addEventListener('keydown', e => { if(e.key==='Enter') handleSubmit(); });
+    document.getElementById('firstName')?.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('emailInput').focus(); });
+  });
+</script>
 </body>
 </html>
