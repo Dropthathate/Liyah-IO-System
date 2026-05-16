@@ -1,5 +1,4 @@
 const API = "https://script.google.com/macros/s/AKfycbyCfhFfbgdQwfEhpqhWsdMPgB1OfQzkiCRbzLsU-2R4TJgvmmNLiAgGXbmIujKvAk_C/exec";
-
 async function loadLeads() {
   const res = await fetch(API);
   const data = await res.json();
