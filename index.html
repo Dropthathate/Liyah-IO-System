@@ -709,15 +709,42 @@
   function handleSubmit() {
     const name = document.getElementById('firstName').value.trim();
     const email = document.getElementById('emailInput').value.trim();
+    
     if (!name) { document.getElementById('firstName').style.borderColor='rgba(255,107,107,.5)'; document.getElementById('firstName').focus(); return; }
     if (!email || !email.includes('@')) { document.getElementById('emailInput').style.borderColor='rgba(255,107,107,.5)'; document.getElementById('emailInput').focus(); return; }
-    const base = 'https://somasyncai.us9.list-manage.com/subscribe/post?u=72bebcfd44e6f4bdb45454380&id=87b4df889d&f_id=00abe9e3f0';
-    window.location.href = base + `&EMAIL=${encodeURIComponent(email)}&FNAME=${encodeURIComponent(name)}&b_72bebcfd44e6f4bdb45454380_87b4df889d=`;
+    
+    // 1. Put your Google Apps Script Web App URL here inside the quotes
+    const googleScriptURL = 'https://script.google.com/macros/s/AKfycbzSpvN4FfQR97txCRbT5Z7Gh2Trc9dksXRtoS9QD-jEeQ6qELCuch3yZMaOfQxTW5px/exec';
+    
+    // 2. Change button text so the user knows it's processing
+    const btn = document.querySelector('.guide-form button');
+    const originalBtnText = btn.innerText;
+    btn.innerText = 'Sending...';
+    btn.disabled = true;
+
+    // 3. Send the data silently to your Google Sheet
+    fetch(googleScriptURL, {
+      method: 'POST',
+      mode: 'no-cors', // Crucial for bypassing Google Script CORS restrictions
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        'name': name,
+        'email': email
+      })
+    })
+    .then(() => {
+      // 4. Hide the input form and display your built-in success message
+      document.getElementById('formWrap').style.display = 'none';
+      document.getElementById('successMsg').style.display = 'block';
+    })
+    .catch(err => {
+      console.error('Error:', err);
+      btn.innerText = 'Error. Try Again.';
+      btn.disabled = false;
+    });
   }
-  document.addEventListener('DOMContentLoaded', () => {
-    document.getElementById('emailInput')?.addEventListener('keydown', e => { if(e.key==='Enter') handleSubmit(); });
-    document.getElementById('firstName')?.addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('emailInput').focus(); });
-  });
 </script>
 </body>
 </html>
