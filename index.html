@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ΛΛLIYΛH — The Therapist's Operating System</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=Syne:wght@400;600;700;800&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:#050709;--card:#0b0e14;--card2:#0e1118;
+      --teal:#00e5c8;--teal2:#00b5a0;
+      --gold:#C9A84C;--gold-light:#E8C97A;--gold-dim:#8B6F33;--gold-glow:rgba(201,168,76,0.12);
+      --red:#ff6b6b;--white:#eef2f7;--body:#8a95a8;--muted:#4a5568;
+      --border:#131820;--border2:#1e2530;
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;overflow-x:hidden;cursor:none;-webkit-font-smoothing:antialiased}
+
+    /* Cursor */
+    .cur{position:fixed;width:10px;height:10px;background:var(--teal);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:screen;transition:width .2s,height .2s}
+    .cur-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(0,229,200,.3);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+
+    /* Grid bg */
+    body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,229,200,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,200,.025) 1px,transparent 1px);background-size:52px 52px;pointer-events:none;z-index:0}
+
+    /* Scanline */
+    .scan{position:fixed;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,rgba(0,229,200,.12),transparent);animation:scan 10s linear infinite;pointer-events:none;z-index:50}
+    @keyframes scan{from{transform:translateY(-100%)}to{transform:translateY(100vh)}}
+
+    /* Nav */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:18px 48px;background:linear-gradient(to bottom,rgba(5,7,9,.97),transparent);border-bottom:1px solid rgba(0,229,200,.05)}
+    .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:3px;color:var(--teal);text-decoration:none}
+    .nav-logo span{color:var(--white)}
+    .nav-links{display:flex;gap:32px;align-items:center}
+    .nav-links a{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:2px;text-transform:uppercase;transition:color .2s;cursor:none}
+    .nav-links a:hover{color:var(--teal)}
+    .nav-cta{background:var(--teal)!important;color:var(--bg)!important;padding:8px 20px!important;font-weight:700!important}
+
+    section{position:relative;z-index:1}
+
+    /* Hero */
+    .hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:120px 24px 80px;text-align:center}
+    .hero::before{content:'';position:absolute;top:15%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(0,229,200,.07) 0%,transparent 70%);pointer-events:none}
+    .eyebrow{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--teal);text-transform:uppercase;margin-bottom:24px;opacity:0;animation:fadeUp .8s .2s forwards}
+    .hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(56px,11vw,120px);line-height:.9;letter-spacing:2px;margin-bottom:28px;opacity:0;animation:fadeUp .8s .4s forwards}
+    .hero h1 .t{color:var(--teal)}
+    .hero h1 .o{-webkit-text-stroke:1px rgba(0,229,200,.4);color:transparent}
+    .hero-sub{font-size:clamp(15px,2.5vw,19px);color:var(--body);max-width:580px;line-height:1.75;margin-bottom:48px;opacity:0;animation:fadeUp .8s .6s forwards}
+    .hero-btns{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;opacity:0;animation:fadeUp .8s .8s forwards}
+    .btn-primary{background:var(--teal);color:var(--bg);font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;padding:16px 44px;text-decoration:none;transition:box-shadow .2s,transform .15s;cursor:none}
+    .btn-primary:hover{box-shadow:0 0 40px rgba(0,229,200,.35);transform:translateY(-1px)}
+    .btn-ghost{border:1px solid rgba(0,229,200,.3);color:var(--teal);font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;padding:16px 44px;text-decoration:none;transition:border-color .2s,background .2s;cursor:none}
+    .btn-ghost:hover{border-color:var(--teal);background:rgba(0,229,200,.05)}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.on{opacity:1;transform:none}
+
+    /* Layout */
+    .wrap{max-width:1000px;margin:0 auto;padding:0 24px}
+    .sec-pad{padding:100px 0}
+    .sec-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:4px;color:var(--teal);text-transform:uppercase;margin-bottom:16px}
+    .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,6vw,68px);line-height:1;margin-bottom:24px}
+    .sec-body{font-size:16px;color:var(--body);line-height:1.8;max-width:680px}
+    .rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);margin:60px 0}
+    .teal-rule{width:100%;height:1px;background:linear-gradient(90deg,transparent,var(--teal),transparent);margin:0 0 40px}
+
+    /* Contrast */
+    .contrast{background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2)}
+    .contrast-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .contrast-col{padding:56px 48px}
+    .contrast-col.bad{background:rgba(255,107,107,.04);border-right:1px solid var(--border2)}
+    .contrast-col.good{background:rgba(0,229,200,.04)}
+    .contrast-head{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:24px}
+    .contrast-col.bad .contrast-head{color:var(--red)}
+    .contrast-col.good .contrast-head{color:var(--teal)}
+    .contrast-item{display:flex;gap:12px;margin-bottom:14px;font-size:14px;color:var(--body);line-height:1.6}
+    .contrast-item .icon{flex-shrink:0;font-size:12px;margin-top:3px}
+    .contrast-col.bad .icon{color:var(--red)}
+    .contrast-col.good .icon{color:var(--teal)}
+    .contrast-cta{margin-top:32px;padding:20px 24px;background:rgba(0,229,200,.06);border:1px solid rgba(0,229,200,.15);font-family:'Space Mono',monospace;font-size:12px;color:var(--teal);line-height:1.6}
+
+    /* Timeline */
+    .timeline{position:relative;padding-left:32px}
+    .timeline::before{content:'';position:absolute;left:0;top:8px;bottom:8px;width:1px;background:linear-gradient(to bottom,var(--teal),transparent)}
+    .tl-item{position:relative;margin-bottom:36px}
+    .tl-item::before{content:'';position:absolute;left:-36px;top:6px;width:8px;height:8px;background:var(--teal);border-radius:50%;box-shadow:0 0 8px rgba(0,229,200,.5)}
+    .tl-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:2px;margin-bottom:6px}
+    .tl-title{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--white);margin-bottom:6px}
+    .tl-body{font-size:14px;color:var(--body);line-height:1.7}
+
+    /* About */
+    .about-grid{display:grid;grid-template-columns:280px 1fr;gap:64px;align-items:start}
+    .about-img{position:relative}
+    .about-img img{width:100%;display:block;filter:grayscale(15%);border:1px solid rgba(0,229,200,.15)}
+    .about-img::after{content:'';position:absolute;inset:0;border:1px solid rgba(0,229,200,.1);pointer-events:none}
+    .about-tag{position:absolute;bottom:-1px;left:-1px;right:-1px;background:rgba(0,229,200,.1);border-top:1px solid rgba(0,229,200,.2);padding:10px 16px;font-family:'Space Mono',monospace;font-size:10px;color:var(--teal);letter-spacing:2px}
+    .about-creds{display:flex;flex-direction:column;gap:8px;margin-top:24px}
+    .cred{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:1px;display:flex;align-items:center;gap:8px}
+    .cred::before{content:'▸';color:var(--teal)}
+
+    /* Proof */
+    .proof-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px}
+    .proof-card{background:var(--card);border:1px solid var(--border);padding:36px;position:relative;overflow:hidden;transition:border-color .3s}
+    .proof-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--teal);transition:height .4s}
+    .proof-card:hover{border-color:rgba(0,229,200,.2)}
+    .proof-card:hover::before{height:100%}
+    .proof-quote{font-size:15px;color:var(--body);line-height:1.8;margin-bottom:20px;font-style:italic}
+    .proof-name{font-family:'Space Mono',monospace;font-size:11px;color:var(--white);font-weight:700}
+    .proof-title{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-top:4px}
+    .proof-site{background:var(--card);border:1px solid rgba(0,229,200,.2);padding:40px;margin-top:2px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:24px}
+    .proof-site-text h3{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--white);margin-bottom:8px}
+    .proof-site-text p{font-size:14px;color:var(--body);line-height:1.7;max-width:500px}
+    .proof-site a{font-family:'Space Mono',monospace;font-size:12px;color:var(--teal);text-decoration:none;border:1px solid rgba(0,229,200,.3);padding:12px 24px;transition:background .2s;cursor:none;white-space:nowrap}
+    .proof-site a:hover{background:rgba(0,229,200,.08)}
+
+    /* Steps */
+    .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .step{background:var(--card);border:1px solid var(--border);padding:36px 28px;position:relative}
+    .step-num{font-family:'Bebas Neue',sans-serif;font-size:64px;color:rgba(0,229,200,.08);line-height:1;margin-bottom:16px}
+    .step-title{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--white);margin-bottom:10px}
+    .step-body{font-size:13px;color:var(--body);line-height:1.7}
+    .step-connector{position:absolute;right:-12px;top:50%;transform:translateY(-50%);color:var(--teal);font-size:20px;z-index:2}
+
+    /* ── NEW PACKAGES SECTION ── */
+    .pkg-section-new{padding:100px 0;position:relative;z-index:1}
+    .pkg-grid-new{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;align-items:start;margin-top:48px}
+    @media(max-width:900px){.pkg-grid-new{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:560px){.pkg-grid-new{grid-template-columns:1fr}}
+
+    .trust-bar{display:flex;align-items:center;justify-content:center;gap:24px;margin:0 auto 48px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--body)}
+    .trust-check{color:var(--gold)}
+    .trust-dot{width:3px;height:3px;border-radius:50%;background:var(--muted)}
+
+    .pkg-card-new{background:#0d0e12;border:1px solid rgba(201,168,76,0.18);border-radius:16px;padding:28px 22px 24px;position:relative;transition:border-color .2s,background .2s;display:flex;flex-direction:column}
+    .pkg-card-new:hover{border-color:rgba(201,168,76,0.45);background:#111114}
+    .pkg-card-new.popular{border-color:var(--gold);background:linear-gradient(160deg,#141209 0%,#0d0e12 60%);box-shadow:0 0 50px var(--gold-glow),inset 0 1px 0 rgba(201,168,76,0.2)}
+
+    .popular-badge-new{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--gold);color:#050709;font-family:'Syne',sans-serif;font-size:10px;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;padding:5px 14px;border-radius:20px;white-space:nowrap}
+    .card-tag-new{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.18em;color:var(--gold-dim);text-transform:uppercase;margin-bottom:10px}
+    .card-name-new{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:var(--white);margin-bottom:6px}
+    .price-new{font-family:'Bebas Neue',sans-serif;font-size:44px;color:var(--gold-light);line-height:1;margin-bottom:4px}
+    .billing-new{font-size:11px;color:var(--muted);margin-bottom:20px;font-style:italic;font-family:'Space Mono',monospace}
+    .divider-new{height:1px;background:rgba(201,168,76,0.12);margin-bottom:20px}
+    .feature-list-new{list-style:none;display:flex;flex-direction:column;gap:9px;margin-bottom:20px;flex:1}
+    .feature-list-new li{display:flex;align-items:flex-start;gap:9px;font-size:13px;color:var(--body);line-height:1.4}
+    .feature-list-new li .ck{color:var(--gold);flex-shrink:0;margin-top:1px;font-size:11px}
+    .pkg-disclaimer{font-size:10px;color:#333330;line-height:1.5;border-top:1px solid rgba(201,168,76,0.07);padding-top:11px;margin-bottom:14px;font-style:italic}
+    .pkg-disclaimer strong{color:var(--gold-dim);font-style:normal}
+
+    .pkg-cta-new{display:block;width:100%;padding:13px 20px;border-radius:8px;font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:2px;text-align:center;text-decoration:none;cursor:none;transition:opacity .15s,transform .1s;border:none}
+    .pkg-cta-new:hover{opacity:0.88;transform:translateY(-1px)}
+    .pkg-cta-primary{background:var(--gold);color:#050709}
+    .pkg-cta-outline{background:transparent;color:var(--gold);border:1px solid var(--gold-dim)}
+    .pkg-cta-ghost{background:rgba(201,168,76,0.08);color:var(--gold)}
+
+    .pkg-footer-new{text-align:center;margin-top:48px;color:var(--body);font-size:13px;line-height:1.7}
+    .pkg-footer-new a{color:var(--gold);text-decoration:none;border-bottom:1px solid var(--gold-dim)}
+
+    /* ── ERT SHOWCASE ── */
+    .ert-section{position:relative;padding:100px 0;background:#060a09;border-top:1px solid rgba(45,212,191,0.1)}
+    canvas.waves{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.15}
+    .mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px;position:relative;z-index:2;margin-bottom:50px}
+    @media(max-width:620px){.mock-grid{grid-template-columns:1fr}}
+    .mwrap{display:flex;flex-direction:column;gap:7px}
+    .mlabel{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:#2dd4bf;opacity:0.7}
+    .mcard{background:#0d1a18;border:1px solid rgba(45,212,191,0.15);border-radius:12px;overflow:hidden;transition:border-color .2s}
+    .mcard:hover{border-color:rgba(45,212,191,0.35)}
+    .mbar{background:#0a1210;padding:7px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(45,212,191,0.06)}
+    .mdots{display:flex;gap:4px}
+    .mdot{width:7px;height:7px;border-radius:50%}
+    .murl{flex:1;background:#111f1c;border-radius:4px;padding:2px 8px;font-size:9px;color:#2dd4bf;opacity:0.5;font-family:monospace}
+    .gb{padding:12px}
+    .gbh{display:flex;gap:10px;margin-bottom:10px;align-items:center}
+    .gblogo{width:42px;height:42px;border-radius:8px;overflow:hidden;flex-shrink:0;background:#0d2a25}
+    .gblogo img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+    .gbname{font-size:13px;font-weight:500;color:#f0ede8;margin-bottom:2px}
+    .gbcat{font-size:10px;color:#444;margin-bottom:3px}
+    .gbstars{display:flex;align-items:center;gap:4px;font-size:10px}
+    .stars-y{color:#fbbc04;font-size:12px;letter-spacing:1px}
+    .gbcnt{color:#2dd4bf;font-size:10px}
+    .gbacts{display:flex;gap:6px;margin-bottom:10px}
+    .gbact{flex:1;padding:5px;border-radius:5px;border:1px solid rgba(45,212,191,0.2);background:transparent;font-size:9px;color:#2dd4bf;text-align:center}
+    .gbact.p{background:rgba(45,212,191,0.1)}
+    .gbinfo{display:flex;flex-direction:column;gap:5px;margin-bottom:8px}
+    .gbrow{display:flex;gap:6px;font-size:10px;color:#555}
+    .gbrow span{color:#aaa}
+    .gdiv{height:1px;background:rgba(45,212,191,0.07);margin:7px 0}
+    .rlbl{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:7px}
+    .rev{background:#0a1512;border-radius:7px;padding:7px 9px;margin-bottom:5px}
+    .revt{display:flex;align-items:center;gap:7px;margin-bottom:3px}
+    .revav{width:22px;height:22px;border-radius:50%;background:#1a3030;display:flex;align-items:center;justify-content:center;font-size:8px;color:#2dd4bf;font-weight:500;flex-shrink:0}
+    .revn{font-size:10px;color:#ccc;font-weight:500}
+    .revs{color:#fbbc04;font-size:9px;margin-left:auto}
+    .revtxt{font-size:9px;color:#666;line-height:1.4}
+    .snav{background:#060c0a;padding:7px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(45,212,191,0.06)}
+    .slogow{width:28px;height:28px;border-radius:5px;overflow:hidden;flex-shrink:0;background:#0d2a25}
+    .slogow img{width:100%;height:100%;object-fit:cover;border-radius:5px}
+    .slogotxt{font-family:'Cormorant Garamond',serif;font-size:11px;color:#2dd4bf;flex:1}
+    .snlinks{display:flex;gap:8px}
+    .snl{font-size:8px;color:#444}.snl.act{color:#2dd4bf}
+    .shero{background:#050c0a;padding:22px 12px;text-align:center;border-bottom:1px solid rgba(45,212,191,0.05)}
+    .seye{font-size:8px;letter-spacing:0.18em;color:#2dd4bf;text-transform:uppercase;margin-bottom:6px}
+    .sh{font-family:'Cormorant Garamond',serif;font-size:20px;color:#f0ede8;line-height:1.2;margin-bottom:6px}
+    .sp{font-size:9px;color:#555;line-height:1.5;margin-bottom:12px;max-width:240px;margin-left:auto;margin-right:auto}
+    .scta{display:inline-block;padding:6px 16px;background:#2dd4bf;color:#060c0a;font-size:9px;font-weight:500;border-radius:5px}
+    .ssvcs{padding:14px 12px;display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+    .ssvc{background:#0a1512;border:1px solid rgba(45,212,191,0.1);border-radius:7px;padding:8px;text-align:center}
+    .ssvc.hi{border-color:rgba(45,212,191,0.35)}
+    .ssvcn{font-size:9px;color:#ccc;font-weight:500;margin-bottom:1px}
+    .ssvcp{font-size:8px;color:#444}
+    .igbar{background:#0d1a18;padding:7px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(45,212,191,0.06)}
+    .igword{font-family:'Bebas Neue',sans-serif;font-size:14px;color:#f0ede8;flex:1;letter-spacing:2px}
+    .igpro{padding:12px}
+    .igprow{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+    .igav{width:48px;height:48px;border-radius:50%;border:2px solid #2dd4bf;overflow:hidden;flex-shrink:0;background:#0d2a25}
+    .igav img{width:100%;height:100%;object-fit:cover;border-radius:50%}
+    .igstats{display:flex;gap:12px;flex:1}
+    .igstat{text-align:center;font-size:9px;color:#555}
+    .igstat span{display:block;font-size:13px;font-weight:500;color:#f0ede8}
+    .igname{font-size:12px;font-weight:500;color:#f0ede8;margin-bottom:1px}
+    .igbio{font-size:9px;color:#555;line-height:1.4;margin-bottom:8px}
+    .igbio a{color:#2dd4bf}
+    .igfol{width:100%;padding:5px;border-radius:7px;background:rgba(45,212,191,0.1);border:1px solid rgba(45,212,191,0.25);color:#2dd4bf;font-size:10px;cursor:pointer;margin-bottom:10px}
+    .iggrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
+    .igcell{aspect-ratio:1;border-radius:2px;background:#0a1f1c;display:flex;align-items:center;justify-content:center;font-size:9px;color:#2dd4bf;opacity:0.6}
+    .calh{padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid rgba(45,212,191,0.06)}
+    .calm{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:2px;color:#f0ede8;flex:1}
+    .calgh{display:grid;grid-template-columns:repeat(7,1fr);padding:6px 12px 3px;gap:2px}
+    .caldh{font-size:8px;color:#444;text-align:center;font-weight:500}
+    .calg{display:grid;grid-template-columns:repeat(7,1fr);padding:0 12px 10px;gap:2px}
+    .cald{aspect-ratio:1;display:flex;align-items:center;justify-content:center;font-size:9px;color:#444;border-radius:5px;position:relative}
+    .cald.t{background:rgba(45,212,191,0.1);color:#2dd4bf;font-weight:500}
+    .cald.b::after{content:'';width:3px;height:3px;border-radius:50%;background:#2dd4bf;position:absolute;bottom:2px;opacity:0.4}
+    .cald.a{color:#f0ede8}
+    .cals{padding:0 12px 12px}
+    .calsl{font-size:8px;color:#444;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:5px}
+    .calsr{display:flex;gap:5px;flex-wrap:wrap}
+    .calst{padding:3px 7px;border-radius:4px;font-size:9px;border:1px solid rgba(45,212,191,0.18);color:#2dd4bf;cursor:pointer}
+    .calst.tk{border-color:rgba(45,212,191,0.05);color:#2a3a38;cursor:default}
+    .calsync{margin:0 12px 10px;background:#0a1f1c;border:1px solid rgba(45,212,191,0.18);border-radius:7px;padding:6px 9px;display:flex;align-items:center;gap:7px;font-size:9px;color:#2dd4bf}
+    .csdot{width:5px;height:5px;border-radius:50%;background:#2dd4bf;animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+
+    /* Brand Pack */
+    .bp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+    @media(max-width:600px){.bp-grid{grid-template-columns:1fr}}
+    .bp-card{border-radius:12px;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px 16px;border:1px solid rgba(45,212,191,0.15)}
+    .bp-card.dark{background:#080e0d}
+    .bp-card.light{background:#f0f4f2}
+    .bp-card.slate{background:#1a2a28}
+    .bp-lbl{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;margin-top:12px;opacity:0.6;color:#2dd4bf}
+    .bp-card.light .bp-lbl{color:#2a5a52}
+    .bp-logo{width:90px;height:90px;object-fit:contain}
+    .bp-logo-sm{width:55px;height:55px;object-fit:contain}
+    .bp-horiz{display:flex;align-items:center;gap:12px}
+    .bp-horiz-name{font-family:'Cormorant Garamond',serif;font-size:16px;line-height:1}
+    .bp-horiz-sub{font-family:'Cormorant Garamond',serif;font-size:10px;font-style:italic;opacity:0.6}
+    .bp-card.dark .bp-horiz-name{color:#f0ede8}
+    .bp-card.dark .bp-horiz-sub{color:#2dd4bf}
+    .bp-card.light .bp-horiz-name{color:#0a2420}
+    .bp-card.light .bp-horiz-sub{color:#2a5a52}
+    .bp-card.slate .bp-horiz-name{color:#d8ede9}
+    .bp-card.slate .bp-horiz-sub{color:#2dd4bf}
+    .bcard-wrap{background:#f0f4f2;border-radius:12px;padding:16px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(45,212,191,0.15);margin-bottom:20px}
+    .bcard{background:#080e0d;border-radius:8px;padding:16px 20px;display:flex;gap:14px;align-items:center;max-width:280px;width:100%;border:1px solid rgba(45,212,191,0.2)}
+    .bcard-logo{width:44px;height:44px;object-fit:contain;flex-shrink:0}
+    .bcard-name{font-family:'Cormorant Garamond',serif;font-size:14px;color:#f0ede8;font-weight:600}
+    .bcard-title{font-family:'Cormorant Garamond',serif;font-size:10px;color:#2dd4bf;font-style:italic;margin-bottom:4px}
+    .bcard-det{font-size:8px;color:#666;line-height:1.5}
+    .bcard-det span{color:#2dd4bf}
+    .bp-colors{display:flex;gap:8px;margin-bottom:0}
+    .bp-swatch{flex:1;border-radius:6px;padding:8px 6px;text-align:center}
+    .bp-swatch-lbl{font-size:8px;margin-top:4px;font-weight:500}
+    .ert-disclaimer{padding:24px 0 0;border-top:1px solid rgba(45,212,191,0.1);text-align:center;margin-top:30px;position:relative;z-index:2}
+    .ert-disclaimer p{font-size:11px;color:#444;line-height:1.7;max-width:680px;margin:0 auto;font-style:italic}
+    .ert-disclaimer p strong{color:rgba(45,212,191,0.4);font-style:normal;font-weight:400}
+
+    /* FAQ */
+    .faq-list{display:flex;flex-direction:column;gap:2px}
+    .faq-item{background:var(--card);border:1px solid var(--border);overflow:hidden}
+    .faq-q{padding:24px 28px;font-size:15px;color:var(--white);font-weight:500;cursor:none;display:flex;justify-content:space-between;align-items:center;transition:color .2s}
+    .faq-q:hover{color:var(--teal)}
+    .faq-icon{font-family:'Space Mono',monospace;color:var(--teal);font-size:18px;transition:transform .3s;flex-shrink:0;margin-left:16px}
+    .faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;padding:0 28px;font-size:14px;color:var(--body);line-height:1.8}
+    .faq-item.open .faq-a{max-height:400px;padding:0 28px 24px}
+    .faq-item.open .faq-icon{transform:rotate(45deg)}
+
+    /* Final CTA */
+    .final-cta{text-align:center;padding:100px 24px;background:linear-gradient(to bottom,transparent,rgba(0,229,200,.03),transparent);border-top:1px solid var(--border)}
+    .final-cta h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,8vw,84px);line-height:.95;margin-bottom:24px}
+    .final-cta h2 .t{color:var(--teal)}
+    .final-cta p{font-size:16px;color:var(--body);max-width:520px;margin:0 auto 40px;line-height:1.75}
+
+    /* GHL Form */
+    .guide-section{position:relative;z-index:1}
+    .guide-wrap{max-width:520px;margin:0 auto;background:var(--card);border:1px solid rgba(0,229,200,.15);padding:36px;position:relative}
+    .guide-wrap::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--teal),transparent)}
+    .guide-label{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--teal);margin-bottom:20px;display:block}
+    .guide-note{font-size:12px;color:var(--muted);text-align:center;margin-top:12px}
+
+    /* Stats */
+    .stats{display:flex;gap:2px}
+    .stat{flex:1;background:var(--card);border:1px solid var(--border);padding:32px 24px;text-align:center}
+    .stat-num{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--teal);line-height:1}
+    .stat-label{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:2px;margin-top:8px}
+
+    /* Pullquote */
+    .pullquote{border-left:3px solid var(--teal);padding:20px 28px;background:rgba(0,229,200,.04);margin:32px 0;font-size:17px;font-style:italic;color:var(--white);line-height:1.7}
+
+    /* Footer */
+    footer{border-top:1px solid var(--border);padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;position:relative;z-index:1}
+    .footer-brand{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted);letter-spacing:1px}
+    .footer-brand span{color:var(--teal)}
+    .footer-links{display:flex;gap:24px}
+    .footer-links a{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);text-decoration:none;letter-spacing:1px;transition:color .2s;cursor:none}
+    .footer-links a:hover{color:var(--teal)}
+
+    @media(max-width:768px){
+      nav{padding:16px 20px}
+      .nav-links{display:none}
+      .contrast-grid{grid-template-columns:1fr}
+      .contrast-col.bad{border-right:none;border-bottom:1px solid var(--border2)}
+      .about-grid{grid-template-columns:1fr}
+      .about-img{max-width:240px}
+      .proof-grid{grid-template-columns:1fr}
+      .steps{grid-template-columns:1fr}
+      .step-connector{display:none}
+      .stats{flex-direction:column}
+      footer{padding:24px 20px;flex-direction:column;align-items:flex-start}
+      .contrast-col{padding:36px 24px}
+    }
+    @media(max-width:480px){
+      .hero-btns{flex-direction:column;align-items:center}
+    }
+  </style>
+</head>
+<body>
+
+<div class="scan"></div>
+<div class="cur" id="cur"></div>
+<div class="cur-ring" id="curRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">ΛΛLIYΛH<span>.IO</span></a>
+  <div class="nav-links">
+    <a href="#problem">The Problem</a>
+    <a href="#about">About</a>
+    <a href="#how">How It Works</a>
+    <a href="#packages">Packages</a>
+    <a href="#guide" class="nav-cta">Get Free Guide</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <p class="eyebrow">// The Therapist's Operating System</p>
+  <h1>You're Preparing<br/>For <span class="t">Graduation.</span><br/><span class="o">Not Your Career.</span></h1>
+  <p class="hero-sub">Every massage and neuromuscular therapy student is counting hours to graduation day. Nobody is building the brand, the presence, or the business that needs to exist before that day arrives. That gap is costing graduates months — sometimes years.</p>
+  <div class="hero-btns">
+    <a href="#packages" class="btn-primary">See The Packages →</a>
+    <a href="#guide" class="btn-ghost">Get The Free Guide</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="position:relative;z-index:1;padding:0 24px 80px;">
+  <div class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="stat-num">6+</div><div class="stat-label">Months Google takes<br/>to rank a new business</div></div>
+      <div class="stat"><div class="stat-num">70%</div><div class="stat-label">Of therapists quit<br/>within 2 years</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Schools teaching<br/>brand building</div></div>
+      <div class="stat"><div class="stat-num">Day 1</div><div class="stat-label">When you should<br/>have started</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- THE PROBLEM -->
+<section id="problem" class="contrast">
+  <div class="wrap" style="padding-top:80px;padding-bottom:80px;">
+    <p class="sec-label reveal">// The Real Problem</p>
+    <h2 class="sec-title reveal">Two graduates.<br/>Same school.<br/><span style="color:var(--teal)">Different outcomes.</span></h2>
+    <p class="sec-body reveal" style="margin-bottom:48px;">The difference has nothing to do with how good they are at the work. It has everything to do with what they built — and when they started building it.</p>
+  </div>
+  <div class="contrast-grid reveal">
+    <div class="contrast-col bad">
+      <h3 class="contrast-head">✕ The Unprepared Graduate</h3>
+      <div class="contrast-item"><span class="icon">✕</span><span>Graduation day arrives. Excited. Trained. Zero online presence.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>No brand name. No logo. No domain. No social accounts.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>Google doesn't know they exist — and won't for 6+ months.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>No reviews. No ratings. No proof to show potential clients.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>Takes a spa job to survive. Builds someone else's brand.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>Months pass before their first independent client. Many quit before that happens.</span></div>
+      <div class="contrast-item"><span class="icon">✕</span><span>No booking system, no intake forms, no policy — starting from absolute zero.</span></div>
+      <div class="contrast-cta">This isn't a talent problem. This is a timing problem. And it's completely preventable.</div>
+    </div>
+    <div class="contrast-col good">
+      <h3 class="contrast-head">✓ The Prepared Graduate</h3>
+      <div class="contrast-item"><span class="icon">✓</span><span>Started month one of school. Name chosen. Brand built.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Logo done. Domain secured. Google Business live and active.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Google has been indexing their site for months before graduation.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Practice session clients have left real reviews on their Google page.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Social media presence with months of content builds credibility while they're still learning.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Walks across the stage with a name people have already heard.</span></div>
+      <div class="contrast-item"><span class="icon">✓</span><span>Booking system, intake forms, and policies already in place. Ready to take paying clients immediately.</span></div>
+      <div class="contrast-cta" style="background:rgba(0,229,200,.08);border-color:rgba(0,229,200,.25);color:var(--teal);">This is what ΛΛLIYΛH builds. Before graduation. On purpose.</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY TIMING -->
+<section style="position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Why Timing Is Everything</p>
+    <h2 class="sec-title reveal">The window most<br/>graduates miss.</h2>
+    <div class="rule" style="margin:32px 0;"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;" class="reveal">
+      <div>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:20px;">Google takes 3-6 months to begin trusting and ranking a new website. Social media accounts take months to build a following that means anything. A Google Business page with no reviews is invisible to anyone searching for a therapist near them.</p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:20px;">Every month you spend in school without building your presence is a month you'll spend after graduation waiting for the internet to catch up with you. And in that waiting period, most therapists get desperate, undercharge, or give up.</p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;">The solution isn't to work harder after graduation. It's to start earlier than anyone told you to.</p>
+      </div>
+      <div>
+        <div class="timeline">
+          <div class="tl-item"><div class="tl-num">MONTH 01 OF SCHOOL</div><div class="tl-title">Brand Name & Identity</div><div class="tl-body">Choose your name, build your logo, secure your domain and social handles before anyone else takes them.</div></div>
+          <div class="tl-item"><div class="tl-num">MONTH 02</div><div class="tl-title">Google Business & Website Live</div><div class="tl-body">Your online presence is active. Google starts indexing. The clock on your ranking starts now — not after graduation.</div></div>
+          <div class="tl-item"><div class="tl-num">MONTHS 03–08</div><div class="tl-title">Practice Clients Leave Real Reviews</div><div class="tl-body">Every practice session is an opportunity for a real Google review. By graduation you have social proof that took most therapists years to build.</div></div>
+          <div class="tl-item"><div class="tl-num">GRADUATION DAY</div><div class="tl-title">You're Already Known</div><div class="tl-body">While your classmates start from zero, you have a ranked presence, real reviews, and a name that exists in your market.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="pullquote reveal">"The biggest mistake a new therapist makes is thinking graduation is the starting line. By then you should already be running."</div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" style="background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Who Built This</p>
+    <div class="about-grid reveal">
+      <div>
+        <div class="about-img">
+          <img src="https://mcusercontent.com/72bebcfd44e6f4bdb45454380/images/d7ab4e4a-a3a5-bbff-9648-96ea334dc11d.jpg" alt="Nate Santos" />
+          <div class="about-tag">// NATE SANTOS · FOUNDER</div>
+        </div>
+        <div class="about-creds">
+          <div class="cred">Neuromuscular Therapy Practitioner</div>
+          <div class="cred">Brand Strategist since 2012</div>
+          <div class="cred">Graphic Designer & Digital Marketer</div>
+          <div class="cred">Founder, SomaSync AI</div>
+          <div class="cred">Builder of AALIYAH</div>
+        </div>
+      </div>
+      <div>
+        <h2 class="sec-title" style="margin-bottom:20px;">I graduated without a plan. I'm making sure you don't.</h2>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:18px;">I went to an open house with my daughter's mom one day, ended up talking with the instructor — Scott Jordan — and by the end of the night I'd enrolled. We graduated together. The spa we talked about opening never happened.</p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:18px;">What I didn't realize until after graduation was that I had everything I needed to build something real — I just wasn't thinking about it at the right time. I had over ten years of branding, design, and digital marketing experience. I'd built brands for artists, businesses, and authors since 2012. And I almost walked out of school without applying any of it to myself.</p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:18px;">The schools teach you the modalities. Nobody teaches you the business. Nobody tells you to start building your name before you graduate. Nobody explains that Google needs months before it trusts you. Nobody hands you a logo and a booking system on graduation day.</p>
+        <p style="font-size:15px;color:var(--body);line-height:1.8;margin-bottom:32px;">I built ΛΛLIYΛH because I believe the best therapists shouldn't spend their first two years figuring out what I had to figure out alone. The system is built. It's yours to use.</p>
+        <a href="#guide" class="btn-primary" style="display:inline-block;">Get The Free Guide →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROOF -->
+<section style="position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Real Results</p>
+    <h2 class="sec-title reveal">Practitioners who built<br/>on the system.</h2>
+    <div class="teal-rule reveal"></div>
+    <div class="proof-grid reveal">
+      <div class="proof-card"><p class="proof-quote">"I graduated not knowing how to get a single client. ΛΛLIYΛH walked me through everything — within three weeks I had five booked and a waitlist forming."</p><div class="proof-name">Jasmine R.</div><div class="proof-title">LMT · Fresno, CA</div></div>
+      <div class="proof-card"><p class="proof-quote">"I wish I'd known about this while I was still in school. I spent six months after graduation building what I could have had on day one. Don't wait."</p><div class="proof-name">Marcus T.</div><div class="proof-title">NMT · Sacramento, CA</div></div>
+    </div>
+    <div class="proof-site reveal">
+      <div class="proof-site-text"><h3>RestoreWithEllis.com</h3><p>A real practitioner. Full brand identity, professional website, automated booking and scheduling infrastructure — built from the ground up and handed off. This is the Growth package in practice.</p></div>
+      <a href="https://restorewithellis.com" target="_blank">View Live Site ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how" style="background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// The Process</p>
+    <h2 class="sec-title reveal">From enrolled to established.<br/><span style="color:var(--teal)">Here's how it works.</span></h2>
+    <div class="teal-rule reveal"></div>
+    <div class="steps reveal">
+      <div class="step"><div class="step-num">01</div><div class="step-title">Pick Your Path</div><div class="step-body">Choose the package that matches where you are — student, new grad, or established practitioner ready to automate. Every path starts with a conversation so we understand exactly what you need.</div><div class="step-connector">→</div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-title">We Build Your System</div><div class="step-body">Depending on your package we handle your brand identity, website, booking flow, Google Business, intake forms, social setup, automations, and scheduling infrastructure — built for you, handed to you.</div><div class="step-connector">→</div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-title">You Go Live</div><div class="step-body">You get everything set up, explained, and running. Use the client acquisition playbooks to fill your calendar. Let the automation handle rebooking. Stay focused on the work itself.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ PACKAGES — NEW DESIGN ═══ -->
+<section id="packages" style="position:relative;z-index:1;">
+  <div class="wrap pkg-section-new">
+    <p class="sec-label reveal">// Choose Your Path</p>
+    <h2 class="sec-title reveal">Built for where<br/>you are <span style="color:var(--gold)">right now.</span></h2>
+    <p class="sec-body reveal" style="margin-bottom:32px;">Whether you're still in school, just graduated, or established and ready to automate — there's a package built specifically for your stage.</p>
+
+    <div class="trust-bar reveal">
+      <div class="trust-item"><span class="trust-check">✓</span> No subscriptions</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><span class="trust-check">✓</span> No recurring fees</div>
+      <div class="trust-dot"></div>
+      <div class="trust-item"><span class="trust-check">✓</span> Pay once, yours forever</div>
+    </div>
+
+    <div class="pkg-grid-new reveal">
+      <!-- STARTER -->
+      <div class="pkg-card-new">
+        <p class="card-tag-new">// Free to Start</p>
+        <p class="card-name-new">Starter</p>
+        <p class="price-new">$0</p>
+        <p class="billing-new">Free · No cost, no catch</p>
+        <div class="divider-new"></div>
+        <ul class="feature-list-new">
+          <li><span class="ck">✓</span>The Therapist's Roadmap 2.0 — full PDF guide</li>
+          <li><span class="ck">✓</span>7 modules covering every stage of building a practice</li>
+          <li><span class="ck">✓</span>Employee vs. independent breakdown</li>
+          <li><span class="ck">✓</span>5-client playbook — no ads, no following required</li>
+          <li><span class="ck">✓</span>Full practice infrastructure guide</li>
+          <li><span class="ck">✓</span>Access to SomaSync AI community</li>
+        </ul>
+        <a href="#guide" class="pkg-cta-new pkg-cta-ghost">Get The Free Guide →</a>
+      </div>
+
+      <!-- FOUNDATION -->
+      <div class="pkg-card-new">
+        <p class="card-tag-new">// For Students In School</p>
+        <p class="card-name-new">Foundation</p>
+        <p class="price-new">$99</p>
+        <p class="billing-new">One-time · Start while enrolled</p>
+        <div class="divider-new"></div>
+        <ul class="feature-list-new">
+          <li><span class="ck">✓</span>Brand name consultation</li>
+          <li><span class="ck">✓</span>Custom logo design</li>
+          <li><span class="ck">✓</span>Brand colors and font selection</li>
+          <li><span class="ck">✓</span>Google Business setup and optimization</li>
+          <li><span class="ck">✓</span>Social media handles secured</li>
+          <li><span class="ck">✓</span>One-page professional website — live on your domain</li>
+          <li><span class="ck">✓</span>Content framework — what to post and when</li>
+          <li><span class="ck">✓</span><em style="color:#444">Domain guidance (~$12 you purchase)</em></li>
+        </ul>
+        <div class="pkg-disclaimer"><strong>+ Optional:</strong> Add ongoing support & maintenance for $29.99/mo — calendar, priority support & updates. Cancel anytime.</div>
+        <a href="https://go.somasyncai.com/checkout" target="_blank" class="pkg-cta-new pkg-cta-outline">Get Started — $99 →</a>
+      </div>
+
+      <!-- GROWTH -->
+      <div class="pkg-card-new popular">
+        <div class="popular-badge-new">MOST POPULAR</div>
+        <p class="card-tag-new">// For New Graduates</p>
+        <p class="card-name-new">Growth</p>
+        <p class="price-new">$119</p>
+        <p class="billing-new">One-time · Student pricing available</p>
+        <div class="divider-new"></div>
+        <ul class="feature-list-new">
+          <li><span class="ck">✓</span>Everything in Starter</li>
+          <li><span class="ck">✓</span>Custom professional website — built & handed off</li>
+          <li><span class="ck">✓</span>Online booking integration (Square, Jane, Acuity)</li>
+          <li><span class="ck">✓</span>Google Business + local SEO basics</li>
+          <li><span class="ck">✓</span>Policy pages, intake forms & consent docs</li>
+          <li><span class="ck">✓</span>Brand identity — logo, colors, font system</li>
+          <li><span class="ck">✓</span>Client acquisition playbook for your niche</li>
+          <li><span class="ck">✓</span>45-minute live onboarding call</li>
+        </ul>
+        <div class="pkg-disclaimer"><strong>+ Optional:</strong> Add ongoing support & maintenance for $29.99/mo — calendar, priority support & updates. Cancel anytime.</div>
+        <a href="https://go.somasyncai.com/checkout" target="_blank" class="pkg-cta-new pkg-cta-primary">Get Growth — $119 →</a>
+      </div>
+
+      <!-- ELITE -->
+      <div class="pkg-card-new">
+        <p class="card-tag-new">// Full Operating System</p>
+        <p class="card-name-new">Elite</p>
+        <p class="price-new">$297</p>
+        <p class="billing-new">One-time investment</p>
+        <div class="divider-new"></div>
+        <ul class="feature-list-new">
+          <li><span class="ck">✓</span>Everything in Growth</li>
+          <li><span class="ck">✓</span>Full booking automation & client intake flow</li>
+          <li><span class="ck">✓</span>Automated follow-up & rebooking sequences</li>
+          <li><span class="ck">✓</span>Live calendar sync across all platforms</li>
+          <li><span class="ck">✓</span>Complete client acquisition system</li>
+          <li><span class="ck">✓</span>SomaSync AI AALIYAH — real-time in-ear guidance</li>
+          <li><span class="ck">✓</span>Hands-free SOAP note generation</li>
+          <li><span class="ck">✓</span>3 live coaching calls + 30-day direct support</li>
+        </ul>
+        <div class="pkg-disclaimer"><strong>+ Optional:</strong> Add ongoing support & maintenance for $29.99/mo — calendar, priority support & updates. Cancel anytime.</div>
+        <a href="https://go.somasyncai.com/checkout" target="_blank" class="pkg-cta-new pkg-cta-outline">Get Elite — $297 →</a>
+      </div>
+    </div>
+
+    <div class="pkg-footer-new reveal">
+      Not sure which to start with? <a href="mailto:streetwisesomatics@gmail.com">Email Nate directly</a> — we'll figure it out together.<br>
+      <span style="color:#333;font-size:11px;margin-top:6px;display:block;">ΛΛLIYΛH · Powered by SomaSync AI</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ERT SHOWCASE ═══ -->
+<section class="ert-section">
+  <canvas class="waves" id="wcanvas"></canvas>
+  <div class="wrap" style="position:relative;z-index:2;">
+    <p class="sec-label reveal" style="color:#2dd4bf">// Real Results</p>
+    <h2 class="sec-title reveal">This is what you <span style="color:#2dd4bf">get.</span></h2>
+    <p class="sec-body reveal" style="margin-bottom:50px;">Every deliverable built and handed off. Here's the full system built for Ellis Restorative Therapies — live and running.</p>
+
+    <div class="mock-grid reveal">
+      <!-- Google Business -->
+      <div class="mwrap">
+        <p class="mlabel">Google Business Profile · 20 Reviews</p>
+        <div class="mcard">
+          <div class="mbar"><div class="mdots"><div class="mdot" style="background:#ff5f57"></div><div class="mdot" style="background:#febc2e"></div><div class="mdot" style="background:#28c840"></div></div><div class="murl">google.com/maps · Ellis Restorative Therapies</div></div>
+          <div class="gb">
+            <div class="gbh">
+              <div class="gblogo"><img id="logo1" src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT" onerror="this.style.display='none'"></div>
+              <div><div class="gbname">Ellis Restorative Therapies</div><div class="gbcat">Massage Therapy · Modesto, CA</div><div class="gbstars"><span class="stars-y">★★★★★</span>&nbsp;<span>5.0</span>&nbsp;<span class="gbcnt">· 20 reviews</span></div></div>
+            </div>
+            <div class="gbacts"><div class="gbact p">Book Now</div><div class="gbact">Directions</div><div class="gbact">Call</div></div>
+            <div class="gbinfo">
+              <div class="gbrow">📍<span>2209 Coffee Rd, Suite M, Modesto CA</span></div>
+              <div class="gbrow">🕐<span>Open Mon–Thu · Closes 7 PM</span></div>
+              <div class="gbrow">📞<span>(209) 450-5296</span></div>
+            </div>
+            <div class="gdiv"></div>
+            <div class="rlbl">Recent Reviews</div>
+            <div class="rev"><div class="revt"><div class="revav">JM</div><div class="revn">Jessica M.</div><div class="revs">★★★★★</div></div><div class="revtxt">"Zachary is incredibly skilled. My chronic neck tension is gone after just two sessions."</div></div>
+            <div class="rev"><div class="revt"><div class="revav">TR</div><div class="revn">Tyler R.</div><div class="revs">★★★★★</div></div><div class="revtxt">"Best massage in Modesto. The booking system is so easy and the space is super calming."</div></div>
+            <div class="rev"><div class="revt"><div class="revav">AL</div><div class="revn">Amanda L.</div><div class="revs">★★★★★</div></div><div class="revtxt">"Coming monthly for 3 months. Worth every penny — my back has never felt better."</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Website -->
+      <div class="mwrap">
+        <p class="mlabel">Professional Website</p>
+        <div class="mcard">
+          <div class="mbar"><div class="mdots"><div class="mdot" style="background:#ff5f57"></div><div class="mdot" style="background:#febc2e"></div><div class="mdot" style="background:#28c840"></div></div><div class="murl">restorewithellis.com</div></div>
+          <div class="snav"><div class="slogow"><img src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT" style="width:100%;height:100%;object-fit:cover;border-radius:5px" onerror="this.style.display='none'"></div><div class="slogotxt">Ellis Restorative Therapies</div><div class="snlinks"><span class="snl">Services</span><span class="snl">About</span><span class="snl act">Book</span></div></div>
+          <div class="shero"><div class="seye">// Modesto, CA · CAMTC Certified</div><div class="sh">Restore Your Body.<br>Reclaim Your Life.</div><div class="sp">Neuromuscular and restorative massage therapy tailored to your body's needs.</div><span class="scta">Book a Session →</span></div>
+          <div class="ssvcs"><div class="ssvc"><div class="ssvcn">60 Min</div><div class="ssvcp">$100</div></div><div class="ssvc hi"><div class="ssvcn">90 Min</div><div class="ssvcp">$150</div></div><div class="ssvc"><div class="ssvcn">120 Min</div><div class="ssvcp">$200</div></div></div>
+        </div>
+      </div>
+
+      <!-- Instagram -->
+      <div class="mwrap">
+        <p class="mlabel">Instagram Profile</p>
+        <div class="mcard">
+          <div class="igbar"><div class="igword">Instagram</div></div>
+          <div class="igpro">
+            <div class="igprow"><div class="igav"><img src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT" style="width:100%;height:100%;object-fit:cover;border-radius:50%" onerror="this.style.display='none'"></div><div class="igstats"><div class="igstat"><span>48</span>posts</div><div class="igstat"><span>612</span>followers</div><div class="igstat"><span>94</span>following</div></div></div>
+            <div class="igname">Ellis Restorative Therapies</div>
+            <div class="igbio">Neuromuscular & restorative massage · Modesto, CA<br>CAMTC #97101 · Book below ↓<br><a>restorewithellis.com</a></div>
+            <button class="igfol">Follow</button>
+            <div class="iggrid"><div class="igcell">🌿</div><div class="igcell">💆</div><div class="igcell">⚡</div><div class="igcell">🌿</div><div class="igcell">💆</div><div class="igcell">☀️</div><div class="igcell">⚡</div><div class="igcell">🌿</div><div class="igcell">💆</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar -->
+      <div class="mwrap">
+        <p class="mlabel">Live Sync Booking Calendar</p>
+        <div class="mcard">
+          <div class="mbar"><div class="mdots"><div class="mdot" style="background:#ff5f57"></div><div class="mdot" style="background:#febc2e"></div><div class="mdot" style="background:#28c840"></div></div><div class="murl">restorewithellis.com/book</div></div>
+          <div class="calsync"><div class="csdot"></div>Live sync · Google Calendar connected</div>
+          <div class="calh"><div class="calm">June 2026</div></div>
+          <div class="calgh"><div class="caldh">Su</div><div class="caldh">Mo</div><div class="caldh">Tu</div><div class="caldh">We</div><div class="caldh">Th</div><div class="caldh">Fr</div><div class="caldh">Sa</div></div>
+          <div class="calg">
+            <div class="cald"></div><div class="cald a">2</div><div class="cald b">3</div><div class="cald a">4</div><div class="cald b">5</div><div class="cald"></div><div class="cald"></div>
+            <div class="cald"></div><div class="cald a">9</div><div class="cald b">10</div><div class="cald t">11</div><div class="cald a">12</div><div class="cald"></div><div class="cald"></div>
+            <div class="cald"></div><div class="cald b">16</div><div class="cald a">17</div><div class="cald a">18</div><div class="cald b">19</div><div class="cald"></div><div class="cald"></div>
+            <div class="cald"></div><div class="cald a">23</div><div class="cald a">24</div><div class="cald b">25</div><div class="cald a">26</div><div class="cald"></div><div class="cald"></div>
+          </div>
+          <div class="cals"><div class="calsl">Available · Wed Jun 11</div><div class="calsr"><div class="calst">12:30 PM</div><div class="calst">2:00 PM</div><div class="calst tk">3:30 PM</div><div class="calst">5:00 PM</div><div class="calst tk">6:00 PM</div></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Brand Pack -->
+    <p class="sec-label reveal" style="color:#2dd4bf;margin-top:60px">// Brand Identity</p>
+    <h3 class="sec-title reveal" style="font-size:clamp(28px,4vw,48px);margin-bottom:8px">Your ideas <span style="color:#2dd4bf">brought to life.</span></h3>
+    <p class="sec-body reveal" style="margin-bottom:30px">Every client gets a complete brand system — logo, colors, typography, and usage examples across every format.</p>
+
+    <div class="bp-grid reveal">
+      <div class="bp-card dark"><img class="bp-logo" src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT Logo"><div class="bp-lbl">Dark Background</div></div>
+      <div class="bp-card light"><img class="bp-logo" src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT Logo"><div class="bp-lbl" style="color:#2a5a52">Light Background</div></div>
+      <div class="bp-card slate"><div class="bp-horiz"><img class="bp-logo-sm" src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT"><div style="display:flex;flex-direction:column"><span class="bp-horiz-name" style="color:#d8ede9">Ellis Restorative</span><span class="bp-horiz-sub" style="color:#2dd4bf">Therapies · Modesto, CA</span></div></div><div class="bp-lbl">Horizontal Lockup</div></div>
+    </div>
+
+    <div class="bcard-wrap reveal">
+      <div class="bcard"><img class="bcard-logo" src="https://assets.cdn.filesafe.space/nwDYplCvccrQuEVLmABe/media/6a1bc728cd1238368f0011cd.png" alt="ERT"><div><div class="bcard-name">Zachary Ellis</div><div class="bcard-title">CAMTC #97101 · NMT</div><div class="bcard-det"><span>(209) 450-5296</span><br>restorewithellis@gmail.com<br>2209 Coffee Rd Suite M · Modesto</div></div></div>
+    </div>
+
+    <div class="bp-colors reveal">
+      <div class="bp-swatch" style="background:#2dd4bf"><div class="bp-swatch-lbl" style="color:#04342c">#2DD4BF</div></div>
+      <div class="bp-swatch" style="background:#0a1a18"><div class="bp-swatch-lbl" style="color:#2dd4bf">#0A1A18</div></div>
+      <div class="bp-swatch" style="background:#f0ede8"><div class="bp-swatch-lbl" style="color:#2a5a52">#F0EDE8</div></div>
+      <div class="bp-swatch" style="background:#444"><div class="bp-swatch-lbl" style="color:#aaa">#444444</div></div>
+    </div>
+
+    <div class="ert-disclaimer reveal">
+      <p>Results shown reflect <strong>Ellis Restorative Therapies</strong> — a real client. Individual results may vary based on platform updates, page maintenance, activity consistency, and information displayed online. ERT represents the potential achievable through a therapist's ambition and the tools made available to them.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section style="background:var(--card);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);position:relative;z-index:1;">
+  <div class="wrap sec-pad">
+    <p class="sec-label reveal">// Common Questions</p>
+    <h2 class="sec-title reveal" style="margin-bottom:40px;">Everything you're<br/>probably wondering.</h2>
+    <div class="faq-list reveal">
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">I'm still in school. Is it too early to start? <span class="faq-icon">+</span></div><div class="faq-a">No — it's the perfect time. That's exactly what the Foundation package is built for. Google takes 3-6 months to start ranking a new business. Starting in month one of school means you graduate with a presence that's already been building.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Do I need to know anything about websites or tech? <span class="faq-icon">+</span></div><div class="faq-a">No. Everything is built for you and handed off with a walkthrough. You don't need to know how to code, design, or set up any software.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">Why do I need to buy my own domain? <span class="faq-icon">+</span></div><div class="faq-a">Because your domain name is part of your brand identity — and that's a decision only you can make. It costs about $12/year and belongs to you permanently. We guide you through it.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What if I already graduated and have no brand? <span class="faq-icon">+</span></div><div class="faq-a">Start now. The Growth package is built exactly for this situation. You can be fully operational within a week.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">What is AALIYAH and do I need it? <span class="faq-icon">+</span></div><div class="faq-a">AALIYAH is an AI operating system built specifically for manual therapy practitioners. It provides real-time in-ear clinical guidance during sessions and generates hands-free SOAP notes automatically. It's included in the Elite package. If you're still building your practice foundation, start with Starter, Foundation, or Growth first.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How do I pay? <span class="faq-icon">+</span></div><div class="faq-a">Payment is processed securely through our checkout page. Work begins as soon as payment is received.</div></div>
+      <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">How long does it take? <span class="faq-icon">+</span></div><div class="faq-a">Foundation: 3-5 business days. Growth: 5-7 business days. Elite: 7-10 business days. Timelines may vary based on how quickly you provide your info and domain access.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FREE GUIDE / OPT-IN -->
+<section id="guide" class="guide-section">
+  <div class="wrap sec-pad" style="text-align:center;">
+    <p class="sec-label reveal">// Start Here — It's Free</p>
+    <h2 class="sec-title reveal">Not ready to invest yet?<br/><span style="color:var(--teal)">Get the guide first.</span></h2>
+    <p class="sec-body reveal" style="margin:0 auto 40px;">7 modules. Everything I know about building a practice — from brand to first clients to full infrastructure. Written for students and new graduates. No cost. No catch.</p>
+    <div class="guide-wrap reveal">
+      <label class="guide-label">// Get The Therapist's Roadmap 2.0 — Free</label>
+      <iframe
+        src="https://api.leadconnectorhq.com/widget/form/ODitPASjZCUU0ZmrVDLe"
+        style="width:100%;height:420px;border:none;border-radius:4px"
+        id="inline-ODitPASjZCUU0ZmrVDLe"
+        data-layout="{'id':'INLINE'}"
+        data-trigger-type="alwaysShow"
+        data-trigger-value=""
+        data-activation-type="alwaysActivated"
+        data-activation-value=""
+        data-deactivation-type="neverDeactivate"
+        data-deactivation-value=""
+        data-form-name="Roadmap Opt-In"
+        data-height="420"
+        data-layout-iframe-id="inline-ODitPASjZCUU0ZmrVDLe"
+        data-form-id="ODitPASjZCUU0ZmrVDLe"
+        title="Roadmap Opt-In">
+      </iframe>
+      <script src="https://link.msgsndr.com/js/form_embed.js"></script>
+      <p class="guide-note">No spam. Unsubscribe anytime. Your guide arrives instantly.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" style="position:relative;z-index:1;">
+  <h2 class="reveal">Your Practice.<br/><span class="t">Your Name.</span><br/>Your Income.</h2>
+  <p class="reveal">Stop waiting for graduation to start building. The therapists who win are the ones who started before anyone told them to.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;" class="reveal">
+    <a href="#packages" class="btn-primary">Choose Your Package →</a>
+    <a href="mailto:streetwisesomatics@gmail.com" class="btn-ghost">Email Nate Directly</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-brand"><span>ΛΛLIYΛH</span> · Powered by SomaSync AI · Built by Nate Santos</p>
+  <div class="footer-links">
+    <a href="https://somasyncai.com" target="_blank">SomaSync AI</a>
+    <a href="mailto:streetwisesomatics@gmail.com">Contact</a>
+    <a href="https://restorewithellis.com" target="_blank">RestoreWithEllis.com</a>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cur=document.getElementById('cur'),ring=document.getElementById('curRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px'});
+  (function animRing(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing)})();
+  document.querySelectorAll('a,button,input,.faq-q').forEach(el=>{
+    el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px'});
+    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px'});
+  });
+
+  // Scroll reveal
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('on'),i*80)}});
+  },{threshold:0.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // FAQ
+  function toggleFaq(el){
+    const item=el.parentElement;
+    const isOpen=item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>i.classList.remove('open'));
+    if(!isOpen)item.classList.add('open');
+  }
+
+  // Wave animation
+  const canvas=document.getElementById('wcanvas');
+  const ctx=canvas.getContext('2d');
+  let W,H,t=0;
+  function resize(){const sec=canvas.parentElement;W=canvas.width=sec.offsetWidth;H=canvas.height=sec.offsetHeight}
+  resize();window.addEventListener('resize',resize);
+  const waves=[
+    {amp:22,freq:0.011,speed:0.007,y:0.15,a:0.7},
+    {amp:14,freq:0.017,speed:0.011,y:0.35,a:0.45},
+    {amp:26,freq:0.008,speed:0.005,y:0.55,a:0.55},
+    {amp:12,freq:0.021,speed:0.014,y:0.72,a:0.35},
+    {amp:18,freq:0.014,speed:0.009,y:0.88,a:0.4},
+  ];
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    waves.forEach(w=>{
+      ctx.beginPath();ctx.strokeStyle=`rgba(45,212,191,${w.a})`;ctx.lineWidth=1;
+      for(let x=0;x<=W;x+=2){const y=w.y*H+Math.sin(x*w.freq+t*w.speed*100)*w.amp;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+      ctx.stroke();
+      ctx.beginPath();ctx.strokeStyle=`rgba(45,212,191,${w.a*0.2})`;ctx.lineWidth=0.5;
+      for(let x=0;x<=W;x+=2){const y=w.y*H+Math.sin(x*w.freq*1.4+t*w.speed*75+1.5)*w.amp*0.5;x===0?ctx.moveTo(x,y):ctx.lineTo(x,y)}
+      ctx.stroke();
+    });
+    t++;requestAnimationFrame(draw);
+  }
+  draw();
+</script>
+</body>
+</html>
