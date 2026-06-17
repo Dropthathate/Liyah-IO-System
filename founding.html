@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Founding Therapist Program — ΛΛLIYΛH+SOMΛSYNC AI™</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a0f;--surface:#0b1118;--border:rgba(0,210,200,.12);--teal:#00d2c8;--gold:#c8a84b;--text:#e8edf2;--muted:#7a8a9a;--dim:#2a3a4a;--white:#fff;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,210,200,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,210,200,.025) 1px,transparent 1px);background-size:38px 38px;pointer-events:none;z-index:0;}
+.glow{position:fixed;top:10%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(200,168,75,.06) 0%,transparent 68%);pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,10,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,210,200,.12);}
+.nav-brand{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;color:var(--teal);text-decoration:none;text-transform:uppercase;}
+.nav-brand span{color:var(--muted);font-weight:400;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:6px 10px;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);}
+.nav-cta{color:var(--bg)!important;background:var(--teal);padding:8px 16px!important;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);font-weight:700!important;}
+.nav-toggle{display:none;background:none;border:1px solid rgba(0,210,200,.2);color:var(--teal);font-family:'Syne',sans-serif;font-size:.7rem;padding:7px 12px;cursor:pointer;letter-spacing:.1em;}
+section{position:relative;z-index:1;}
+.page{max-width:720px;margin:0 auto;padding:110px 32px 80px;}
+@keyframes up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.f1{animation:up .5s ease both .05s;}.f2{animation:up .5s ease both .15s;}.f3{animation:up .5s ease both .25s;}.f4{animation:up .5s ease both .35s;}.f5{animation:up .5s ease both .45s;}
+.pkg-tag{display:inline-flex;align-items:center;gap:8px;font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:20px;padding:6px 16px;border:1px solid rgba(200,168,75,.3);background:rgba(200,168,75,.05);}
+h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.8rem);font-weight:800;line-height:1.0;letter-spacing:-.02em;color:var(--white);margin-bottom:12px;}
+h1 .gold{color:var(--gold);}
+.price-block{margin:22px 0;padding:22px 26px;background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.2);border-left:3px solid var(--gold);}
+.price-main{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--gold);margin-bottom:4px;}
+.price-note{font-size:.82rem;color:var(--muted);}
+.tagline{font-size:.95rem;color:var(--muted);line-height:1.8;margin-bottom:28px;}
+.tagline strong{color:var(--text);font-weight:600;}
+.features{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:28px;}
+.features li{background:var(--surface);border:1px solid rgba(255,255,255,.04);padding:13px 16px;font-size:.83rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start;transition:border-color .2s;}
+.features li:hover{border-color:rgba(200,168,75,.2);}
+.features li::before{content:'✔';color:var(--gold);font-size:.72rem;margin-top:2px;flex-shrink:0;}
+.deposit-box{background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.2);padding:28px;margin:8px 0 28px;position:relative;overflow:hidden;}
+.deposit-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
+.deposit-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
+.deposit-amount{font-family:'Syne',sans-serif;font-size:2rem;font-weight:800;color:var(--white);margin-bottom:8px;}
+.deposit-amount span{font-size:1rem;color:var(--gold);}
+.deposit-body{font-size:.87rem;color:var(--muted);line-height:1.75;}
+.deposit-body strong{color:var(--text);font-weight:600;}
+.cta-btn{display:block;width:100%;font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:center;text-decoration:none;color:var(--bg);background:var(--gold);border:none;padding:18px 32px;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .25s;margin-bottom:12px;}
+.cta-btn:hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:0 12px 36px rgba(200,168,75,.28);}
+.cta-note{text-align:center;font-size:.73rem;color:var(--dim);line-height:1.6;}
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(200,168,75,.2),transparent);margin:28px 0;}
+.wh-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:14px;}
+.steps{display:flex;flex-direction:column;gap:2px;margin-bottom:28px;}
+.step{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--surface);border:1px solid rgba(255,255,255,.04);padding:15px 18px;}
+.step-num{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:800;color:var(--gold);opacity:.45;}
+.step-text{font-size:.84rem;color:var(--muted);line-height:1.6;}
+.step-text strong{color:var(--text);font-weight:600;}
+.case-study{background:var(--surface);border:1px solid rgba(0,210,200,.12);padding:22px;margin-bottom:28px;}
+.cs-label{font-family:'Syne',sans-serif;font-size:.58rem;font-weight:700;letter-spacing:.18em;color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
+.cs-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:6px;}
+.cs-body{font-size:.82rem;color:var(--muted);line-height:1.65;}
+.disclaimer{margin-top:28px;font-size:.7rem;color:var(--dim);line-height:1.65;padding-top:18px;border-top:1px solid rgba(255,255,255,.04);}
+.disclaimer a{color:var(--muted);}
+footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--bg);position:relative;z-index:1;}
+.f-brand{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:800;letter-spacing:.12em;color:var(--teal);}
+.f-links{display:flex;gap:18px;flex-wrap:wrap;}
+.f-links a{font-size:.7rem;color:var(--dim);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--teal);}
+.f-copy{font-size:.68rem;color:var(--dim);}
+@media(max-width:600px){.page{padding:90px 20px 60px;}.features{grid-template-columns:1fr;}.nav-links{display:none;}.nav-toggle{display:block;}.nav-links.open{display:flex;position:fixed;top:54px;left:0;right:0;background:rgba(6,10,15,.98);border-bottom:1px solid rgba(0,210,200,.12);padding:10px 20px;flex-direction:column;gap:2px;}.nav-links.open a{width:100%;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);}footer{flex-direction:column;text-align:center;}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<nav>
+  <a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
+  <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
+  <div class="nav-links" id="nl">
+    <a href="/founding.html" class="active">Founding</a>
+    <a href="/launch.html">Launch</a>
+    <a href="/growth.html">Growth</a>
+    <a href="/elite.html">Elite</a>
+    <a href="/retainer.html">Retainer</a>
+    <a href="/deposit.html" class="nav-cta">$97 Deposit →</a>
+  </div>
+</nav>
+<section><div class="page">
+  <div class="pkg-tag f1">Founding Therapist Program · Limited Availability</div>
+  <h1 class="f2">Your Practice,<br><span class="gold">Built Right.</span><br>From Day One.</h1>
+  <div class="price-block f3">
+    <div class="price-main">$138 Setup + $68/Month</div>
+    <div class="price-note">Founding rate — locked in for life · Cancel anytime · $97 deposit credited</div>
+  </div>
+  <p class="tagline f3">The entry point for therapists who are <strong>just getting started</strong> and want to skip the 6-month guessing game. Professional branding, online presence, booking system, and basic automation — without a large upfront commitment.</p>
+
+  <ul class="features f4">
+    <li>Professional Brand Identity</li>
+    <li>Website Setup (3–5 pages)</li>
+    <li>Online Booking System</li>
+    <li>Automated Appointment Reminders</li>
+    <li>Google Business Profile Setup</li>
+    <li>Basic Lead Capture Form</li>
+    <li>Founding Rate — Locked for Life</li>
+    <li>Early Access to ΛΛLIYΛH Platform</li>
+  </ul>
+
+  <div class="deposit-box f4">
+    <div class="deposit-label">Your $97 Deposit — What It Means</div>
+    <div class="deposit-amount">$97 <span>Deposit to Begin</span></div>
+    <div class="deposit-body">This is not a fee — it's the move that starts everything. The moment your $97 deposit lands, <strong>I open my workstation.</strong> I start planning your brand, researching your market, and sketching your vision in multiple directions. Rough mockups developed same day or night. <strong>Your deposit is credited toward your package total.</strong></div>
+  </div>
+
+  <a href="https://buy.stripe.com/9B63cwaX06DXaPTeRP5wI00" class="cta-btn f5">Leave My $97 Deposit — Apply Now →</a>
+  <div class="cta-note">$97 deposit · Credited toward package · Work begins immediately · Secure checkout via Stripe</div>
+
+  <div class="divider"></div>
+
+  <div class="wh-label">What Happens After Your Deposit</div>
+  <div class="steps">
+    <div class="step"><div class="step-num">01</div><div class="step-text"><strong>I open my workstation immediately.</strong> The moment your $97 deposit lands, planning begins. I research your niche, market, competition.</div></div>
+    <div class="step"><div class="step-num">02</div><div class="step-text"><strong>Rough mockups in multiple directions</strong> are developed same day or night — so you see your brand before we even speak.</div></div>
+    <div class="step"><div class="step-num">03</div><div class="step-text"><strong>Consultation call.</strong> I walk through mockups, we align on vision, confirm your package. Payment link sent after.</div></div>
+    <div class="step"><div class="step-num">04</div><div class="step-text"><strong>The build begins.</strong> Brand, website, booking, automation — fully built and handed off. $97 credited toward your total.</div></div>
+  </div>
+
+  <div class="case-study">
+    <div class="cs-label">Case Study — Ellis Restorative Therapies</div>
+    <div class="cs-title">Zachary Ellis, CAMTC #97101 · Modesto, CA</div>
+    <div class="cs-body">Full brand identity, multi-page website, automated booking system, and Google Business optimization — built on this exact framework. Zachary went from zero digital presence to a fully operational practice infrastructure in one build session.</div>
+  </div>
+
+  <div class="disclaimer">SOMΛSYNC AI provides branding, website, and practice infrastructure services. We are not a healthcare provider. Results vary. ΛΛLIYΛH AI features are limited to practice management functions and do not constitute HIPAA BAA services unless separately contracted. Payment plans are interest-free. <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="/ai-disclaimer.html">AI Disclaimer</a></div>
+</div></section>
+<footer>
+  <div class="f-brand">ΛΛLIYΛH+SOMΛSYNC AI™</div>
+  <div class="f-links"><a href="https://somasyncai.com">somasyncai.com</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/ai-disclaimer.html">AI Disclaimer</a></div>
+  <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
+</footer>
+</body></html>
