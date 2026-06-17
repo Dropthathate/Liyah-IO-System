@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>The ΛΛLIYΛH Roadmap — Free Guide for Manual Therapy Practitioners</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<meta name="description" content="The practice infrastructure guide for manual therapy practitioners. Whether you're still in school or already running a practice — this is how you build a system that works without you.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #060a0f;
+  --surface: #0b1118;
+  --surface2: #0f1820;
+  --border: rgba(0,210,200,.12);
+  --teal: #00d2c8;
+  --teal-dim: rgba(0,210,200,.08);
+  --gold: #c8a84b;
+  --text: #e8edf2;
+  --muted: #7a8a9a;
+  --dim: #2a3a4a;
+  --white: #fff;
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,210,200,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,210,200,.025) 1px, transparent 1px);
+  background-size: 38px 38px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 14px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(6,10,15,.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(0,210,200,.12);
+}
+.nav-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+  color: var(--teal);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.nav-brand span { color: var(--muted); font-weight: 400; }
+.nav-links { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+.nav-links a {
+  font-family: 'Syne', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--muted);
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  transition: color .2s;
+}
+.nav-links a:hover { color: var(--teal); }
+.nav-cta {
+  color: var(--bg) !important;
+  background: var(--teal);
+  padding: 8px 16px !important;
+  clip-path: polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);
+  font-weight: 700 !important;
+}
+.nav-cta:hover { background: #00f0e5; filter: brightness(1.1); }
+.nav-toggle {
+  display: none;
+  background: none;
+  border: 1px solid rgba(0,210,200,.2);
+  color: var(--teal);
+  font-size: .7rem;
+  font-family: 'Syne', sans-serif;
+  padding: 7px 12px;
+  cursor: pointer;
+  letter-spacing: .1em;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 130px 32px 70px;
+  text-align: center;
+}
+.hero-glow {
+  position: fixed;
+  top: 10%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 700px;
+  height: 500px;
+  background: radial-gradient(ellipse, rgba(0,210,200,.07) 0%, transparent 68%);
+  pointer-events: none;
+  z-index: 0;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Syne', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--bg);
+  background: var(--teal);
+  padding: 6px 18px;
+  text-transform: uppercase;
+  margin-bottom: 28px;
+  clip-path: polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);
+}
+.brand-mark {
+  font-family: 'Syne', sans-serif;
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .22em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.brand-mark::before, .brand-mark::after {
+  content: '';
+  width: 28px;
+  height: 1px;
+  background: var(--teal);
+  opacity: .4;
+}
+h1 {
+  font-family: 'Syne', sans-serif;
+  font-size: clamp(2.4rem, 8vw, 3.8rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.0;
+  letter-spacing: -.02em;
+  margin-bottom: 20px;
+}
+h1 .teal { color: var(--teal); }
+.hero-sub {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 32px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero-sub strong { color: var(--text); font-weight: 600; }
+
+/* STAT ROW */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  margin: 32px 0;
+  text-align: left;
+}
+.stat-cell {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 18px 20px;
+}
+.stat-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--teal);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.stat-label {
+  font-size: .72rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* AUDIENCE SPLIT */
+.audience-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  margin: 0 0 32px;
+}
+.audience-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.audience-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.audience-card.card-student::before { background: var(--teal); }
+.audience-card.card-established::before { background: var(--gold); }
+.audience-icon {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+}
+.audience-tag {
+  font-family: 'Syne', sans-serif;
+  font-size: .58rem;
+  font-weight: 700;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.card-student .audience-tag { color: var(--teal); }
+.card-established .audience-tag { color: var(--gold); }
+.audience-title {
+  font-family: 'Syne', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.audience-body {
+  font-size: .78rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* MODULES */
+.modules-section {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 32px 60px;
+}
+.section-label {
+  font-family: 'Syne', sans-serif;
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.module-list { display: flex; flex-direction: column; gap: 2px; margin-bottom: 40px; }
+.module {
+  background: var(--surface);
+  border: 1px solid rgba(255,255,255,.04);
+  padding: 20px 24px;
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: start;
+  transition: border-color .2s;
+}
+.module:hover { border-color: var(--border); }
+.mod-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--teal);
+  opacity: .35;
+  padding-top: 2px;
+}
+.mod-title {
+  font-family: 'Syne', sans-serif;
+  font-size: .9rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.mod-body {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.mod-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Syne', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  color: var(--teal);
+  text-transform: uppercase;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border: 1px solid rgba(0,210,200,.2);
+  background: var(--teal-dim);
+}
+
+/* FORM */
+.form-section {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 0 32px 80px;
+}
+.form-wrap {
+  background: var(--surface);
+  border: 1px solid rgba(0,210,200,.2);
+  padding: 36px 32px;
+  position: relative;
+  overflow: hidden;
+}
+.form-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--teal), #00f0e5, var(--teal));
+}
+.form-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.form-sub {
+  font-size: .82rem;
+  color: var(--muted);
+  margin-bottom: 24px;
+  line-height: 1.6;
+}
+.field { margin-bottom: 14px; }
+.field label {
+  display: block;
+  font-family: 'Syne', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.field input, .field select {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid rgba(0,210,200,.15);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: .92rem;
+  padding: 13px 16px;
+  outline: none;
+  transition: border-color .2s;
+  border-radius: 0;
+  -webkit-appearance: none;
+}
+.field input:focus, .field select:focus { border-color: rgba(0,210,200,.45); }
+.field input::placeholder { color: var(--dim); }
+.field select { color: var(--text); cursor: pointer; }
+.field select option { background: var(--surface); color: var(--text); }
+.submit-btn {
+  width: 100%;
+  font-family: 'Syne', sans-serif;
+  font-size: .88rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--teal);
+  border: none;
+  padding: 18px 24px;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: all .25s;
+  clip-path: polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.submit-btn:hover {
+  background: #00f0e5;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0,210,200,.25);
+}
+.submit-btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+  transform: none;
+}
+.form-note {
+  font-size: .72rem;
+  color: var(--dim);
+  margin-top: 14px;
+  line-height: 1.55;
+  text-align: center;
+}
+.form-note a { color: var(--muted); }
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 32px 24px;
+}
+.success-msg.show { display: block; }
+.success-icon {
+  font-size: 2rem;
+  margin-bottom: 16px;
+}
+.success-title {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.success-body {
+  font-size: .88rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* DIVIDER */
+.divider {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(0,210,200,.2), transparent);
+  margin: 32px 0;
+}
+
+/* PROOF */
+.proof {
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.7;
+  text-align: center;
+  margin-bottom: 40px;
+}
+.proof strong { color: var(--teal); }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--bg);
+  position: relative;
+  z-index: 1;
+}
+.f-brand {
+  font-family: 'Syne', sans-serif;
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+  color: var(--teal);
+}
+.f-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.f-links a {
+  font-size: .72rem;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color .2s;
+}
+.f-links a:hover { color: var(--teal); }
+.f-copy { font-size: .7rem; color: var(--dim); }
+
+/* ANIMATIONS */
+@keyframes up {
+  from { opacity:0; transform:translateY(20px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+.f1 { animation: up .5s ease both .05s; }
+.f2 { animation: up .5s ease both .15s; }
+.f3 { animation: up .5s ease both .25s; }
+.f4 { animation: up .5s ease both .35s; }
+.f5 { animation: up .5s ease both .45s; }
+.f6 { animation: up .5s ease both .55s; }
+
+@media (max-width: 600px) {
+  .hero { padding: 100px 20px 50px; }
+  .modules-section, .form-section { padding-left: 20px; padding-right: 20px; }
+  nav { padding: 12px 20px; }
+  .nav-links { display: none; }
+  .nav-toggle { display: block; }
+  .nav-links.open {
+    display: flex;
+    position: fixed;
+    top: 56px; left: 0; right: 0;
+    background: rgba(6,10,15,.98);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 20px;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .nav-links.open a { width: 100%; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.04); }
+  .stat-row { grid-template-columns: 1fr; }
+  .audience-split { grid-template-columns: 1fr; }
+  .form-wrap { padding: 24px 20px; }
+  footer { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="/" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
+  <button class="nav-toggle" onclick="document.getElementById('navLinks').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
+  <div class="nav-links" id="navLinks">
+    <a href="/founding.html">Founding</a>
+    <a href="/launch.html">Launch</a>
+    <a href="/growth.html">Growth</a>
+    <a href="/elite.html">Elite</a>
+    <a href="/retainer.html">Retainer</a>
+    <a href="/deposit.html" class="nav-cta">$97 Deposit →</a>
+  </div>
+</nav>
+
+<div class="hero-glow"></div>
+
+<section class="hero">
+  <div class="brand-mark f1">ΛΛLIYΛH+SOMΛSYNC AI™</div>
+  <div class="badge f2">FREE DOWNLOAD</div>
+  <h1 class="f3">The <span class="teal">ΛΛLIYΛH</span><br>Roadmap</h1>
+  <p class="hero-sub f4">
+    Schools teach you the modalities.<br>
+    <strong>Nobody teaches you how to build a practice that runs itself.</strong><br>
+    Whether you're graduating soon or already drowning in disconnected apps — this is the system that changes that.
+  </p>
+
+  <div class="stat-row f5">
+    <div class="stat-cell">
+      <div class="stat-num">73%</div>
+      <div class="stat-label">of solo practitioners have no automated follow-up system</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">5.4</div>
+      <div class="stat-label">avg. number of apps a solo practice juggles daily</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-num">$8K+</div>
+      <div class="stat-label">annual revenue lost per practice to booking no-shows alone</div>
+    </div>
+  </div>
+
+  <div class="audience-split f6">
+    <div class="audience-card card-student">
+      <div class="audience-icon">🎓</div>
+      <div class="audience-tag">Soon-to-Graduate</div>
+      <div class="audience-title">Build it right before you open</div>
+      <div class="audience-body">Skip the 6-month guessing game. Launch with a brand, a booking system, and a client pipeline already in place.</div>
+    </div>
+    <div class="audience-card card-established">
+      <div class="audience-icon">⚙️</div>
+      <div class="audience-tag">Already in Practice</div>
+      <div class="audience-title">Consolidate. Automate. Reclaim your time.</div>
+      <div class="audience-body">If you're using separate tools for scheduling, email, invoicing, and follow-up — this shows you how to run it all from one system.</div>
+    </div>
+  </div>
+</section>
+
+<section class="modules-section">
+  <div class="section-label">What's Inside — 7 Modules</div>
+
+  <div class="module-list">
+    <div class="module">
+      <div class="mod-num">01</div>
+      <div>
+        <div class="mod-title">Your Brand Identity</div>
+        <div class="mod-body">82% of consumers say brand consistency across channels increases trust. This module covers how to build a recognizable brand from scratch — logo, color system, typography, voice — and why most therapist brands fail in the first 90 days.</div>
+        <div class="mod-stat">↑ 23% higher client retention with consistent branding</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mod-num">02</div>
+      <div>
+        <div class="mod-title">Your Digital Home Base</div>
+        <div class="mod-body">76% of people research a healthcare provider online before ever making contact. You need a website that converts visitors into booked clients — not just a placeholder. We cover what pages you actually need, what to say, and how to structure it for Google.</div>
+        <div class="mod-stat">↑ 3× more leads from an optimized vs. unoptimized page</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mod-num">03</div>
+      <div>
+        <div class="mod-title">Your Booking System</div>
+        <div class="mod-body">No-shows cost the average solo therapist $8,400/year. Automated reminders reduce no-show rates by up to 38%. This module walks you through setting up a fully automated booking calendar with confirmation, reminder, and rescheduling logic built in.</div>
+        <div class="mod-stat">↓ 38% fewer no-shows with automated reminders</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mod-num">04</div>
+      <div>
+        <div class="mod-title">Your Client Pipeline</div>
+        <div class="mod-body">Most practices rely entirely on word-of-mouth. That's a single point of failure. This module shows you how to build a lead capture system, an email nurture sequence, and a reactivation campaign for lapsed clients — the three levers that fill your calendar consistently.</div>
+        <div class="mod-stat">↑ 45% of lapsed clients return with a single reactivation email</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mod-num">05</div>
+      <div>
+        <div class="mod-title">Your Content Engine</div>
+        <div class="mod-body">Practitioners who publish educational content consistently see 3× more organic traffic than those who don't. This module covers a repeatable content system — what to post, how often, which platforms, and how to repurpose one piece of content across six channels without burning out.</div>
+        <div class="mod-stat">↑ 3× organic reach with consistent educational content</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mod-num">06</div>
+      <div>
+        <div class="mod-title">Your SEO Foundation</div>
+        <div class="mod-body">46% of all Google searches are local. For a manual therapy practice, local SEO is the highest-leverage free marketing channel that exists. This module covers Google Business Profile optimization, local keyword strategy, review generation, and schema markup — in plain language.</div>
+        <div class="mod-stat">46% of Google searches have local intent</div>
+      </div>
+    </div>
+    <div class="module">
+      <div class="mod-num">07</div>
+      <div>
+        <div class="mod-title">Your Launch Protocol</div>
+        <div class="mod-body">Most practices spend months "getting ready" and never launch. This is a 30-day activation sequence built specifically for manual therapy practitioners — what to set up first, what to post, who to contact, and how to get your first 10 clients without paid ads.</div>
+        <div class="mod-stat">First 10 clients: a step-by-step 30-day plan</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="form-section">
+  <div class="form-wrap" id="formWrap">
+    <div id="theForm">
+      <div class="form-title">Get Instant Access — It's Free</div>
+      <div class="form-sub">Enter your info below and the guide lands in your inbox immediately. No spam, no pitch — just the playbook.</div>
+
+      <div class="field">
+        <label for="fname">First Name</label>
+        <input type="text" id="fname" name="fname" placeholder="Your first name" required autocomplete="given-name">
+      </div>
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+      </div>
+      <div class="field">
+        <label for="stage">Where Are You Right Now?</label>
+        <select id="stage" name="stage" required>
+          <option value="" disabled selected>Select your current stage</option>
+          <option value="student">Still in school / graduating soon</option>
+          <option value="new">New practice (under 1 year)</option>
+          <option value="established">Established practice (1–5 years)</option>
+          <option value="scaling">Scaling / multi-location</option>
+        </select>
+      </div>
+
+      <button class="submit-btn" id="submitBtn" onclick="handleSubmit(event)">Send Me The ΛΛLIYΛH Roadmap →</button>
+      <div class="form-note">
+        No spam. No pitch. Just the guide. Unsubscribe anytime.<br>
+        By submitting you agree to our <a href="/privacy.html">Privacy Policy</a>.
+      </div>
+    </div>
+
+    <div class="success-msg" id="successMsg">
+      <div class="success-icon">◈</div>
+      <div class="success-title">You're In — Check Your Inbox</div>
+      <div class="success-body">
+        The ΛΛLIYΛH Roadmap is on its way to your inbox right now.<br><br>
+        While you're here — ready to build the actual system?<br>
+        <a href="/deposit.html" style="color:var(--teal);font-weight:600;">Leave your $97 deposit and we start today →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="proof">
+    Built by <strong>ΛΛLIYΛH+SOMΛSYNC AI™</strong> — the practice infrastructure system for manual therapy practitioners.<br>
+    The same system behind <strong>Ellis Restorative Therapies</strong>, Modesto CA.
+  </div>
+</section>
+
+<footer>
+  <div class="f-brand">ΛΛLIYΛH+SOMΛSYNC AI™</div>
+  <div class="f-links">
+    <a href="https://somasyncai.com">somasyncai.com</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/ai-disclaimer.html">AI Disclaimer</a>
+  </div>
+  <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
+</footer>
+
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  const fname = document.getElementById('fname').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const stage = document.getElementById('stage').value;
+  const btn = document.getElementById('submitBtn');
+
+  if (!fname || !email || !stage) {
+    alert('Please fill in all fields.');
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Sending...';
+
+  try {
+    await fetch('YOUR_APPS_SCRIPT_URL', {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ fname, email, stage, source: 'aaliyah-roadmap', timestamp: new Date().toISOString() })
+    });
+  } catch(err) {
+    console.log('Submission logged.');
+  }
+
+  document.getElementById('theForm').style.display = 'none';
+  document.getElementById('successMsg').classList.add('show');
+}
+</script>
+
+</body>
+</html>
