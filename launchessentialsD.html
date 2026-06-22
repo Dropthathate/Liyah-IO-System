@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>SOMΛSYNC Launch Essentials — Practice Foundation Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a0f;--surface:#0b1118;--surface2:#0f1820;--border:rgba(0,210,200,.12);--teal:#00d2c8;--teal-dim:#00a89f;--teal-glow:rgba(0,210,200,.12);--gold:#c8a84b;--text:#e8edf2;--muted:#7a8a9a;--dim:#3a4a5a;--white:#fff;}
+*{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;opacity:.3;pointer-events:none;z-index:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.05'/%3E%3C/svg%3E");}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:14px 40px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,10,15,.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;letter-spacing:.1em;color:var(--teal);text-decoration:none;}
+.nav-logo span{color:var(--muted);}
+.nav-plus{color:var(--muted);font-weight:400;margin:0 1px;}
+.nav-liyah{color:var(--teal);}
+.nav-links{display:flex;gap:24px;align-items:center;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.12em;color:var(--muted);text-decoration:none;text-transform:uppercase;transition:color .2s;}
+.nav-links a:hover{color:var(--teal);}
+.nav-links a.active{color:var(--teal);}
+.nav-cta{font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;color:var(--bg);background:var(--teal);border:none;padding:9px 22px;cursor:pointer;text-decoration:none;clip-path:polygon(6px 0%,100% 0%,calc(100% - 6px) 100%,0% 100%);transition:all .2s;}
+.nav-cta:hover{background:#00f0e5;transform:translateY(-1px);}
+
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:120px 40px 80px;overflow:hidden;}
+.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(0,210,200,.07) 0%,transparent 70%);pointer-events:none;}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(0,210,200,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(0,210,200,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;}
+
+.pkg-eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;margin-bottom:22px;padding:6px 16px;border:1px solid var(--border);background:var(--teal-glow);}
+.pkg-eyebrow::before,.pkg-eyebrow::after{content:'';width:18px;height:1px;background:var(--teal);opacity:.5;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,6.5vw,5rem);font-weight:800;line-height:1.0;letter-spacing:-.02em;color:var(--white);margin-bottom:10px;}
+.hero h1 .teal{color:var(--teal);}
+.price-display{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--teal);margin:24px 0 6px;}
+.price-sub{font-size:.84rem;color:var(--muted);margin-bottom:28px;}
+.hero-sub{font-size:1rem;color:var(--muted);max-width:600px;margin:0 auto 36px;line-height:1.8;}
+.hero-sub strong{color:var(--text);font-weight:600;}
+
+.btn-teal{font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--teal);border:none;padding:17px 44px;cursor:pointer;text-decoration:none;display:inline-block;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .25s;}
+.btn-teal:hover{background:#00f0e5;transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,210,200,.3);}
+.btn-outline{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:600;letter-spacing:.1em;color:var(--teal);background:transparent;border:1px solid rgba(0,210,200,.35);padding:16px 36px;cursor:pointer;text-decoration:none;display:inline-block;transition:all .25s;}
+.btn-outline:hover{border-color:var(--teal);background:var(--teal-glow);}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:30px;}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
+.f1{animation:fadeUp .6s ease both .1s;}.f2{animation:fadeUp .6s ease both .2s;}.f3{animation:fadeUp .6s ease both .3s;}.f4{animation:fadeUp .6s ease both .4s;}.f5{animation:fadeUp .6s ease both .5s;}
+
+section{position:relative;z-index:1;}
+.container{max-width:1060px;margin:0 auto;padding:0 40px;}
+.eyebrow{font-family:'Syne',sans-serif;font-size:.66rem;font-weight:700;letter-spacing:.22em;color:var(--teal);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:12px;}
+.eyebrow::before{content:'';width:22px;height:1px;background:var(--teal);opacity:.5;}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.7rem,3.5vw,2.8rem);font-weight:800;color:var(--white);line-height:1.1;letter-spacing:-.02em;}
+.sec-title .teal{color:var(--teal);}
+
+/* DELIVERABLES */
+.deliv-section{padding:100px 0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.deliv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px;}
+.deliv-card{background:var(--surface2);border:1px solid var(--border);padding:32px 26px;position:relative;overflow:hidden;transition:all .3s;}
+.deliv-card:hover{border-color:rgba(0,210,200,.28);background:#111d27;}
+.deliv-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(to right,var(--teal),transparent);opacity:0;transition:opacity .3s;}
+.deliv-card:hover::after{opacity:1;}
+.deliv-num{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--teal);opacity:.4;margin-bottom:12px;}
+.deliv-icon{font-size:1.5rem;margin-bottom:14px;display:block;}
+.deliv-title{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:10px;}
+.deliv-body{font-size:.81rem;color:var(--muted);line-height:1.7;}
+
+/* WHAT HAPPENS */
+.process-section{padding:100px 0;}
+.process-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;margin-top:56px;}
+.process-steps{display:flex;flex-direction:column;gap:0;}
+.proc-step{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,.04);}
+.proc-step:last-child{border:none;}
+.proc-circle{width:48px;height:48px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:800;color:var(--teal);flex-shrink:0;background:var(--surface2);}
+.proc-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--white);margin-bottom:6px;}
+.proc-body{font-size:.82rem;color:var(--muted);line-height:1.65;}
+.process-right p{font-size:.95rem;color:var(--muted);line-height:1.85;margin-bottom:18px;}
+.process-right strong{color:var(--text);font-weight:600;}
+.big-quote{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--white);line-height:1.45;border-left:3px solid var(--teal);padding-left:22px;margin:26px 0;}
+
+/* ERT */
+.ert-section{padding:90px 0;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.ert-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:48px;}
+.ert-body{font-size:.9rem;color:var(--muted);line-height:1.85;margin-bottom:16px;}
+.ert-body strong{color:var(--text);}
+.ert-list{list-style:none;margin-top:20px;}
+.ert-list li{padding:11px 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.87rem;color:var(--muted);display:flex;gap:12px;align-items:flex-start;}
+.ert-list li::before{content:'◈';color:var(--teal);font-size:.55rem;margin-top:4px;flex-shrink:0;}
+.ert-list li strong{color:var(--text);font-weight:600;}
+.ert-wins{display:grid;grid-template-columns:1fr 1fr;gap:2px;}
+.ert-win{background:var(--surface2);border:1px solid rgba(0,210,200,.1);padding:24px;text-align:center;}
+.ert-win-num{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;color:var(--teal);}
+.ert-win-lbl{font-size:.72rem;color:var(--muted);margin-top:5px;line-height:1.4;}
+
+/* COMPARE */
+.compare-section{padding:100px 0;}
+.compare-table{width:100%;border-collapse:collapse;margin-top:52px;}
+.compare-table th{font-family:'Syne',sans-serif;font-size:.63rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:14px 16px;text-align:center;background:var(--surface2);border:1px solid var(--border);}
+.compare-table th:first-child{text-align:left;}
+.compare-table td{padding:13px 16px;text-align:center;border:1px solid rgba(255,255,255,.04);font-size:.84rem;color:var(--muted);}
+.compare-table td:first-child{text-align:left;color:var(--text);font-size:.82rem;}
+.compare-table tr:hover td{background:rgba(255,255,255,.015);}
+.col-h{background:rgba(0,210,200,.04);}
+.col-h-th{color:var(--teal)!important;border-top:2px solid var(--teal)!important;}
+.cy{color:var(--teal);font-size:1rem;}.cg{color:var(--gold);font-size:1rem;}.cn{color:var(--dim);}
+.p-cell{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;color:var(--teal);display:block;}
+.p-cell-gold{font-family:'Syne',sans-serif;font-size:.75rem;font-weight:700;color:var(--gold);display:block;}
+
+/* CONSULT */
+.consult-section{padding:100px 0;text-align:center;position:relative;overflow:hidden;background:var(--surface);border-top:1px solid var(--border);}
+.c-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;background:radial-gradient(ellipse,rgba(0,210,200,.06) 0%,transparent 70%);pointer-events:none;}
+.consult-section h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,4vw,3.2rem);font-weight:800;color:var(--white);letter-spacing:-.02em;line-height:1.1;margin-bottom:18px;}
+.consult-section h2 .teal{color:var(--teal);}
+.consult-section p{color:var(--muted);font-size:.95rem;max-width:540px;margin:0 auto 36px;line-height:1.75;}
+.value-row{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;max-width:820px;margin:0 auto 48px;text-align:left;}
+.val-card{background:var(--surface2);border:1px solid var(--border);padding:26px;}
+.val-num{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.18em;color:var(--teal);opacity:.6;margin-bottom:10px;}
+.val-title{font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;color:var(--white);margin-bottom:7px;}
+.val-body{font-size:.79rem;color:var(--muted);line-height:1.6;}
+
+.disclaimer{padding:36px 40px;background:var(--surface2);border-top:1px solid rgba(255,255,255,.04);font-size:.73rem;color:var(--dim);line-height:1.7;text-align:center;}
+.disclaimer a{color:var(--muted);text-decoration:underline;}
+footer{border-top:1px solid var(--border);padding:32px 40px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;background:var(--bg);}
+.f-logo{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:800;letter-spacing:.12em;color:var(--teal);}
+.f-links{display:flex;gap:22px;flex-wrap:wrap;}
+.f-links a{font-size:.74rem;color:var(--dim);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--teal);}
+.f-copy{font-size:.72rem;color:var(--dim);}
+@media(max-width:768px){nav{padding:12px 20px;}.nav-links{display:none;}.container{padding:0 20px;}.hero{padding:100px 20px 60px;}.deliv-grid,.process-grid,.ert-grid,.ert-wins,.value-row{grid-template-columns:1fr;}footer{flex-direction:column;text-align:center;}}
+</style>
+
+<style>
+.pkg-nav{position:fixed;top:0;left:0;right:0;z-index:9999;display:flex;align-items:center;justify-content:space-between;padding:12px 28px;background:rgba(6,10,15,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,210,200,.15);flex-wrap:wrap;gap:0;}
+.pkg-nav-brand{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.12em;color:#00d2c8;text-decoration:none;text-transform:uppercase;flex-shrink:0;}
+.pkg-nav-brand span{color:#6a7a8a;font-weight:400;}
+.pkg-nav-toggle{display:none;background:none;border:1px solid rgba(0,210,200,.2);color:#00d2c8;font-size:1rem;padding:6px 12px;cursor:pointer;}
+.pkg-nav-links{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pkg-nav-links a{font-family:'Syne',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.1em;color:#6a7a8a;text-decoration:none;padding:6px 12px;text-transform:uppercase;transition:color .2s;white-space:nowrap;}
+.pkg-nav-links a:hover{color:#00d2c8;}
+.pkg-nav-cta{color:#060a0f!important;background:#00d2c8;padding:8px 16px!important;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);font-weight:700!important;transition:all .2s!important;}
+.pkg-nav-cta:hover{background:#00f0e5!important;color:#060a0f!important;}
+@media(max-width:680px){
+  .pkg-nav-toggle{display:block;}
+  .pkg-nav-links{display:none;width:100%;flex-direction:column;align-items:flex-start;padding:12px 0 4px;gap:0;border-top:1px solid rgba(0,210,200,.1);margin-top:10px;}
+  .pkg-nav-links.open{display:flex;}
+  .pkg-nav-links a{width:100%;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.03);}
+  .pkg-nav-cta{margin-top:8px;width:100%;text-align:center;clip-path:none!important;}
+}
+</style>
+</head>
+<body>
+<div class="pkg-nav">
+  <a href="https://go.somasyncai.com/aaliyah-main" class="pkg-nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
+  <button class="pkg-nav-toggle" onclick="toggleMenu()" aria-label="Menu">☰</button>
+  <div class="pkg-nav-links" id="navLinks">
+    <a href="https://go.somasyncai.com/founders-program">Founding</a>
+    <a href="https://go.somasyncai.com/launch-essentials">Launch</a>
+    <a href="https://go.somasyncai.com/growth">Growth</a>
+    <a href="https://go.somasyncai.com/elite">Elite</a>
+    <a href="https://go.somasyncai.com/retainer">Retainer</a>
+    <a href="https://go.somasyncai.com/foundation-consultation" class="pkg-nav-cta">$97 Deposit →</a>
+  </div>
+</div>
+<script>
+function toggleMenu(){
+  var l=document.getElementById('navLinks');
+  l.classList.toggle('open');
+}
+</script>
+<nav>
+  <a href="../therapist-roadmap-ebook.html" class="nav-logo"><span class="nav-liyah">ΛΛLIYΛH</span><span class="nav-plus">+</span>SOMΛSYNC <span>AI™</span></a>
+  <div class="nav-links">
+    <a href="founding-therapist.html">Founding</a>
+    <a href="launch-essentials.html" class="active">Launch Essentials</a>
+    <a href="growth.html">Growth</a>
+    <a href="elite.html">Elite</a>
+    <a href="retainer.html">Retainer</a>
+  </div>
+  <a href="https://go.somasyncai.com" target="_blank" class="nav-cta">Book Consultation</a>
+</nav>
+
+<section class="hero">
+  <div class="grid-bg"></div>
+  <div class="hero-glow"></div>
+  <div style="position:relative;z-index:1;width:100%;">
+    <div class="pkg-eyebrow f1">Package 01 · Launch Essentials</div>
+    <h1 class="f2">Build the <span class="teal">Foundation</span><br>That Clients Trust.</h1>
+    <div class="price-display f3">$297 Down + 3 Payments of $197</div>
+    <div class="price-sub f3">Total investment: $888 · Flexible payment plan · No interest</div>
+    <p class="hero-sub f4">
+      This is your professional foundation. Everything a client needs to see before they trust you with their body and their time. <strong>A real logo. A real brand. A real presence online.</strong> A booking calendar that works automatically. The SEO framework that gets you found. And a roadmap that tells you exactly what to do and in what order to launch.
+    </p>
+    <div class="hero-btns f5">
+      <a href="https://go.somasyncai.com" target="_blank" class="btn-teal">Start My Launch — Book $97 Deposit</a>
+      <a href="#deliverables" class="btn-outline">See What's Included</a>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="deliv-section" id="deliverables">
+  <div class="container">
+    <div class="eyebrow">8 Deliverables Included</div>
+    <h2 class="sec-title">Your practice foundation,<br><span class="teal">fully built.</span></h2>
+    <div class="deliv-grid">
+      <div class="deliv-card">
+        <div class="deliv-num">01</div>
+        <span class="deliv-icon">🏷️</span>
+        <div class="deliv-title">Custom Logo</div>
+        <div class="deliv-body">A professional logo designed for your specialty, your market, and your personality. Multiple concepts delivered. You review. We refine. By end of consultation night, you'll have initial sketches in hand.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">02</div>
+        <span class="deliv-icon">🎨</span>
+        <div class="deliv-title">Brand Identity</div>
+        <div class="deliv-body">Color palette, typography system, brand voice, and visual guidelines. Everything your brand needs to look consistent and professional across every touchpoint — business cards, social, website, intake forms.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">03</div>
+        <span class="deliv-icon">✍️</span>
+        <div class="deliv-title">Mission Statement</div>
+        <div class="deliv-body">Your "why" — articulated clearly and compellingly. This single statement anchors everything: your website copy, your social bio, your intake forms. Clients read it and immediately understand why you're the right choice.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">04</div>
+        <span class="deliv-icon">📍</span>
+        <div class="deliv-title">Google Business Setup</div>
+        <div class="deliv-body">Fully optimized Google Business Profile — the #1 local discovery asset for any therapist. Categories, services, photos, hours, review prompts, Q&A, and NAP consistency. This is how clients find you on Google Maps before they ever reach your website.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">05</div>
+        <span class="deliv-icon">📱</span>
+        <div class="deliv-title">Social Media Setup</div>
+        <div class="deliv-body">Branded social profiles on your primary platforms — fully set up with profile photos, cover images, bio copy, and link-in-bio structure. You look professional from day one, not like you just opened an account yesterday.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">06</div>
+        <span class="deliv-icon">📅</span>
+        <div class="deliv-title">Booking Calendar</div>
+        <div class="deliv-body">GoHighLevel booking calendar configured with your services, session durations, buffer time, availability windows, and automated confirmations + reminders. Clients book themselves. No phone tag. No back-and-forth text chains.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">07</div>
+        <span class="deliv-icon">🔍</span>
+        <div class="deliv-title">SEO Foundation</div>
+        <div class="deliv-body">Keyword research for your local market, meta structure, Google Business optimization, schema markup guidance, and basic on-page SEO framework. The foundation that makes every piece of content you create work harder and rank faster.</div>
+      </div>
+      <div class="deliv-card">
+        <div class="deliv-num">08</div>
+        <span class="deliv-icon">🗺️</span>
+        <div class="deliv-title">Launch Roadmap</div>
+        <div class="deliv-body">A custom 30-day launch plan specific to your market, your specialty, and your timeline. Day-by-day activation sequence. What to post, what to send, what to set up, and in what order. You'll never wonder "what's next?" again.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process-section" id="process">
+  <div class="container">
+    <div class="process-grid">
+      <div>
+        <div class="eyebrow">How It Works</div>
+        <h2 class="sec-title" style="margin-bottom:32px;">From consultation<br>to <span class="teal">live in days.</span></h2>
+        <div class="process-steps">
+          <div class="proc-step">
+            <div class="proc-circle">1</div>
+            <div><div class="proc-title">Book Your $97 Deposit</div><div class="proc-body">Your $97 deposit is the commitment that starts everything. Once booked, I open my workstation, begin planning your brand, and sketch your vision in multiple directions. This is the move that tells me you're ready — and I match that energy immediately.</div></div>
+          </div>
+          <div class="proc-step">
+            <div class="proc-circle">2</div>
+            <div><div class="proc-title">Rough Mockups — Same Day or Night</div><div class="proc-body">By end of night after your call, you receive rough mockups in various styles. Review, give feedback, and we refine.</div></div>
+          </div>
+          <div class="proc-step">
+            <div class="proc-circle">3</div>
+            <div><div class="proc-title">Brand System Delivered</div><div class="proc-body">Full brand identity package — logo files, color codes, typography, usage guide, and mission statement — delivered and ready to deploy.</div></div>
+          </div>
+          <div class="proc-step">
+            <div class="proc-circle">4</div>
+            <div><div class="proc-title">Infrastructure Goes Live</div><div class="proc-body">Booking calendar, Google Business, social profiles, and SEO foundation all activated. Your roadmap hands you a clear next step every single day.</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="process-right">
+        <div class="big-quote">"Most therapists look like they just opened an account yesterday. Launch Essentials makes sure you don't."</div>
+        <p>The difference between a therapist who books out in their first month and one who struggles for a year isn't skill — it's infrastructure. Clients judge your credibility before they ever meet you. They look at your Google Business profile, your social pages, and whether you have an easy way to book.</p>
+        <p>Launch Essentials gives you <strong>all of that, built correctly, from the start</strong>. Not pieced together from YouTube tutorials. Not assembled from whatever free tools you could find. Purpose-built for a manual therapy practice, in a real marketing platform (GoHighLevel), designed to grow with you.</p>
+        <p>And when you're ready to upgrade to Growth or Elite, <strong>everything we build here carries forward</strong>. Nothing is thrown away. The foundation becomes the floor of a bigger house.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ERT CASE STUDY -->
+<section class="ert-section">
+  <div class="container">
+    <div style="font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:10px;"><span style="width:20px;height:1px;background:var(--teal);display:inline-block;"></span>Real Client · Case Study</div>
+    <h2 class="sec-title">This is exactly what <span class="teal">Ellis Restorative Therapies</span> started with.</h2>
+    <div class="ert-grid">
+      <div>
+        <p class="ert-body"><strong>Zachary Ellis, CAMTC #97101</strong> — based in Modesto, CA — came to us with a license and zero digital presence. No brand. No website. No booking system. Nothing online.</p>
+        <p class="ert-body">We started by building what you're looking at in this package: custom branding (teal + chrome, Cormorant Garamond and Montserrat typography), a Google Business profile, social profiles, a booking calendar, and the full SEO foundation. That became the base we then built his entire automated practice on.</p>
+        <p class="ert-body">Today, <strong>Zachary touches one thing: his Google Calendar.</strong> Every booking, every confirmation, every reminder, every follow-up — automated. The foundation was the key that unlocked everything else.</p>
+        <ul class="ert-list">
+          <li><strong>Brand Identity</strong> — custom logo, teal/chrome palette, dual-font system, and brand guidelines</li>
+          <li><strong>Google Business Profile</strong> — fully optimized, consistent NAP, service categories, initial review strategy</li>
+          <li><strong>Social Profiles</strong> — branded, complete, linked, and consistent with brand system</li>
+          <li><strong>Booking Calendar</strong> — GoHighLevel configured with seasonal rules, buffer times, and automated flows</li>
+          <li><strong>SEO Foundation</strong> — schema markup, local keywords, Open Graph, sitemap, robots.txt across all pages</li>
+        </ul>
+      </div>
+      <div>
+        <div class="ert-wins">
+          <div class="ert-win"><div class="ert-win-num">0→Live</div><div class="ert-win-lbl">Full brand and presence built from zero in days</div></div>
+          <div class="ert-win"><div class="ert-win-num">1 Tool</div><div class="ert-win-lbl">Zachary manages only his Google Calendar post-handoff</div></div>
+          <div class="ert-win"><div class="ert-win-num">No Tech</div><div class="ert-win-lbl">Zero technical knowledge required from client after setup</div></div>
+          <div class="ert-win"><div class="ert-win-num">Scalable</div><div class="ert-win-lbl">Every deliverable built to carry forward into Growth/Elite</div></div>
+        </div>
+        <div style="margin-top:16px;background:rgba(0,210,200,.04);border:1px solid rgba(0,210,200,.12);border-left:3px solid var(--teal);padding:22px;">
+          <div style="font-family:'Syne',sans-serif;font-size:.7rem;letter-spacing:.14em;color:var(--teal);text-transform:uppercase;margin-bottom:10px;">The ERT Foundation Included</div>
+          <div style="font-size:.83rem;color:var(--muted);line-height:1.7;">Custom logo · Brand identity system · Trifold referral brochure · Google Business optimization · Social profile setup · GoHighLevel booking calendar · Seasonal availability business rules · SEO schema + sitemap · Mission statement and service copy</div>
+        </div>
+        <div style="margin-top:12px;font-size:.75rem;color:var(--dim);line-height:1.6;">Ellis Restorative Therapies is a real SOMΛSYNC client. Deliverables reflect actual work completed. Individual results vary.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare-section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px;">
+      <div class="eyebrow" style="justify-content:center;"><span style="width:22px;height:1px;background:var(--teal);opacity:.5;"></span> All Packages</div>
+      <h2 class="sec-title">How Launch Essentials <span class="teal">compares.</span></h2>
+      <p style="color:var(--muted);font-size:.88rem;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;line-height:1.7;">All packages start with a $97 deposit. We determine the right fit on the call — not before.</p>
+    </div>
+    <div style="overflow-x:auto;">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:210px;">Feature</th>
+          <th>Founding<br><span class="p-cell-gold">$197 + $97/mo</span></th>
+          <th class="col-h col-h-th">Launch Essentials<br><span class="p-cell">$297 + 3×$197</span></th>
+          <th>Growth<br><span class="p-cell">$497 + 3×$297</span></th>
+          <th>Elite<br><span class="p-cell">$997 + $297/mo</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>Custom Logo</td><td><span class="cg">✔</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>Brand Identity System</td><td><span class="cg">Basic</span></td><td class="col-h"><span class="cy">✔ Full</span></td><td><span class="cy">✔ Full</span></td><td><span class="cy">✔ Full</span></td></tr>
+        <tr><td>Mission Statement</td><td><span class="cn">—</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>Google Business Setup</td><td><span class="cg">✔</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>Social Media Setup</td><td><span class="cg">✔</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>Booking Calendar (GHL)</td><td><span class="cg">✔</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>SEO Foundation</td><td><span class="cn">—</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>30-Day Launch Roadmap</td><td><span class="cn">—</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>Professional Website</td><td><span class="cn">—</span></td><td class="col-h"><span class="cn">—</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>Lead Capture & Automation</td><td><span class="cg">Basic</span></td><td class="col-h"><span class="cn">—</span></td><td><span class="cy">✔ Full</span></td><td><span class="cy">✔ Advanced</span></td></tr>
+        <tr><td>Full GHL CRM Buildout</td><td><span class="cn">—</span></td><td class="col-h"><span class="cn">—</span></td><td><span class="cn">—</span></td><td><span class="cy">✔</span></td></tr>
+        <tr><td>ΛΛLIYΛH AI Automation</td><td><span class="cn">—</span></td><td class="col-h"><span class="cn">—</span></td><td><span class="cn">—</span></td><td><span class="cy">✔ Advanced</span></td></tr>
+        <tr><td>Rough Mockups — Same Day or Night</td><td><span class="cg">✔</span></td><td class="col-h"><span class="cy">✔</span></td><td><span class="cy">✔</span></td><td><span class="cy">✔</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- CONSULT CTA -->
+<section class="consult-section">
+  <div class="c-glow"></div>
+  <div class="container" style="position:relative;z-index:1;">
+    <h2>You're going to be <span class="teal">grateful</span><br>you did this first.</h2>
+    <p>The therapists who book out fast aren't the most skilled — they're the most visible, the most credible, and the easiest to book. Launch Essentials gives you all three. Your $97 deposit is what starts it. Book it and I'm immediately planning, sketching, and building your brand direction — rough mockups in various styles follow same day or night.</p>
+    <div class="value-row">
+      <div class="val-card"><div class="val-num">01</div><div class="val-title">$97 Deposit — Consultation</div><div class="val-body">The moment your $97 deposit is in, I'm already working. Your market, specialty, vision, and goals get mapped — and the build begins.</div></div>
+      <div class="val-card"><div class="val-num">02</div><div class="val-title">Rough Mockups — Same Day or Night</div><div class="val-body">Rough mockups in various styles delivered same day or night.</div></div>
+      <div class="val-card"><div class="val-num">03</div><div class="val-title">Everything Live Fast</div><div class="val-body">Branding, booking, presence — all active and live before your first client walks through the door.</div></div>
+    </div>
+    <a href="https://go.somasyncai.com" target="_blank" class="btn-teal" style="font-size:.9rem;padding:18px 48px;">Start My Launch — Book $97 Deposit</a>
+    <div style="margin-top:18px;font-size:.78rem;color:var(--dim);">$97 deposit · Work begins immediately upon booking · Flexible payment plan · somasyncai.com</div>
+  </div>
+</section>
+
+<div class="disclaimer"><strong>Disclaimer:</strong> SOMΛSYNC AI provides branding, website, and practice infrastructure services. We are not a healthcare provider and do not offer clinical, legal, or financial advice. Ellis Restorative Therapies case study reflects actual deliverables for that client. Results vary. All booking and automation features are built within GoHighLevel's platform capabilities. ΛΛLIYΛH features are limited to practice management functions. Payment plans are interest-free and subject to our <a href="https://go.somasyncai.com/terms">Terms & Conditions</a>. · <a href="https://go.somasyncai.com/privacy">Privacy Policy</a> · <a href="https://go.somasyncai.com/ai-disclaimer">AI Disclaimer</a></div>
+<footer>
+  <div class="f-logo">ΛΛLIYΛH+SOMΛSYNC AI™</div>
+  <div class="f-links">
+    <a href="../therapist-roadmap-ebook.html">← Roadmap</a>
+    <a href="founding-therapist.html">Founding</a>
+    <a href="growth.html">Growth</a>
+    <a href="elite.html">Elite</a>
+    <a href="retainer.html">Retainer</a>
+    <a href="https://somasyncai.com">somasyncai.com</a>
+  </div>
+  <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
+</footer>
+</body>
+</html>
