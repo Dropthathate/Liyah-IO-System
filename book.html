@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Book Your Consultation — ΛΛLIYΛH+SOMΛSYNC AI™</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a0f;--surface:#0b1118;--border:rgba(0,210,200,.12);--teal:#00d2c8;--gold:#c8a84b;--text:#e8edf2;--muted:#7a8a9a;--dim:#2a3a4a;--white:#fff;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,210,200,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,210,200,.025) 1px,transparent 1px);background-size:38px 38px;pointer-events:none;z-index:0;}
+.glow{position:fixed;top:10%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(0,210,200,.07) 0%,transparent 68%);pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,10,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,210,200,.12);}
+.nav-brand{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;color:var(--teal);text-decoration:none;text-transform:uppercase;}
+.nav-brand span{color:var(--muted);font-weight:400;}
+section{position:relative;z-index:1;}
+.page{max-width:640px;margin:0 auto;padding:110px 32px 80px;}
+@keyframes up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.f1{animation:up .5s ease both .05s;}.f2{animation:up .5s ease both .15s;}.f3{animation:up .5s ease both .25s;}.f4{animation:up .5s ease both .35s;}
+.eyebrow{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.22em;color:var(--teal);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.eyebrow::after{content:'';flex:1;height:1px;background:rgba(0,210,200,.2);}
+h1{font-family:'Syne',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.0;letter-spacing:-.02em;color:var(--white);margin-bottom:14px;}
+h1 .teal{color:var(--teal);}
+.sub{font-size:.92rem;color:var(--muted);line-height:1.75;margin-bottom:28px;}
+.sub strong{color:var(--text);font-weight:600;}
+.notice-bar{background:rgba(0,210,200,.05);border:1px solid rgba(0,210,200,.2);padding:14px 18px;font-size:.8rem;color:var(--muted);margin-bottom:28px;display:flex;gap:10px;align-items:flex-start;}
+.notice-bar strong{color:var(--text);}
+.slots-wrap{margin-bottom:28px;}
+.slots-day{margin-bottom:18px;}
+.slots-day-label{font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;color:var(--gold);text-transform:uppercase;margin-bottom:10px;}
+.slots-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.slot-btn{background:var(--surface);border:1px solid rgba(255,255,255,.08);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.8rem;padding:11px 8px;text-align:center;cursor:pointer;transition:all .15s;}
+.slot-btn:hover{border-color:rgba(0,210,200,.4);background:rgba(0,210,200,.06);}
+.slot-btn.selected{background:var(--teal);color:var(--bg);border-color:var(--teal);font-weight:600;}
+.slot-btn.taken{opacity:.25;cursor:not-allowed;text-decoration:line-through;}
+.loading-state, .empty-state{text-align:center;padding:40px 20px;color:var(--dim);font-size:.85rem;}
+.field{margin-bottom:14px;}
+.field label{display:block;font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase;margin-bottom:6px;}
+.field input,.field textarea,.field select{width:100%;background:var(--bg);border:1px solid rgba(0,210,200,.15);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.92rem;padding:13px 16px;outline:none;transition:border-color .2s;border-radius:0;-webkit-appearance:none;}
+.field textarea{resize:vertical;min-height:70px;font-family:'DM Sans',sans-serif;}
+.field input:focus,.field textarea:focus,.field select:focus{border-color:rgba(0,210,200,.45);}
+.field input::placeholder,.field textarea::placeholder{color:var(--dim);}
+.field select{cursor:pointer;}
+.field select option{background:var(--surface);color:var(--text);}
+.submit-btn{width:100%;font-family:'Syne',sans-serif;font-size:.88rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--teal);border:none;padding:18px 24px;cursor:pointer;margin-top:8px;transition:all .25s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);}
+.submit-btn:hover{background:#00f0e5;transform:translateY(-2px);box-shadow:0 12px 32px rgba(0,210,200,.25);}
+.submit-btn:disabled{opacity:.5;cursor:not-allowed;transform:none;}
+.form-note{font-size:.72rem;color:var(--dim);margin-top:14px;line-height:1.55;text-align:center;}
+.success-msg{display:none;text-align:center;padding:40px 24px;}
+.success-msg.show{display:block;}
+.success-icon{font-size:2rem;margin-bottom:16px;}
+.success-title{font-family:'Syne',sans-serif;font-size:1.2rem;font-weight:800;color:var(--teal);margin-bottom:8px;}
+.success-body{font-size:.88rem;color:var(--muted);line-height:1.7;}
+.error-msg{background:rgba(200,75,75,.08);border:1px solid rgba(200,75,75,.3);color:#e88;padding:12px 16px;font-size:.82rem;margin-bottom:16px;display:none;}
+.error-msg.show{display:block;}
+footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--bg);position:relative;z-index:1;}
+.f-brand{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:800;letter-spacing:.12em;color:var(--teal);}
+.f-copy{font-size:.68rem;color:var(--dim);}
+@media(max-width:600px){.page{padding:90px 20px 60px;}.slots-grid{grid-template-columns:repeat(2,1fr);}footer{flex-direction:column;text-align:center;}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<nav><a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a></nav>
+
+<section><div class="page">
+  <div class="eyebrow f1">Step Two — After Your Deposit</div>
+  <h1 class="f2">Book Your<br><span class="teal">Consultation Call</span></h1>
+  <p class="sub f3">30 minutes, one-on-one. We talk through your vision, confirm the right package, and map out your build. <strong>Bookings require at least 24 hours notice</strong> — pick whatever works for you below.</p>
+
+  <div class="notice-bar f3">
+    <span>◈</span>
+    <span>Calls are booked manually and one at a time — <strong>no overbooking, ever.</strong> Slots shown are genuinely open right now.</span>
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+
+  <div id="bookingForm">
+    <div class="slots-wrap" id="slotsWrap">
+      <div class="loading-state">Loading available times…</div>
+    </div>
+
+    <div id="detailsForm" style="display:none;">
+      <div class="field">
+        <label for="bname">Full Name</label>
+        <input type="text" id="bname" placeholder="Your name" required>
+      </div>
+      <div class="field">
+        <label for="bemail">Email Address</label>
+        <input type="email" id="bemail" placeholder="you@example.com" required>
+      </div>
+      <div class="field">
+        <label for="bphone">Phone (optional)</label>
+        <input type="tel" id="bphone" placeholder="(555) 555-5555">
+      </div>
+      <div class="field">
+        <label for="bpackage">Package You're Considering</label>
+        <select id="bpackage">
+          <option value="">Not sure yet</option>
+          <option value="Founding Therapist">Founding Therapist</option>
+          <option value="Launch Essentials">Launch Essentials</option>
+          <option value="Growth">Growth</option>
+          <option value="Elite">Elite</option>
+          <option value="Retainer">Retainer</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="bnotes">Anything you want me to know beforehand?</label>
+        <textarea id="bnotes" placeholder="Optional — your vision, questions, current setup..."></textarea>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="submitBooking(event)">Confirm My Consultation →</button>
+      <div class="form-note">You'll get an email confirmation immediately. A calendar invite follows separately.</div>
+    </div>
+  </div>
+
+  <div class="success-msg" id="successMsg">
+    <div class="success-icon">◈</div>
+    <div class="success-title">You're Booked</div>
+    <div class="success-body">Check your inbox for confirmation. Talk soon.</div>
+  </div>
+</div></section>
+
+<footer>
+  <div class="f-brand">ΛΛLIYΛH+SOMΛSYNC AI™</div>
+  <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
+</footer>
+
+<script>
+const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
+let selectedSlot = null;
+
+async function loadSlots() {
+  const wrap = document.getElementById('slotsWrap');
+  try {
+    const res = await fetch(SCRIPT_URL + '?action=getSlots');
+    const data = await res.json();
+
+    if (!data.success || !data.slots || data.slots.length === 0) {
+      wrap.innerHTML = '<div class="empty-state">No open slots right now — check back soon, or email drophategrx@gmail.com directly.</div>';
+      return;
+    }
+
+    const byDay = {};
+    data.slots.forEach(slot => {
+      const day = slot.label.split(' · ')[0];
+      if (!byDay[day]) byDay[day] = [];
+      byDay[day].push(slot);
+    });
+
+    let html = '';
+    for (const day in byDay) {
+      html += `<div class="slots-day"><div class="slots-day-label">${day}</div><div class="slots-grid">`;
+      byDay[day].forEach(slot => {
+        const time = slot.label.split(' · ')[1];
+        html += `<button class="slot-btn" data-start="${slot.start}" data-end="${slot.end}" data-label="${slot.label}" onclick="selectSlot(this)">${time}</button>`;
+      });
+      html += `</div></div>`;
+    }
+    wrap.innerHTML = html;
+  } catch (err) {
+    wrap.innerHTML = '<div class="empty-state">Couldn\\'t load times. Please refresh or email drophategrx@gmail.com directly.</div>';
+  }
+}
+
+function selectSlot(btn) {
+  document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  selectedSlot = {
+    start: btn.dataset.start,
+    end: btn.dataset.end,
+    label: btn.dataset.label
+  };
+  document.getElementById('detailsForm').style.display = 'block';
+  document.getElementById('detailsForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+async function submitBooking(e) {
+  e.preventDefault();
+  const errorMsg = document.getElementById('errorMsg');
+  errorMsg.classList.remove('show');
+
+  const name = document.getElementById('bname').value.trim();
+  const email = document.getElementById('bemail').value.trim();
+  const phone = document.getElementById('bphone').value.trim();
+  const pkg = document.getElementById('bpackage').value;
+  const notes = document.getElementById('bnotes').value.trim();
+
+  if (!selectedSlot) { errorMsg.textContent = 'Please select a time slot.'; errorMsg.classList.add('show'); return; }
+  if (!name || !email) { errorMsg.textContent = 'Name and email are required.'; errorMsg.classList.add('show'); return; }
+
+  const btn = document.getElementById('submitBtn');
+  btn.disabled = true;
+  btn.textContent = 'Booking...';
+
+  try {
+    const res = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action: 'bookSlot',
+        name, email, phone, notes, package: pkg,
+        start: selectedSlot.start, end: selectedSlot.end
+      })
+    });
+    const data = await res.json();
+
+    if (!data.success) {
+      errorMsg.textContent = data.error || 'That slot may already be taken. Please pick another.';
+      errorMsg.classList.add('show');
+      btn.disabled = false;
+      btn.textContent = 'Confirm My Consultation →';
+      loadSlots();
+      return;
+    }
+
+    document.getElementById('bookingForm').style.display = 'none';
+    document.getElementById('successMsg').classList.add('show');
+  } catch (err) {
+    errorMsg.textContent = 'Something went wrong. Please try again or email drophategrx@gmail.com.';
+    errorMsg.classList.add('show');
+    btn.disabled = false;
+    btn.textContent = 'Confirm My Consultation →';
+  }
+}
+
+loadSlots();
+</script>
+
+</body>
+</html>
