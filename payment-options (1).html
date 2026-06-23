@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Payment Flexibility — ΛΛLIYΛH+SOMΛSYNC AI™</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#060a0f;--surface:#0b1118;--border:rgba(0,210,200,.12);--teal:#00d2c8;--gold:#c8a84b;--text:#e8edf2;--muted:#7a8a9a;--dim:#2a3a4a;--white:#fff;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,210,200,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(0,210,200,.025) 1px,transparent 1px);background-size:38px 38px;pointer-events:none;z-index:0;}
+.glow{position:fixed;top:10%;left:50%;transform:translateX(-50%);width:700px;height:500px;background:radial-gradient(ellipse,rgba(0,210,200,.07) 0%,transparent 68%);pointer-events:none;z-index:0;}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:13px 28px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,10,15,.96);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,210,200,.12);}
+.nav-brand{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.14em;color:var(--teal);text-decoration:none;text-transform:uppercase;}
+.nav-brand span{color:var(--muted);font-weight:400;}
+.nav-links{display:flex;align-items:center;gap:4px;}
+.nav-links a{font-family:'Syne',sans-serif;font-size:.6rem;font-weight:700;letter-spacing:.1em;color:var(--muted);text-decoration:none;text-transform:uppercase;padding:6px 10px;transition:color .2s;}
+.nav-links a:hover,.nav-links a.active{color:var(--teal);}
+.nav-cta{color:var(--bg)!important;background:var(--teal);padding:8px 16px!important;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);font-weight:700!important;}
+.nav-toggle{display:none;background:none;border:1px solid rgba(0,210,200,.2);color:var(--teal);font-family:'Syne',sans-serif;font-size:.7rem;padding:7px 12px;cursor:pointer;letter-spacing:.1em;}
+section{position:relative;z-index:1;}
+.page{max-width:720px;margin:0 auto;padding:110px 32px 80px;}
+@keyframes up{from{opacity:0;transform:translateY(22px);}to{opacity:1;transform:translateY(0);}}
+.f1{animation:up .5s ease both .05s;}.f2{animation:up .5s ease both .15s;}.f3{animation:up .5s ease both .25s;}.f4{animation:up .5s ease both .35s;}.f5{animation:up .5s ease both .45s;}
+.eyebrow{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.22em;color:var(--teal);text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:12px;}
+.eyebrow::after{content:'';flex:1;height:1px;background:rgba(0,210,200,.2);}
+h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,6vw,3.6rem);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:var(--white);margin-bottom:16px;}
+h1 .teal{color:var(--teal);}
+.lead{font-size:1rem;color:var(--muted);line-height:1.85;margin-bottom:16px;}
+.lead strong{color:var(--text);font-weight:600;}
+.confidence-block{background:linear-gradient(135deg,rgba(0,210,200,.06),rgba(200,168,75,.03));border:1px solid rgba(0,210,200,.2);padding:28px 30px;margin:28px 0 36px;}
+.confidence-block p{font-size:1.02rem;color:var(--text);line-height:1.8;font-weight:500;}
+.confidence-block p strong{color:var(--teal);}
+.confidence-block p.gold strong{color:var(--gold);}
+
+.option-card{background:var(--surface);border:1px solid rgba(255,255,255,.06);padding:26px 28px;margin-bottom:18px;position:relative;}
+.option-card::before{content:'';position:absolute;top:0;left:0;bottom:0;width:3px;background:var(--teal);}
+.option-card.gold::before{background:var(--gold);}
+.option-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
+.option-card.gold .option-label{color:var(--gold);}
+.option-title{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:800;color:var(--white);margin-bottom:10px;}
+.option-body{font-size:.88rem;color:var(--muted);line-height:1.7;margin-bottom:14px;}
+.option-example{display:flex;align-items:center;gap:14px;background:rgba(0,210,200,.04);border:1px solid rgba(0,210,200,.15);padding:14px 18px;font-family:'Syne',sans-serif;font-size:.82rem;flex-wrap:wrap;}
+.option-card.gold .option-example{background:rgba(200,168,75,.04);border-color:rgba(200,168,75,.15);}
+.example-from{color:var(--dim);text-decoration:line-through;}
+.example-arrow{color:var(--teal);}
+.option-card.gold .example-arrow{color:var(--gold);}
+.example-to{color:var(--white);font-weight:700;}
+.example-tag{font-size:.66rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-left:auto;}
+
+.illustration-note{font-size:.74rem;color:var(--dim);line-height:1.6;margin-top:24px;margin-bottom:36px;font-style:italic;}
+
+.cta-btn{display:block;width:100%;font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:center;text-decoration:none;color:var(--bg);background:var(--teal);border:none;padding:20px 32px;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .25s;margin-bottom:12px;}
+.cta-btn:hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:0 14px 40px rgba(0,210,200,.28);}
+.cta-note{text-align:center;font-size:.75rem;color:var(--dim);line-height:1.6;margin-bottom:36px;}
+
+.divider{height:1px;background:linear-gradient(to right,transparent,rgba(0,210,200,.2),transparent);margin:32px 0;}
+.disclaimer{font-size:.72rem;color:var(--dim);line-height:1.7;padding-top:18px;border-top:1px solid rgba(255,255,255,.04);}
+.disclaimer a{color:var(--muted);}
+footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;background:var(--bg);position:relative;z-index:1;}
+.f-brand{font-family:'Syne',sans-serif;font-size:.76rem;font-weight:800;letter-spacing:.12em;color:var(--teal);}
+.f-links{display:flex;gap:18px;flex-wrap:wrap;}
+.f-links a{font-size:.7rem;color:var(--dim);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--teal);}
+.f-copy{font-size:.68rem;color:var(--dim);}
+@media(max-width:600px){.page{padding:90px 20px 60px;}.nav-links{display:none;}.nav-toggle{display:block;}.nav-links.open{display:flex;position:fixed;top:54px;left:0;right:0;background:rgba(6,10,15,.98);border-bottom:1px solid rgba(0,210,200,.12);padding:10px 20px;flex-direction:column;gap:2px;}.nav-links.open a{width:100%;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.04);}.option-example{flex-direction:column;align-items:flex-start;gap:6px;}.example-tag{margin-left:0;}footer{flex-direction:column;text-align:center;}}
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<nav>
+  <a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
+  <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
+  <div class="nav-links" id="nl">
+    <a href="/founding.html">Founding</a>
+    <a href="/launch.html">Launch</a>
+    <a href="/growth.html">Growth</a>
+    <a href="/elite.html">Elite</a>
+    <a href="/retainer.html">Retainer</a>
+    <a href="/deposit.html" class="nav-cta">$97 Deposit →</a>
+  </div>
+</nav>
+
+<section><div class="page">
+  <div class="eyebrow f1">Money Shouldn't Be The Wall</div>
+  <h1 class="f2">Your certification got you here.<br><span class="teal">Let's make sure finances don't stop you.</span></h1>
+  <p class="lead f3">You already did the hard part — the hours, the hands-on training, the certification. That's what actually sets you apart in this field. <strong>This build is the other half: the system that lets the world find you and book you with confidence.</strong> If the standard payment structure doesn't fit your situation right now, it shouldn't be the reason you wait.</p>
+
+  <div class="confidence-block f3">
+    <p>Don't end up last in a search result with no website, no booking system, and no way for new clients to find you. <strong>Let's set you apart</strong>, build a name people remember, and get your custom booking system running — <span class="gold"><strong>today</strong></span>, not "someday."</p>
+  </div>
+
+  <div class="eyebrow f4">Flexibility, Illustrated</div>
+  <p class="lead f4" style="margin-bottom:24px;">Every situation is different, so every adjustment is <strong>case-by-case</strong> — these are examples of the kind of flexibility that's possible, not fixed offers. The starting point is always a conversation.</p>
+
+  <div class="option-card f4">
+    <div class="option-label">Option — Split Deposit</div>
+    <div class="option-title">Break the $97 deposit in half</div>
+    <div class="option-body">If even the deposit is tight right now, it can be split into two smaller payments instead of one upfront charge — same deliverables, same timeline, easier on your cash flow this week.</div>
+    <div class="option-example">
+      <span class="example-from">$97 once</span>
+      <span class="example-arrow">→</span>
+      <span class="example-to">2 × $48.50</span>
+      <span class="example-tag">Illustration Only</span>
+    </div>
+  </div>
+
+  <div class="option-card f4">
+    <div class="option-label">Option — Extended Timeline</div>
+    <div class="option-title">Stretch 3 payments into 6</div>
+    <div class="option-body">Packages like Launch or Growth are normally structured as 3 monthly payments after your down payment. If that's too steep month-to-month, the same total can stretch across 6 smaller payments instead — same build, lighter monthly load.</div>
+    <div class="option-example">
+      <span class="example-from">3 × $208</span>
+      <span class="example-arrow">→</span>
+      <span class="example-to">6 × $104</span>
+      <span class="example-tag">Illustration Only</span>
+    </div>
+  </div>
+
+  <div class="option-card gold f4">
+    <div class="option-label">Option — Referral Path</div>
+    <div class="option-title">Bring a referral, cut your balance</div>
+    <div class="option-body">Know another practitioner who could use this same system? If you refer them and they book, <strong>your remaining payments can be cut in half</strong> — a real thank-you for helping grow the same network you're now part of.</div>
+    <div class="option-example">
+      <span class="example-from">Remaining balance</span>
+      <span class="example-arrow">→</span>
+      <span class="example-to">50% off w/ referral</span>
+      <span class="example-tag">Illustration Only</span>
+    </div>
+  </div>
+
+  <div class="illustration-note">These are examples to show what kind of flexibility is possible — not a menu to pick from or a guaranteed discount. The actual arrangement depends on your specific situation and is worked out directly, one conversation at a time.</div>
+
+  <a href="/book.html" class="cta-btn f5">Let's Talk About What Works For You →</a>
+  <div class="cta-note">No pressure, no obligation — just an honest conversation about what fits your situation.</div>
+
+  <div class="divider"></div>
+
+  <div class="disclaimer">Payment flexibility is offered at SomaSync AI's sole discretion on a case-by-case basis and is not guaranteed for every client or package. Examples shown are illustrative only and do not constitute a binding offer. Final terms are confirmed directly between you and SomaSync AI before any payment plan begins. <a href="/terms.html">Terms</a> · <a href="/privacy.html">Privacy</a> · <a href="/ai-disclaimer.html">AI Disclaimer</a></div>
+</div></section>
+
+<footer>
+  <div class="f-brand">ΛΛLIYΛH+SOMΛSYNC AI™</div>
+  <div class="f-links"><a href="https://somasyncai.com">somasyncai.com</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/ai-disclaimer.html">AI Disclaimer</a></div>
+  <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
+</footer>
+</body></html>
