@@ -38,6 +38,9 @@ h1 .gold{color:var(--gold);}
 .features li{background:var(--surface);border:1px solid rgba(255,255,255,.04);padding:13px 16px;font-size:.83rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start;transition:border-color .2s;}
 .features li:hover{border-color:rgba(200,168,75,.2);}
 .features li::before{content:'✔';color:var(--gold);font-size:.72rem;margin-top:2px;flex-shrink:0;}
+.f-content{display:flex;flex-direction:column;gap:3px;}
+.f-title{color:var(--text);font-size:.83rem;font-weight:600;}
+.f-sub{color:var(--muted);font-size:.74rem;line-height:1.5;font-weight:400;}
 .deposit-box{background:rgba(200,168,75,.05);border:1px solid rgba(200,168,75,.2);padding:28px;margin:8px 0 28px;position:relative;overflow:hidden;}
 .deposit-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--gold),transparent);}
 .deposit-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;margin-bottom:8px;}
@@ -94,14 +97,14 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   <p class="tagline f3">The entry point for therapists who are <strong>just getting started</strong> and want to skip the 6-month guessing game. Professional branding, online presence, booking system, and basic automation — without a large upfront commitment.</p>
 
   <ul class="features f4">
-    <li>Professional Brand Identity</li>
-    <li>Website Setup (3–5 pages)</li>
-    <li>Online Booking System</li>
-    <li>Automated Appointment Reminders</li>
-    <li>Google Business Profile Setup</li>
-    <li>Basic Lead Capture Form</li>
-    <li>Founding Rate — Locked for Life</li>
-    <li>Early Access to ΛΛLIYΛH Platform</li>
+    <li><div class="f-content"><span class="f-title">Professional Brand Identity</span><span class="f-sub">Your own logo, colors, and fonts, designed to look like a real practice.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Website Setup (3–5 pages)</span><span class="f-sub">A live site with your services, your story, and a way for clients to reach you.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Online Booking System</span><span class="f-sub">Clients book themselves, day or night, without a single phone call.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Automated Appointment Reminders</span><span class="f-sub">Clients get a text or email before their session, so no-shows drop on their own.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Google Business Profile Setup</span><span class="f-sub">You show up when someone searches "massage therapist near me."</span></div></li>
+    <li><div class="f-content"><span class="f-title">Basic Lead Capture Form</span><span class="f-sub">Anyone curious about your services can leave their info instead of just leaving the page.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Founding Rate — Locked for Life</span><span class="f-sub">Whatever you pay now is what you pay forever, even if prices go up later.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Early Access to ΛΛLIYΛH Platform</span><span class="f-sub">First in line for new tools as they roll out, before anyone else gets them.</span></div></li>
   </ul>
 
   <div class="deposit-box f4">

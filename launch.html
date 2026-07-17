@@ -39,6 +39,9 @@ h1 .teal{color:var(--teal);}
 .features li{background:var(--surface);border:1px solid rgba(255,255,255,.04);padding:13px 16px;font-size:.83rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start;transition:border-color .2s;}
 .features li:hover{border-color:rgba(0,210,200,.2);}
 .features li::before{content:'✔';color:var(--teal);font-size:.72rem;margin-top:2px;flex-shrink:0;}
+.f-content{display:flex;flex-direction:column;gap:3px;}
+.f-title{color:var(--text);font-size:.83rem;font-weight:600;}
+.f-sub{color:var(--muted);font-size:.74rem;line-height:1.5;font-weight:400;}
 .deposit-box{background:rgba(0,210,200,.05);border:1px solid rgba(0,210,200,.2);padding:28px;margin:8px 0 28px;position:relative;overflow:hidden;}
 .deposit-box::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--teal),transparent);}
 .deposit-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.2em;color:var(--teal);text-transform:uppercase;margin-bottom:8px;}
@@ -114,16 +117,16 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   </div>
 
   <ul class="features f4">
-    <li>Full Brand Identity System</li>
-    <li>5–7 Page Website</li>
-    <li>Automated Booking + Reminders</li>
-    <li>Email Capture + Welcome Sequence</li>
-    <li>Lead Pipeline Setup</li>
-    <li>Google Business Profile</li>
-    <li>Basic Local SEO Foundation</li>
-    <li>30-Day Launch Protocol</li>
-    <li>Social Profile Setup</li>
-    <li>Client Intake Form</li>
+    <li><div class="f-content"><span class="f-title">Full Brand Identity System</span><span class="f-sub">Logo, colors, fonts, and templates that stay consistent everywhere — site, cards, social.</span></div></li>
+    <li><div class="f-content"><span class="f-title">5–7 Page Website</span><span class="f-sub">Room for a real services menu, an about page, testimonials, and more than just a homepage.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Automated Booking + Reminders</span><span class="f-sub">Booking and reminders run themselves — you just show up for the appointment.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Email Capture + Welcome Sequence</span><span class="f-sub">New leads automatically get a friendly intro email instead of silence.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Lead Pipeline Setup</span><span class="f-sub">Every inquiry lands in one place, so nobody who asks about pricing falls through the cracks.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Google Business Profile</span><span class="f-sub">Set up and live so people can find you and leave reviews from day one.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Basic Local SEO Foundation</span><span class="f-sub">Your site is set up so Google can actually find and recommend it to nearby clients.</span></div></li>
+    <li><div class="f-content"><span class="f-title">30-Day Launch Protocol</span><span class="f-sub">A step-by-step plan for your first month, so you're not guessing what to do next.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Social Profile Setup</span><span class="f-sub">Your Instagram/Facebook presence matches your brand instead of looking thrown together.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Client Intake Form</span><span class="f-sub">New clients fill out health history and consent online before they ever walk in.</span></div></li>
   </ul>
 
   <div class="deposit-box f4">

@@ -42,6 +42,9 @@ h1 .teal{color:var(--teal);}
 .features li{background:var(--surface);border:1px solid rgba(255,255,255,.04);padding:13px 16px;font-size:.83rem;color:var(--muted);display:flex;gap:10px;align-items:flex-start;transition:border-color .2s;}
 .features li:hover{border-color:rgba(0,210,200,.2);}
 .features li::before{content:'✔';color:var(--teal);font-size:.72rem;margin-top:2px;flex-shrink:0;}
+.f-content{display:flex;flex-direction:column;gap:3px;}
+.f-title{color:var(--text);font-size:.83rem;font-weight:600;}
+.f-sub{color:var(--muted);font-size:.74rem;line-height:1.5;font-weight:400;}
 .not-included{margin-bottom:28px;}
 .ni-label{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.16em;color:var(--dim);text-transform:uppercase;margin-bottom:10px;}
 .ni-list{list-style:none;font-size:.82rem;color:var(--dim);line-height:1.8;}
@@ -79,7 +82,7 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   <div class="pkg-tag f1">Retainer · Already Built · Ongoing Support Only</div>
   <h1 class="f2">Already have<br>a brand? <span class="teal">Keep it<br>running.</span></h1>
   <div class="price-block f3">
-    <div class="price-main">$20 / Month</div>
+    <div class="price-main">$35 / Month</div>
     <div class="price-note">Consultation required to lock in scope · Secure checkout via Stripe</div>
   </div>
   <p class="tagline f3">For practitioners who already have a brand and website — built by ΛΛLIYΛH+SOMΛSYNC AI™ or elsewhere — and just want light ongoing support to keep things running smoothly without a big monthly commitment.</p>
@@ -90,12 +93,12 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   </div>
 
   <ul class="features f4">
-    <li>Monthly Site Health Check</li>
-    <li>Booking System Monitoring</li>
-    <li>Small Content/Copy Updates</li>
-    <li>Minor Bug Fixes</li>
-    <li>Google Business Profile Check-ins</li>
-    <li>Priority Email Support</li>
+    <li><div class="f-content"><span class="f-title">Monthly Site Health Check</span><span class="f-sub">Someone checks your site is up, fast, and working correctly every month.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Booking System Monitoring</span><span class="f-sub">Your booking system is watched for glitches before they cost you a client.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Small Content/Copy Updates</span><span class="f-sub">Need a price or a paragraph changed? It gets done without a separate invoice.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Minor Bug Fixes</span><span class="f-sub">Small things that break — a broken link, a form glitch — get fixed quickly.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Google Business Profile Check-ins</span><span class="f-sub">Your profile is checked periodically to make sure it's still accurate and active.</span></div></li>
+    <li><div class="f-content"><span class="f-title">Priority Email Support</span><span class="f-sub">Your emails get answered ahead of non-retainer clients.</span></div></li>
   </ul>
 
   <div class="not-included f4">
@@ -109,7 +112,7 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   </div>
 
   <a href="https://buy.stripe.com/9B63cwaX06DXaPTeRP5wI00" class="cta-btn f5">Lock in $97 Deposit & Book Call →</a>
-  <div class="cta-note">Your $97 deposit secures your consultation to map out the exact scope of your $20/mo retainer.</div>
+  <div class="cta-note">Your $97 deposit secures your consultation to map out the exact scope of your $35/mo retainer.</div>
 
   <div class="divider"></div>
 
