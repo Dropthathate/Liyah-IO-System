@@ -145,4 +145,135 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   <div class="f-links"><a href="https://somasyncai.com">somasyncai.com</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/ai-disclaimer.html">AI Disclaimer</a></div>
   <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
 </footer>
+<!-- ============================================= -->
+<!-- ΛΛLIYΛH AI Chat Widget — paste this block right -->
+<!-- before the closing </body> tag on any page you -->
+<!-- want the chat bubble to appear on.             -->
+<!-- ============================================= -->
+<style>
+#aal-chat-bubble{position:fixed;bottom:24px;right:24px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,#00d2c8,#00a89f);display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 8px 24px rgba(0,210,200,.35);z-index:9999;transition:transform .2s;font-size:26px;}
+#aal-chat-bubble:hover{transform:scale(1.06);}
+#aal-chat-panel{position:fixed;bottom:96px;right:24px;width:340px;max-width:calc(100vw - 32px);height:460px;max-height:calc(100vh - 140px);background:#0b1118;border:1px solid rgba(0,210,200,.25);border-radius:12px;box-shadow:0 20px 60px rgba(0,0,0,.5);display:none;flex-direction:column;overflow:hidden;z-index:9999;font-family:'DM Sans',sans-serif;}
+#aal-chat-panel.open{display:flex;}
+#aal-chat-header{background:#060a0f;padding:14px 16px;border-bottom:1px solid rgba(0,210,200,.15);display:flex;align-items:center;justify-content:space-between;}
+#aal-chat-header .title{font-family:'Syne',sans-serif;font-size:.78rem;font-weight:800;letter-spacing:.08em;color:#00d2c8;text-transform:uppercase;}
+#aal-chat-header .sub{font-size:.68rem;color:#7a8a9a;margin-top:2px;}
+#aal-chat-close{cursor:pointer;color:#7a8a9a;font-size:1.1rem;background:none;border:none;}
+#aal-chat-messages{flex:1;overflow-y:auto;padding:14px 16px;display:flex;flex-direction:column;gap:10px;}
+.aal-msg{font-size:.83rem;line-height:1.55;padding:9px 12px;border-radius:8px;max-width:85%;}
+.aal-msg.bot{background:rgba(0,210,200,.08);color:#e8edf2;align-self:flex-start;border:1px solid rgba(0,210,200,.15);}
+.aal-msg.user{background:#c8a84b;color:#060a0f;align-self:flex-end;font-weight:500;}
+#aal-chat-lead{padding:10px 16px;border-top:1px solid rgba(255,255,255,.06);display:none;gap:6px;flex-direction:column;}
+#aal-chat-lead.show{display:flex;}
+#aal-chat-lead input{background:#060a0f;border:1px solid rgba(0,210,200,.2);color:#e8edf2;font-size:.8rem;padding:8px 10px;border-radius:6px;outline:none;}
+#aal-chat-lead button{background:#c8a84b;color:#060a0f;border:none;font-family:'Syne',sans-serif;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px;border-radius:6px;cursor:pointer;margin-top:2px;}
+#aal-chat-input-row{display:flex;border-top:1px solid rgba(255,255,255,.06);padding:10px;gap:8px;}
+#aal-chat-input{flex:1;background:#060a0f;border:1px solid rgba(0,210,200,.2);color:#e8edf2;font-size:.83rem;padding:9px 12px;border-radius:8px;outline:none;}
+#aal-chat-send{background:#00d2c8;border:none;color:#060a0f;width:38px;border-radius:8px;cursor:pointer;font-size:1rem;flex-shrink:0;}
+#aal-chat-typing{font-size:.75rem;color:#7a8a9a;padding:0 16px 8px;display:none;}
+</style>
+
+<div id="aal-chat-bubble" onclick="aalToggleChat()">💬</div>
+
+<div id="aal-chat-panel">
+  <div id="aal-chat-header">
+    <div>
+      <div class="title">ΛΛLIYΛH Assistant</div>
+      <div class="sub">Ask about packages & pricing</div>
+    </div>
+    <button id="aal-chat-close" onclick="aalToggleChat()">✕</button>
+  </div>
+  <div id="aal-chat-messages">
+    <div class="aal-msg bot">Hey! I can answer questions about Founding, Launch, Growth, Elite, or Retainer — or just tell me what you're looking for and I'll point you the right way.</div>
+  </div>
+  <div id="aal-chat-typing">typing…</div>
+  <div id="aal-chat-lead">
+    <input type="text" id="aal-lead-name" placeholder="Your name">
+    <input type="email" id="aal-lead-email" placeholder="Your email">
+    <button onclick="aalSubmitLead()">Send my info — have someone reach out</button>
+  </div>
+  <div id="aal-chat-input-row">
+    <input type="text" id="aal-chat-input" placeholder="Type a question…" onkeydown="if(event.key==='Enter')aalSendMessage()">
+    <button id="aal-chat-send" onclick="aalSendMessage()">→</button>
+  </div>
+</div>
+
+<script>
+// ⚠️ SETUP REQUIRED — see chat-widget-SETUP.md for the two things you need to fill in:
+// 1. Deploy api/chat.js to Vercel (this widget calls it at /api/chat)
+// 2. Set AAL_LEAD_URL below to your existing Google Apps Script leads endpoint
+//    (the same one used in roadmap.html / book.html)
+const AAL_LEAD_URL = 'https://script.google.com/macros/s/AKfycbx4UEtWIfzW63X3DNj7f19ROw4GgQoDufOqjTZdIZlTY6JWuVTURtrDGQSVKOAN7MUxzw/exec';
+
+let aalHistory = [];
+let aalLeadShown = false;
+
+function aalToggleChat(){
+  document.getElementById('aal-chat-panel').classList.toggle('open');
+}
+
+async function aalSendMessage(){
+  const input = document.getElementById('aal-chat-input');
+  const text = input.value.trim();
+  if(!text) return;
+  aalAddMessage(text, 'user');
+  input.value = '';
+  aalHistory.push({role:'user', content:text});
+  document.getElementById('aal-chat-typing').style.display = 'block';
+
+  try{
+    const res = await fetch('/api/chat', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({messages: aalHistory})
+    });
+    const data = await res.json();
+    const reply = data?.content?.find(b => b.type === 'text')?.text || "Sorry, I didn't catch that — try asking again.";
+    aalAddMessage(reply, 'bot');
+    aalHistory.push({role:'assistant', content:reply});
+  }catch(err){
+    aalAddMessage("I'm having trouble connecting right now — leave your info below and we'll follow up directly.", 'bot');
+  }
+  document.getElementById('aal-chat-typing').style.display = 'none';
+
+  // After 3 user messages, surface the lead capture form
+  const userMsgCount = aalHistory.filter(m => m.role === 'user').length;
+  if(userMsgCount >= 3 && !aalLeadShown){
+    document.getElementById('aal-chat-lead').classList.add('show');
+    aalLeadShown = true;
+  }
+}
+
+function aalAddMessage(text, sender){
+  const wrap = document.getElementById('aal-chat-messages');
+  const div = document.createElement('div');
+  div.className = 'aal-msg ' + sender;
+  div.textContent = text;
+  wrap.appendChild(div);
+  wrap.scrollTop = wrap.scrollHeight;
+}
+
+async function aalSubmitLead(){
+  const name = document.getElementById('aal-lead-name').value.trim();
+  const email = document.getElementById('aal-lead-email').value.trim();
+  if(!name || !email){ alert('Please enter your name and email.'); return; }
+
+  try{
+    await fetch(AAL_LEAD_URL, {
+      method:'POST',
+      mode:'no-cors',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({
+        fname: name,
+        email: email,
+        source: 'aaliyah-chat-widget',
+        chatTranscript: JSON.stringify(aalHistory),
+        timestamp: new Date().toISOString()
+      })
+    });
+  }catch(err){ /* fail silently, no-cors */ }
+
+  document.getElementById('aal-chat-lead').innerHTML = '<div style="color:#00d2c8;font-size:.8rem;text-align:center;padding:6px 0;">Got it — we\'ll reach out soon. 🎉</div>';
+}
+</script>
 </body></html>
