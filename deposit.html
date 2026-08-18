@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* Clinical Signal: preserve the live funnel’s dark editorial system; package selection remains explicit through the payment transition. */
 :root{--bg:#060a0f;--surface:#0b1118;--border:rgba(0,210,200,.12);--teal:#00d2c8;--gold:#c8a84b;--text:#e8edf2;--muted:#7a8a9a;--dim:#2a3a4a;--white:#fff;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
@@ -42,6 +43,7 @@ h1 .teal{color:var(--teal);}
 .pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:28px;}
 .pkg-card{background:var(--surface);border:1px solid rgba(255,255,255,.05);padding:18px 20px;cursor:pointer;transition:border-color .2s;text-decoration:none;display:block;}
 .pkg-card:hover{border-color:rgba(0,210,200,.25);}
+.pkg-card.selected{background:rgba(0,210,200,.075);border-color:rgba(0,210,200,.55);box-shadow:inset 3px 0 0 var(--teal);}
 .pc-tag{font-family:'Syne',sans-serif;font-size:.55rem;font-weight:700;letter-spacing:.16em;color:var(--teal);text-transform:uppercase;margin-bottom:6px;}
 .pc-name{font-family:'Syne',sans-serif;font-size:.92rem;font-weight:800;color:var(--white);margin-bottom:4px;}
 .pc-price{font-size:.8rem;color:var(--muted);}
@@ -49,6 +51,9 @@ h1 .teal{color:var(--teal);}
 .cta-btn{display:block;width:100%;font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;text-align:center;text-decoration:none;color:var(--bg);background:var(--teal);border:none;padding:20px 32px;cursor:pointer;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);transition:all .25s;margin-bottom:12px;}
 .cta-btn:hover{filter:brightness(1.12);transform:translateY(-2px);box-shadow:0 14px 40px rgba(0,210,200,.28);}
 .cta-note{text-align:center;font-size:.73rem;color:var(--dim);line-height:1.65;}
+.selection-note{display:none;margin:-14px 0 20px;padding:12px 14px;border-left:2px solid var(--teal);background:rgba(0,210,200,.055);font-size:.78rem;color:var(--muted);line-height:1.55;}
+.selection-note.show{display:block;}
+.selection-note strong{color:var(--text);}
 .divider{height:1px;background:linear-gradient(to right,transparent,rgba(0,210,200,.2),transparent);margin:28px 0;}
 .steps{display:flex;flex-direction:column;gap:2px;margin-bottom:24px;}
 .step{display:grid;grid-template-columns:40px 1fr;gap:14px;background:var(--surface);border:1px solid rgba(255,255,255,.04);padding:16px 18px;}
@@ -84,7 +89,7 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
 <section><div class="page">
   <div class="eyebrow f1">Start Here</div>
   <h1 class="f2">One deposit.<br><span class="teal">Your brand</span><br>locked in.</h1>
-  <p class="sub f3">This isn't just a fee — it guarantees your build slot and locks in your <strong>custom logo, brand colors, professional headshot, and a live Google Business Profile</strong> immediately. Credited toward your package. Zero risk.</p>
+  <p class="sub f3">This deposit reserves your build slot and locks in your <strong>custom logo, brand colors, professional headshot, and a live Google Business Profile</strong>. It is credited toward your selected package; review the <a href="/terms.html" style="color:var(--teal);">Terms</a> before checkout.</p>
 
   <div class="deposit-hero f3">
     <div class="dh-label">Your Deposit Amount</div>
@@ -92,37 +97,38 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
     <div class="dh-note"><strong>Guarantees your HQ custom logo (full copyright transferred to you), brand color + font system, professional in-studio headshot, and a live Google Business Profile</strong> under your chosen name. 100% credited toward your chosen package.</div>
   </div>
 
-  <div class="wh-label f4">Choose Your Package Direction</div>
+  <div class="wh-label f4" id="package-selection">Choose Your Package Direction</div>
   <div class="pkg-grid f4">
-    <a href="/founding.html" class="pkg-card">
+    <a href="/deposit.html?package=founding" class="pkg-card" data-package="founding">
       <div class="pc-tag">Founding</div>
       <div class="pc-name">Founding Therapist</div>
       <div class="pc-price"><strong>$138</strong> setup + <strong>$68</strong>/mo</div>
     </a>
-    <a href="/launch.html" class="pkg-card">
+    <a href="/deposit.html?package=launch" class="pkg-card" data-package="launch">
       <div class="pc-tag">Launch</div>
       <div class="pc-name">Launch Essentials</div>
       <div class="pc-price"><strong>$208</strong> down + 3×<strong>$138</strong></div>
     </a>
-    <a href="/growth.html" class="pkg-card">
+    <a href="/deposit.html?package=growth" class="pkg-card" data-package="growth">
       <div class="pc-tag">Growth</div>
       <div class="pc-name">Growth Package</div>
       <div class="pc-price"><strong>$348</strong> down + 3×<strong>$208</strong></div>
     </a>
-    <a href="/elite.html" class="pkg-card">
+    <a href="/deposit.html?package=elite" class="pkg-card" data-package="elite">
       <div class="pc-tag">Elite</div>
       <div class="pc-name">Elite Package</div>
       <div class="pc-price"><strong>$698</strong> down + <strong>$208</strong>/mo</div>
     </a>
   </div>
-  <a href="/retainer.html" class="pkg-card" style="margin-bottom:28px;display:block;">
+  <a href="/deposit.html?package=retainer" class="pkg-card" data-package="retainer" style="margin-bottom:28px;display:block;">
     <div class="pc-tag">Retainer</div>
     <div class="pc-name">Ongoing Retainer — Already Have a Brand?</div>
-    <div class="pc-price"><strong>$20</strong>/month</div>
+    <div class="pc-price"><strong>$35</strong>/month</div>
   </a>
 
-  <a href="https://buy.stripe.com/9B63cwaX06DXaPTeRP5wI00" class="cta-btn f5">Leave My $97 Deposit — Start Now →</a>
-  <div class="cta-note">Secure checkout via Stripe · $97 credited toward your package · Work begins immediately</div>
+  <div class="selection-note" id="selectionNote" role="status" aria-live="polite"></div>
+  <a href="#package-selection" id="checkoutLink" class="cta-btn f5">Choose Your Package to Continue →</a>
+  <div class="cta-note" id="checkoutNote">Select a package first so your $97 deposit is recorded with the right build path.</div>
 
   <div class="divider"></div>
 
@@ -141,4 +147,27 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
   <div class="f-links"><a href="https://somasyncai.com">somasyncai.com</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/ai-disclaimer.html">AI Disclaimer</a></div>
   <div class="f-copy">© 2025 SomaSync AI · DropTheHate™ Network</div>
 </footer>
+<script>
+  const PACKAGE_OPTIONS = {
+    founding: 'Founding Therapist',
+    launch: 'Launch Essentials',
+    growth: 'Growth Package',
+    elite: 'Elite Package',
+    retainer: 'Ongoing Retainer'
+  };
+  const selectedPackage = new URLSearchParams(window.location.search).get('package');
+  const checkoutLink = document.getElementById('checkoutLink');
+  const selectionNote = document.getElementById('selectionNote');
+  const checkoutNote = document.getElementById('checkoutNote');
+
+  if (selectedPackage && PACKAGE_OPTIONS[selectedPackage]) {
+    const packageName = PACKAGE_OPTIONS[selectedPackage];
+    document.querySelector(`[data-package="${selectedPackage}"]`)?.classList.add('selected');
+    selectionNote.innerHTML = `Selected path: <strong>${packageName}</strong>. Your deposit will carry this selection into checkout.`;
+    selectionNote.classList.add('show');
+    checkoutLink.href = `https://buy.stripe.com/9B63cwaX06DXaPTeRP5wI00?client_reference_id=${encodeURIComponent(selectedPackage)}`;
+    checkoutLink.textContent = `Leave My $97 Deposit — Start My ${packageName} →`;
+    checkoutNote.textContent = `Secure checkout via Stripe · $97 credited toward ${packageName} · Your selected path is recorded with this checkout.`;
+  }
+</script>
 </body></html>
