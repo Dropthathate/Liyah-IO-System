@@ -12,6 +12,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
+/* Clinical Signal: preserve the live funnel’s dark editorial system; form status must reflect the confirmed lead handoff. */
 :root {
   --bg: #060a0f;
   --surface: #0b1118;
@@ -428,6 +429,7 @@ h1 .teal { color: var(--teal); }
   text-align: center;
 }
 .form-note a { color: var(--muted); }
+.form-error { min-height: 1.35rem; color: #ff9f9f; font-size: .76rem; line-height: 1.45; margin: 0 0 10px; }
 .success-msg {
   display: none;
   text-align: center;
@@ -659,7 +661,7 @@ footer {
   <div class="form-wrap" id="formWrap">
     <div id="theForm">
       <div class="form-title">Get Instant Access — It's Free</div>
-      <div class="form-sub">Enter your info below and the guide lands in your inbox immediately. No spam, no pitch — just the playbook.</div>
+      <div class="form-sub">Enter your info below and we’ll send the guide to your inbox. No spam, no pitch — just the playbook.</div>
 
       <div class="field">
         <label for="fname">First Name</label>
@@ -680,6 +682,7 @@ footer {
         </select>
       </div>
 
+      <div class="form-error" id="formError" role="alert" aria-live="assertive"></div>
       <button class="submit-btn" id="submitBtn" onclick="handleSubmit(event)">Send Me The ΛΛLIYΛH Roadmap →</button>
       <div class="form-note">
         No spam. No pitch. Just the guide. Unsubscribe anytime.<br>
@@ -689,9 +692,9 @@ footer {
 
     <div class="success-msg" id="successMsg">
       <div class="success-icon">◈</div>
-      <div class="success-title">You're In — Check Your Inbox</div>
+      <div class="success-title">Request Received — Check Your Inbox</div>
       <div class="success-body">
-        The ΛΛLIYΛH Roadmap is on its way to your inbox right now.<br><br>
+        We received your request for the ΛΛLIYΛH Roadmap. Check your inbox shortly; if it does not arrive, please contact us directly.<br><br>
         While you're here — ready to build the actual system?<br>
         <a href="/deposit.html" style="color:var(--teal);font-weight:600;">Leave your $97 deposit and we start today →</a>
       </div>
@@ -724,9 +727,12 @@ async function handleSubmit(e) {
   const email = document.getElementById('email').value.trim();
   const stage = document.getElementById('stage').value;
   const btn = document.getElementById('submitBtn');
+  const formError = document.getElementById('formError');
+
+  formError.textContent = '';
 
   if (!fname || !email || !stage) {
-    alert('Please fill in all fields.');
+    formError.textContent = 'Please fill in all fields.';
     return;
   }
 
@@ -734,18 +740,21 @@ async function handleSubmit(e) {
   btn.textContent = 'Sending...';
 
   try {
-    await fetch('YOUR_APPS_SCRIPT_URL', {
+    const res = await fetch('/api/lead', {
       method: 'POST',
-      mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ fname, email, stage, source: 'aaliyah-roadmap', timestamp: new Date().toISOString() })
+      body: JSON.stringify({ fname, email, stage })
     });
-  } catch(err) {
-    console.log('Submission logged.');
-  }
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok || !data.success) throw new Error(data.error || 'We could not save your request.');
 
-  document.getElementById('theForm').style.display = 'none';
-  document.getElementById('successMsg').classList.add('show');
+    document.getElementById('theForm').style.display = 'none';
+    document.getElementById('successMsg').classList.add('show');
+  } catch(err) {
+    formError.textContent = err.message || 'Something went wrong. Please try again in a moment.';
+    btn.disabled = false;
+    btn.textContent = 'Send Me The ΛΛLIYΛH Roadmap →';
+  }
 }
 </script>
 

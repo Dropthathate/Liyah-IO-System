@@ -11,6 +11,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
+/* Clinical Signal: preserve the dark editorial booking step while exposing a truthful consultation-request handoff. */
 :root{--bg:#060a0f;--surface:#0b1118;--border:rgba(0,210,200,.12);--teal:#00d2c8;--gold:#c8a84b;--text:#e8edf2;--muted:#7a8a9a;--dim:#2a3a4a;--white:#fff;}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6;}
@@ -72,21 +73,17 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
 <section><div class="page">
   <div class="eyebrow f1">Step Two — After Your Deposit</div>
   <h1 class="f2">Book Your<br><span class="teal">Consultation Call</span></h1>
-  <p class="sub f3">30 minutes, one-on-one. We talk through your vision, confirm the right package, and map out your build. <strong>Bookings require at least 24 hours notice</strong> — pick whatever works for you below.</p>
+  <p class="sub f3">30 minutes, one-on-one. We talk through your vision, confirm the right package, and map out your build. Send your details below and we will email available consultation times.</p>
 
   <div class="notice-bar f3">
     <span>◈</span>
-    <span>Calls are booked manually and one at a time — <strong>no overbooking, ever.</strong> Slots shown are genuinely open right now.</span>
+    <span>Calls are scheduled manually and one at a time. <strong>Your request is not a confirmed appointment</strong> until you receive an email with a time.</span>
   </div>
 
   <div class="error-msg" id="errorMsg"></div>
 
   <div id="bookingForm">
-    <div class="slots-wrap" id="slotsWrap">
-      <div class="loading-state">Loading available times…</div>
-    </div>
-
-    <div id="detailsForm" style="display:none;">
+    <div id="detailsForm">
       <div class="field">
         <label for="bname">Full Name</label>
         <input type="text" id="bname" placeholder="Your name" required>
@@ -115,14 +112,14 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
         <textarea id="bnotes" placeholder="Optional — your vision, questions, current setup..."></textarea>
       </div>
       <button class="submit-btn" id="submitBtn" onclick="submitBooking(event)">Confirm My Consultation →</button>
-      <div class="form-note">You'll get an email confirmation immediately. A calendar invite follows separately.</div>
+      <div class="form-note">We will email available consultation times after reviewing your request.</div>
     </div>
   </div>
 
   <div class="success-msg" id="successMsg">
     <div class="success-icon">◈</div>
-    <div class="success-title">You're Booked</div>
-    <div class="success-body">Check your inbox for confirmation. Talk soon.</div>
+    <div class="success-title">Request Received</div>
+    <div class="success-body">We received your consultation request. Watch your inbox for available times and a confirmation.</div>
   </div>
 </div></section>
 
@@ -132,54 +129,6 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
 </footer>
 
 <script>
-const SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL';
-let selectedSlot = null;
-
-async function loadSlots() {
-  const wrap = document.getElementById('slotsWrap');
-  try {
-    const res = await fetch(SCRIPT_URL + '?action=getSlots');
-    const data = await res.json();
-
-    if (!data.success || !data.slots || data.slots.length === 0) {
-      wrap.innerHTML = '<div class="empty-state">No open slots right now — check back soon, or email drophategrx@gmail.com directly.</div>';
-      return;
-    }
-
-    const byDay = {};
-    data.slots.forEach(slot => {
-      const day = slot.label.split(' · ')[0];
-      if (!byDay[day]) byDay[day] = [];
-      byDay[day].push(slot);
-    });
-
-    let html = '';
-    for (const day in byDay) {
-      html += `<div class="slots-day"><div class="slots-day-label">${day}</div><div class="slots-grid">`;
-      byDay[day].forEach(slot => {
-        const time = slot.label.split(' · ')[1];
-        html += `<button class="slot-btn" data-start="${slot.start}" data-end="${slot.end}" data-label="${slot.label}" onclick="selectSlot(this)">${time}</button>`;
-      });
-      html += `</div></div>`;
-    }
-    wrap.innerHTML = html;
-  } catch (err) {
-    wrap.innerHTML = '<div class="empty-state">Couldn\\'t load times. Please refresh or email drophategrx@gmail.com directly.</div>';
-  }
-}
-
-function selectSlot(btn) {
-  document.querySelectorAll('.slot-btn').forEach(b => b.classList.remove('selected'));
-  btn.classList.add('selected');
-  selectedSlot = {
-    start: btn.dataset.start,
-    end: btn.dataset.end,
-    label: btn.dataset.label
-  };
-  document.getElementById('detailsForm').style.display = 'block';
-  document.getElementById('detailsForm').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
-
 async function submitBooking(e) {
   e.preventDefault();
   const errorMsg = document.getElementById('errorMsg');
@@ -191,7 +140,6 @@ async function submitBooking(e) {
   const pkg = document.getElementById('bpackage').value;
   const notes = document.getElementById('bnotes').value.trim();
 
-  if (!selectedSlot) { errorMsg.textContent = 'Please select a time slot.'; errorMsg.classList.add('show'); return; }
   if (!name || !email) { errorMsg.textContent = 'Name and email are required.'; errorMsg.classList.add('show'); return; }
 
   const btn = document.getElementById('submitBtn');
@@ -199,23 +147,25 @@ async function submitBooking(e) {
   btn.textContent = 'Booking...';
 
   try {
-    const res = await fetch(SCRIPT_URL, {
+    const res = await fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        action: 'bookSlot',
-        name, email, phone, notes, package: pkg,
-        start: selectedSlot.start, end: selectedSlot.end
+        fname: name,
+        email,
+        phone,
+        package: pkg,
+        notes,
+        source: 'aaliyah-booking-request'
       })
     });
-    const data = await res.json();
+    const data = await res.json().catch(() => ({}));
 
-    if (!data.success) {
-      errorMsg.textContent = data.error || 'That slot may already be taken. Please pick another.';
+    if (!res.ok || !data.success) {
+      errorMsg.textContent = data.error || 'We could not send your request. Please try again.';
       errorMsg.classList.add('show');
       btn.disabled = false;
       btn.textContent = 'Confirm My Consultation →';
-      loadSlots();
       return;
     }
 
@@ -228,8 +178,6 @@ async function submitBooking(e) {
     btn.textContent = 'Confirm My Consultation →';
   }
 }
-
-loadSlots();
 </script>
 
 </body>
