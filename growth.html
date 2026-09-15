@@ -179,13 +179,13 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
 <div id="aal-chat-panel">
   <div id="aal-chat-header">
     <div>
-      <div class="title">ΛΛLIYΛH Assistant</div>
+      <div class="title">Leah — SomaSync AI</div>
       <div class="sub">Ask about packages & pricing</div>
     </div>
     <button id="aal-chat-close" onclick="aalToggleChat()">✕</button>
   </div>
   <div id="aal-chat-messages">
-    <div class="aal-msg bot">Hey! I can answer questions about Founding, Launch, Growth, Elite, or Retainer — or just tell me what you're looking for and I'll point you the right way.</div>
+    <div class="aal-msg bot">Hi, I'm Leah. I can answer questions about Founding, Launch, Growth, Elite, or Retainer. I was created by my father, the founder of SomaSync AI. I do not share family details.</div>
   </div>
   <div id="aal-chat-typing">typing…</div>
   <div id="aal-chat-lead">
@@ -200,11 +200,6 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
 </div>
 
 <script>
-// ⚠️ SETUP REQUIRED — see chat-widget-SETUP.md for the two things you need to fill in:
-// 1. Deploy api/chat.js to Vercel (this widget calls it at /api/chat)
-// 2. Set AAL_LEAD_URL below to your existing Google Apps Script leads endpoint
-//    (the same one used in roadmap.html / book.html)
-const AAL_LEAD_URL = 'https://script.google.com/macros/s/AKfycbx4UEtWIfzW63X3DNj7f19ROw4GgQoDufOqjTZdIZlTY6JWuVTURtrDGQSVKOAN7MUxzw/exec';
 
 let aalHistory = [];
 let aalLeadShown = false;
@@ -260,19 +255,14 @@ async function aalSubmitLead(){
   if(!name || !email){ alert('Please enter your name and email.'); return; }
 
   try{
-    await fetch(AAL_LEAD_URL, {
+    const response = await fetch('/api/lead', {
       method:'POST',
-      mode:'no-cors',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        fname: name,
-        email: email,
-        source: 'aaliyah-chat-widget',
-        chatTranscript: JSON.stringify(aalHistory),
-        timestamp: new Date().toISOString()
-      })
+      body:JSON.stringify({fname:name,email,source:'aaliyah-booking-request',notes:'Lead captured from Leah chatbot',timestamp:new Date().toISOString()})
     });
-  }catch(err){ /* fail silently, no-cors */ }
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success) throw new Error(result.error || 'Lead save failed');
+  }catch(err){ alert('We could not save your info yet. Please try again or use the consultation form.'); return; }
 
   document.getElementById('aal-chat-lead').innerHTML = '<div style="color:#00d2c8;font-size:.8rem;text-align:center;padding:6px 0;">Got it — we\'ll reach out soon. 🎉</div>';
 }

@@ -5,6 +5,19 @@
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>ΛΛLIYΛH+SOMΛSYNC AI™ — Practice Infrastructure for Manual Therapists</title>
 <meta name="description" content="Massage therapist deciding between working for a spa or building your own practice? Leah and SomaSync AI give you a customized, branded backend without the app and admin overload.">
+  <link rel="canonical" href="https://leah.somasyncai.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://leah.somasyncai.com/">
+  <meta property="og:title" content="Build your own massage practice with Leah + SomaSync AI">
+  <meta property="og:description" content="A branded backend for massage and manual therapy practitioners: website, booking, follow-up, and lead capture in one system.">
+  <meta property="og:image" content="https://leah.somasyncai.com/og-brand-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Leah + SomaSync AI practice infrastructure for manual therapists">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Build your own massage practice with Leah + SomaSync AI">
+  <meta name="twitter:description" content="A branded backend for massage and manual therapy practitioners: website, booking, follow-up, and lead capture in one system.">
+  <meta name="twitter:image" content="https://leah.somasyncai.com/og-brand-preview.jpg">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -383,13 +396,13 @@ steps.forEach(s => obs.observe(s));
 <div id="aal-chat-panel">
   <div id="aal-chat-header">
     <div>
-      <div class="title">ΛΛLIYΛH Assistant</div>
+      <div class="title">Leah — SomaSync AI</div>
       <div class="sub">Ask about packages & pricing</div>
     </div>
     <button id="aal-chat-close" onclick="aalToggleChat()">✕</button>
   </div>
   <div id="aal-chat-messages">
-    <div class="aal-msg bot">Hey! I can answer questions about Founding, Launch, Growth, Elite, or Retainer — or just tell me what you're looking for and I'll point you the right way.</div>
+    <div class="aal-msg bot">Hi, I'm Leah. I can answer questions about Founding, Launch, Growth, Elite, or Retainer. I was created by my father, the founder of SomaSync AI. I do not share family details.</div>
   </div>
   <div id="aal-chat-typing">typing…</div>
   <div id="aal-chat-lead">
@@ -404,11 +417,6 @@ steps.forEach(s => obs.observe(s));
 </div>
 
 <script>
-// ⚠️ SETUP REQUIRED — see chat-widget-SETUP.md for the two things you need to fill in:
-// 1. Deploy api/chat.js to Vercel (this widget calls it at /api/chat)
-// 2. Set AAL_LEAD_URL below to your existing Google Apps Script leads endpoint
-//    (the same one used in roadmap.html / book.html)
-const AAL_LEAD_URL = 'https://script.google.com/macros/s/AKfycbx4UEtWIfzW63X3DNj7f19ROw4GgQoDufOqjTZdIZlTY6JWuVTURtrDGQSVKOAN7MUxzw/exec';
 
 let aalHistory = [];
 let aalLeadShown = false;
@@ -464,19 +472,14 @@ async function aalSubmitLead(){
   if(!name || !email){ alert('Please enter your name and email.'); return; }
 
   try{
-    await fetch(AAL_LEAD_URL, {
+    const response = await fetch('/api/lead', {
       method:'POST',
-      mode:'no-cors',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({
-        fname: name,
-        email: email,
-        source: 'aaliyah-chat-widget',
-        chatTranscript: JSON.stringify(aalHistory),
-        timestamp: new Date().toISOString()
-      })
+      body:JSON.stringify({fname:name,email,source:'aaliyah-booking-request',notes:'Lead captured from Leah chatbot',timestamp:new Date().toISOString()})
     });
-  }catch(err){ /* fail silently, no-cors */ }
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || !result.success) throw new Error(result.error || 'Lead save failed');
+  }catch(err){ alert('We could not save your info yet. Please try again or use the consultation form.'); return; }
 
   document.getElementById('aal-chat-lead').innerHTML = '<div style="color:#00d2c8;font-size:.8rem;text-align:center;padding:6px 0;">Got it — we\'ll reach out soon. 🎉</div>';
 }
