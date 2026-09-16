@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SomaSync AI — OLED Glow Preview</title>
+  <style>
+    :root {
+      --oled: #010204;
+      --cyan: #00e5d8;
+      --blue: #1d5dff;
+      --gold: #ffc83d;
+      --intensity: 1;
+      --breath: 1;
+    }
+    * { box-sizing: border-box; }
+    html, body { min-height: 100%; margin: 0; }
+    body {
+      overflow: hidden;
+      color: #dce9f2;
+      background:
+        radial-gradient(circle at var(--mx, 50%) var(--my, 45%), rgba(0, 111, 125, .14), transparent 30%),
+        radial-gradient(circle at 50% 50%, #05101a 0%, var(--oled) 62%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+    .stage {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 40px 24px 92px;
+      position: relative;
+      isolation: isolate;
+    }
+    .stage::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: .28;
+      background-image: linear-gradient(rgba(255,255,255,.018) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.018) 1px, transparent 1px);
+      background-size: 36px 36px;
+      mask-image: radial-gradient(circle, #000, transparent 70%);
+    }
+    .panel {
+      width: min(960px, 100%);
+      min-height: min(720px, 82vh);
+      display: grid;
+      place-items: center;
+      position: relative;
+      border: 1px solid rgba(110, 225, 255, .13);
+      border-radius: 32px;
+      background: linear-gradient(145deg, rgba(7, 18, 29, .65), rgba(0, 3, 7, .82));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.015), 0 30px 120px rgba(0,0,0,.7);
+      overflow: hidden;
+    }
+    .panel::after {
+      content: "";
+      position: absolute;
+      inset: 14%;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 227, 215, .08), transparent 64%);
+      filter: blur(30px);
+      pointer-events: none;
+    }
+    .logo-wrap {
+      width: min(460px, 70vw);
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      position: relative;
+      transform: translate(var(--tx, 0px), var(--ty, 0px));
+      transition: transform .28s ease-out;
+    }
+    .logo-wrap::before,
+    .logo-wrap::after {
+      content: "";
+      position: absolute;
+      width: 16%;
+      height: 16%;
+      border-radius: 50%;
+      filter: blur(12px);
+      opacity: calc(.35 * var(--intensity) * var(--breath));
+      animation: ends 3.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .logo-wrap::before { left: 8%; bottom: 23%; background: var(--cyan); }
+    .logo-wrap::after { right: 10%; top: 17%; background: var(--blue); animation-delay: -1.6s; }
+    .logo {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+      z-index: 1;
+      filter:
+        drop-shadow(0 0 calc(22px * var(--intensity) * var(--breath)) rgba(0, 229, 216, .72))
+        drop-shadow(0 0 calc(52px * var(--intensity) * var(--breath)) rgba(0, 117, 255, .32));
+      animation: breathe 3.2s ease-in-out infinite;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+    .spark {
+      position: absolute;
+      z-index: 2;
+      width: 9px;
+      height: 9px;
+      right: 36%;
+      top: 42%;
+      border-radius: 50%;
+      background: var(--gold);
+      box-shadow: 0 0 10px 4px rgba(255, 200, 61, .9), 0 0 32px 10px rgba(255, 169, 20, .4);
+      animation: spark 3.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .topbar, .controls, .hint {
+      position: absolute;
+      z-index: 3;
+    }
+    .topbar { left: 28px; right: 28px; top: 25px; display: flex; justify-content: space-between; align-items: center; }
+    .eyebrow { color: #6f8999; font-size: 11px; letter-spacing: .19em; text-transform: uppercase; }
+    .status { display: flex; align-items: center; gap: 8px; color: #93a8b5; font-size: 12px; }
+    .status i { width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 14px var(--cyan); }
+    .controls { left: 28px; bottom: 25px; display: flex; align-items: center; gap: 12px; color: #9fb2bd; font-size: 12px; }
+    .controls label { display: flex; gap: 10px; align-items: center; }
+    input[type=range] { accent-color: var(--cyan); width: 130px; }
+    button { cursor: pointer; color: #cfeef0; background: rgba(0, 225, 213, .09); border: 1px solid rgba(0, 225, 213, .24); border-radius: 999px; padding: 8px 13px; font-size: 12px; }
+    button:hover { background: rgba(0, 225, 213, .18); }
+    .hint { right: 28px; bottom: 30px; color: #536b79; font-size: 11px; }
+    @keyframes breathe { 0%,100% { transform: scale(.985); opacity: .87; } 50% { transform: scale(1.01); opacity: 1; } }
+    @keyframes ends { 0%,100% { transform: scale(.75); opacity: .2; } 50% { transform: scale(1.25); opacity: .75; } }
+    @keyframes spark { 0%,100% { transform: scale(.85); opacity: .75; } 50% { transform: scale(1.35); opacity: 1; } }
+    @media (max-width: 620px) {
+      .panel { min-height: 76vh; border-radius: 24px; }
+      .topbar { left: 18px; right: 18px; top: 18px; }
+      .controls { left: 18px; bottom: 18px; }
+      .hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="stage" id="stage">
+    <section class="panel" aria-label="Interactive SomaSync AI OLED logo preview">
+      <div class="topbar">
+        <div class="eyebrow">SomaSync AI / OLED Glow Study</div>
+        <div class="status"><i></i> live preview</div>
+      </div>
+      <div class="logo-wrap" id="logoWrap">
+        <img class="logo" src="/somasync-mark-glow.png" alt="Glowing SomaSync AI logo">
+        <span class="spark" aria-hidden="true"></span>
+      </div>
+      <div class="controls">
+        <label>Glow <input id="intensity" type="range" min="0.35" max="1.6" step="0.01" value="1"></label>
+        <button id="toggle" type="button">Pause pulse</button>
+      </div>
+      <div class="hint">Move your pointer across the screen</div>
+    </section>
+  </main>
+  <script>
+    const root = document.documentElement;
+    const stage = document.querySelector('#stage');
+    const intensity = document.querySelector('#intensity');
+    const toggle = document.querySelector('#toggle');
+    const logoWrap = document.querySelector('#logoWrap');
+    let paused = false;
+
+    intensity.addEventListener('input', (event) => {
+      root.style.setProperty('--intensity', event.target.value);
+    });
+
+    toggle.addEventListener('click', () => {
+      paused = !paused;
+      document.body.classList.toggle('paused', paused);
+      root.style.setProperty('--breath', paused ? '1' : '1');
+      document.querySelectorAll('.logo, .logo-wrap::before, .logo-wrap::after, .spark').forEach(() => {});
+      document.querySelector('.logo').style.animationPlayState = paused ? 'paused' : 'running';
+      document.querySelector('.spark').style.animationPlayState = paused ? 'paused' : 'running';
+      toggle.textContent = paused ? 'Resume pulse' : 'Pause pulse';
+    });
+
+    stage.addEventListener('pointermove', (event) => {
+      const rect = stage.getBoundingClientRect();
+      const x = (event.clientX - rect.left) / rect.width;
+      const y = (event.clientY - rect.top) / rect.height;
+      root.style.setProperty('--mx', `${x * 100}%`);
+      root.style.setProperty('--my', `${y * 100}%`);
+      logoWrap.style.setProperty('--tx', `${(x - .5) * 12}px`);
+      logoWrap.style.setProperty('--ty', `${(y - .5) * 12}px`);
+    });
+
+    stage.addEventListener('pointerleave', () => {
+      root.style.setProperty('--mx', '50%');
+      root.style.setProperty('--my', '45%');
+      logoWrap.style.setProperty('--tx', '0px');
+      logoWrap.style.setProperty('--ty', '0px');
+    });
+  </script>
+</body>
+</html>
