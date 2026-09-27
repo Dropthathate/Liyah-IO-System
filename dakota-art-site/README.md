@@ -15,5 +15,6 @@ For a local preview, open `index.html` in a browser or run `python3 -m http.serv
 
 - Video covers and outbound links point to Dakota's public YouTube channel and videos; no stock illustrations are used as stand-ins for her art.
 - The channel and video thumbnails are loaded from YouTube. A network connection is needed to display them.
+- The subscriber count and subscribe button use YouTube's official embed, rendered with Google's platform script; the displayed public count may be rounded or delayed by YouTube.
 - Edit the text and video IDs in `index.html` to update the featured projects. The CSS doodles are decorative and can be changed independently.
 - The site intentionally has no public email address, contact form, location, analytics, or embedded autoplay video.
