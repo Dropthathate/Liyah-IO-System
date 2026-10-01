@@ -184,6 +184,18 @@ h2 .gold{color:var(--gold);}
 .station-card p{font-size:.78rem;color:var(--muted);line-height:1.65;margin:0 0 17px;}
 .station-link{margin-top:auto;font-family:'Syne',sans-serif;font-size:.64rem;font-weight:700;letter-spacing:.07em;color:var(--teal);text-transform:uppercase;}
 
+/* COMPARE CALLOUT — a clear entry point for practitioners evaluating platform versus custom build */
+.compare-callout{position:relative;overflow:hidden;padding:64px 0;background:linear-gradient(110deg,rgba(0,210,200,.065),rgba(122,92,255,.055) 54%,rgba(200,168,75,.045));border-top:1px solid rgba(0,210,200,.14);border-bottom:1px solid rgba(0,210,200,.14);}
+.compare-callout::before{content:'';position:absolute;width:540px;height:540px;border:1px solid rgba(0,210,200,.14);border-radius:50%;right:-240px;top:-300px;box-shadow:0 0 0 58px rgba(122,92,255,.025);pointer-events:none;}
+.compare-callout-grid{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:42px;align-items:center;}
+.compare-callout h2{margin:15px 0 13px;font-size:clamp(1.65rem,4vw,2.55rem);}
+.compare-callout .lead{margin:0;max-width:590px;}
+.compare-callout .btn{display:inline-flex;margin-top:23px;}
+.compare-signal{border:1px solid rgba(0,210,200,.28);background:linear-gradient(145deg,rgba(13,27,34,.96),rgba(7,12,17,.96));padding:21px;box-shadow:16px 18px 0 rgba(0,210,200,.035);}
+.compare-signal-label{font-family:'Syne',sans-serif;font-size:.56rem;font-weight:700;letter-spacing:.16em;color:var(--gold-bright);text-transform:uppercase;margin-bottom:18px;}
+.compare-signal-row{display:grid;grid-template-columns:29px 1fr;gap:11px;padding:11px 0;border-top:1px solid rgba(255,255,255,.08);}
+.compare-signal-row:first-of-type{border-top:0;padding-top:0;}.compare-signal-row span{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:var(--teal);}.compare-signal-row b{display:block;font-size:.76rem;color:var(--text);margin-bottom:2px;}.compare-signal-row small{display:block;font-size:.68rem;color:var(--muted);line-height:1.45;}
+
 /* PROOF / CASE STUDY SHOWCASE — signature element, rebuilt with real space */
 .proof-card{position:relative;background:linear-gradient(160deg,var(--surface) 0%,var(--bg2) 100%);border:1px solid rgba(0,210,200,.18);padding:0;overflow:hidden;box-shadow:0 24px 78px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.025);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;}
 .proof-card:hover{transform:translateY(-4px);border-color:rgba(0,210,200,.34);box-shadow:0 32px 88px rgba(0,0,0,.36),0 0 40px rgba(0,210,200,.045);}
@@ -284,6 +296,9 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   .hero-float{left:-16px;top:12%;}
   .hero-orbit{right:-5%;top:4%;width:60%;}
   .scroll-cue{margin-top:30px;}
+  .compare-callout{padding:54px 0;}
+  .compare-callout-grid{grid-template-columns:1fr;gap:28px;}
+  .compare-signal{max-width:420px;}
   .proof-main{grid-template-columns:1fr;}
   .proof-photo-wrap{max-width:280px;margin:0 auto;}
   .pkg-strip{grid-template-columns:1fr 1fr;}
@@ -400,6 +415,23 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
         <span class="station-link">Talk it through with Leah →</span>
       </a>
     </div>
+  </div>
+</section>
+
+<section class="compare-callout" aria-labelledby="compare-teaser-title">
+  <div class="wrap compare-callout-grid">
+    <div>
+      <div class="eyebrow gold">Before you choose a booking platform</div>
+      <h2 id="compare-teaser-title">A calendar is useful.<br><span class="teal">A recognizable practice is the goal.</span></h2>
+      <p class="lead">MassageBook is a capable practice-management platform. Leah + SomaSync AI is the custom-build path for therapists who want the booking flow, client messages, visual identity, local presence, and ongoing brand assets to feel like one practice — their own.</p>
+      <a href="/compare.html" class="btn btn-primary">Compare SomaSync + MassageBook →</a>
+    </div>
+    <aside class="compare-signal" aria-label="SomaSync custom build signal">
+      <div class="compare-signal-label">The custom-build difference</div>
+      <div class="compare-signal-row"><span>01</span><div><b>Brand before templates</b><small>Name direction, visual identity, website, flyers, infographics, and content built around your reputation.</small></div></div>
+      <div class="compare-signal-row"><span>02</span><div><b>Booking in your voice</b><small>Services, policies, messages, and client flow configured to fit the way you actually work.</small></div></div>
+      <div class="compare-signal-row"><span>03</span><div><b>Human support when needed</b><small>Clear handoff plus an optional light retainer for site, booking, and update support.</small></div></div>
+    </aside>
   </div>
 </section>
 
