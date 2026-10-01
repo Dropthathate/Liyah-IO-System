@@ -196,6 +196,16 @@ h2 .gold{color:var(--gold);}
 .compare-signal-row{display:grid;grid-template-columns:29px 1fr;gap:11px;padding:11px 0;border-top:1px solid rgba(255,255,255,.08);}
 .compare-signal-row:first-of-type{border-top:0;padding-top:0;}.compare-signal-row span{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:var(--teal);}.compare-signal-row b{display:block;font-size:.76rem;color:var(--text);margin-bottom:2px;}.compare-signal-row small{display:block;font-size:.68rem;color:var(--muted);line-height:1.45;}
 
+/* OCTOBER SPECIAL — limited offer with a motion-ready signal */
+.october-band{position:relative;overflow:hidden;padding:27px 0;background:linear-gradient(95deg,rgba(0,210,200,.1),rgba(122,92,255,.08) 55%,rgba(200,168,75,.08));border-top:1px solid rgba(0,210,200,.2);border-bottom:1px solid rgba(0,210,200,.2);}
+.october-band::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.08) 42%,transparent 58%);transform:translateX(-100%);animation:octShine 7s ease-in-out infinite;pointer-events:none;}
+@keyframes octShine{0%,38%{transform:translateX(-100%)}68%,100%{transform:translateX(100%)}}
+.october-grid{position:relative;z-index:1;display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center;}
+.october-label{font-family:'Syne',sans-serif;color:var(--gold-bright);font-size:.59rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;margin-bottom:6px;}
+.october-copy{color:var(--text);font-size:1rem;font-weight:600;}.october-copy span{color:var(--muted);font-weight:400;font-size:.82rem;margin-left:8px;}
+.october-slots{display:flex;gap:3px;margin-top:11px;}.october-slot{width:56px;height:4px;background:rgba(255,255,255,.16);}.october-slot.open{background:var(--teal);box-shadow:0 0 12px rgba(0,210,200,.5);}
+.october-cta{font-family:'Syne',sans-serif;color:var(--bg);background:var(--gold-bright);font-size:.63rem;font-weight:700;letter-spacing:.1em;text-decoration:none;text-transform:uppercase;padding:13px 17px;white-space:nowrap;clip-path:polygon(6px 0,100% 0,calc(100% - 6px) 100%,0 100%);transition:transform .2s,box-shadow .2s}.october-cta:hover{transform:translateY(-2px);box-shadow:0 10px 25px rgba(200,168,75,.26)}
+
 /* PROOF / CASE STUDY SHOWCASE — signature element, rebuilt with real space */
 .proof-card{position:relative;background:linear-gradient(160deg,var(--surface) 0%,var(--bg2) 100%);border:1px solid rgba(0,210,200,.18);padding:0;overflow:hidden;box-shadow:0 24px 78px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.025);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;}
 .proof-card:hover{transform:translateY(-4px);border-color:rgba(0,210,200,.34);box-shadow:0 32px 88px rgba(0,0,0,.36),0 0 40px rgba(0,210,200,.045);}
@@ -299,6 +309,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   .compare-callout{padding:54px 0;}
   .compare-callout-grid{grid-template-columns:1fr;gap:28px;}
   .compare-signal{max-width:420px;}
+  .october-grid{grid-template-columns:1fr;gap:14px;}.october-copy span{display:block;margin:5px 0 0;}.october-cta{justify-self:start;}
   .proof-main{grid-template-columns:1fr;}
   .proof-photo-wrap{max-width:280px;margin:0 auto;}
   .pkg-strip{grid-template-columns:1fr 1fr;}
@@ -342,6 +353,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   <a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
   <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
   <div class="nav-links" id="nl">
+    <a href="/october-special.html" style="color:var(--gold-bright);">October / 3 Slots</a>
     <a href="/ellis-case-study.html">Case Study</a>
     <a href="/brand-sketch.html">Brand Sketch</a>
     <a href="/founding.html">Founding</a>
@@ -415,6 +427,17 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
         <span class="station-link">Talk it through with Leah →</span>
       </a>
     </div>
+  </div>
+</section>
+
+<section class="october-band" aria-labelledby="october-home-title">
+  <div class="wrap october-grid">
+    <div>
+      <div class="october-label" id="october-home-title">October 2026 · Three therapist build slots</div>
+      <div class="october-copy">Foundation, Launch, or Growth — exact scope, exact price.<span>Every slot includes the October motion/brand bonus.</span></div>
+      <div class="october-slots" aria-label="Three October slots open"><span class="october-slot open"></span><span class="october-slot open"></span><span class="october-slot open"></span></div>
+    </div>
+    <a class="october-cta" href="/october-special.html">See the October menu →</a>
   </div>
 </section>
 
