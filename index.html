@@ -173,6 +173,17 @@ h2 .gold{color:var(--gold);}
 .lead{font-size:.98rem;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:36px;}
 .lead strong{color:var(--text);}
 
+/* Practice journey: one clear station at a time */
+.station-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;}
+.station-card{position:relative;display:flex;flex-direction:column;min-height:218px;padding:21px 19px;background:linear-gradient(150deg,rgba(15,24,32,.92),rgba(9,14,20,.92));border:1px solid rgba(255,255,255,.09);text-decoration:none;transition:transform .25s,border-color .25s,box-shadow .25s;}
+.station-card:hover{transform:translateY(-4px);border-color:rgba(0,210,200,.34);box-shadow:0 20px 50px rgba(0,0,0,.24);}
+.station-card:first-child{border-color:rgba(0,210,200,.3);background:linear-gradient(145deg,rgba(0,210,200,.08),rgba(11,17,24,.95) 60%);}
+.station-number{font-family:'Syne',sans-serif;font-size:.59rem;font-weight:700;letter-spacing:.14em;color:var(--gold);text-transform:uppercase;}
+.station-card:first-child .station-number{color:var(--teal);}
+.station-card h3{font-family:'Syne',sans-serif;font-size:1rem;line-height:1.25;color:var(--white);margin:13px 0 9px;}
+.station-card p{font-size:.78rem;color:var(--muted);line-height:1.65;margin:0 0 17px;}
+.station-link{margin-top:auto;font-family:'Syne',sans-serif;font-size:.64rem;font-weight:700;letter-spacing:.07em;color:var(--teal);text-transform:uppercase;}
+
 /* PROOF / CASE STUDY SHOWCASE — signature element, rebuilt with real space */
 .proof-card{position:relative;background:linear-gradient(160deg,var(--surface) 0%,var(--bg2) 100%);border:1px solid rgba(0,210,200,.18);padding:0;overflow:hidden;box-shadow:0 24px 78px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.025);transition:transform .35s ease,border-color .35s ease,box-shadow .35s ease;}
 .proof-card:hover{transform:translateY(-4px);border-color:rgba(0,210,200,.34);box-shadow:0 32px 88px rgba(0,0,0,.36),0 0 40px rgba(0,210,200,.045);}
@@ -317,6 +328,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
   <div class="nav-links" id="nl">
     <a href="/ellis-case-study.html">Case Study</a>
+    <a href="/brand-sketch.html">Brand Sketch</a>
     <a href="/founding.html">Founding</a>
     <a href="/launch.html">Launch</a>
     <a href="/growth.html">Growth</a>
@@ -334,7 +346,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
       <h1>Hey, massage<br>therapist.<br><span class="gradient-text">Build your<br>own practice.</span></h1>
       <p class="hero-sub"><strong>Trying to decide whether to work for a spa under someone else—or work for yourself?</strong> I know the hassle of deciding. That’s why I built the backend system that lets your vision come to life without juggling a pile of disconnected tools.</p>
       <div class="hero-ctas">
-        <a href="/ellis-case-study.html" class="btn btn-primary">See How Ellis Built It →</a>
+        <a href="/brand-sketch.html" class="btn btn-primary">Start My Practice Sketch →</a>
         <a href="/roadmap.html" class="btn btn-ghost">See The Roadmap</a>
       </div>
       <div class="hero-note">Your work. Your brand. A system shaped around you.</div>
@@ -353,6 +365,40 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
           <div class="hero-index">01 / YOUR PRACTICE</div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-pad station-overview" aria-labelledby="station-heading">
+  <div class="wrap">
+    <div class="eyebrow">One thing at a time</div>
+    <h2 id="station-heading">Start with a direction.<br><span class="teal">Then connect the practice.</span></h2>
+    <p class="lead">A simple path from an idea to a practice that can run smoothly—without asking you to choose every tool on day one.</p>
+    <div class="station-grid">
+      <a class="station-card reveal-up" href="/brand-sketch.html">
+        <span class="station-number">Station 01 · Start here</span>
+        <h3>Sketch your practice brand</h3>
+        <p>Try a working name, a visual mood, a simple wordmark and a color palette you can take into a planning conversation.</p>
+        <span class="station-link">Open the brand sketch →</span>
+      </a>
+      <a class="station-card reveal-up" href="/roadmap.html">
+        <span class="station-number">Station 02 · Plan</span>
+        <h3>Choose your name and pages</h3>
+        <p>Map the domain, services and pages clients need to understand your practice and decide how to book.</p>
+        <span class="station-link">Use the free roadmap →</span>
+      </a>
+      <a class="station-card reveal-up" href="/launch.html">
+        <span class="station-number">Station 03 · Connect</span>
+        <h3>Plan discovery and booking</h3>
+        <p>Consider a Google Business Profile, online booking, intake, reminders and follow-up around your own workflow.</p>
+        <span class="station-link">Explore Launch systems →</span>
+      </a>
+      <a class="station-card reveal-up" href="/book.html">
+        <span class="station-number">Station 04 · Bring it together</span>
+        <h3>Build one joined-up system</h3>
+        <p>Bring the brand and the behind-the-scenes tools together, with choices and setup reviewed with you.</p>
+        <span class="station-link">Talk it through with Leah →</span>
+      </a>
     </div>
   </div>
 </section>
@@ -509,6 +555,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <footer>
   <div class="f-brand">DROPTHEHATE THE NETWORK™</div>
   <div class="f-links">
+    <a href="/brand-sketch.html">Brand sketch</a>
     <a href="https://somasyncai.com/">SomaSync AI</a>
     <a href="/roadmap.html">Massage practice roadmap</a>
     <a href="/book.html">Request a consultation</a>
