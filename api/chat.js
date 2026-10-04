@@ -13,7 +13,7 @@ LAUNCH ESSENTIALS — $208 down + $138/month for 3 months ($622 total); full bra
 GROWTH — $348 down + $208/month for 3 months ($972 total); everything in Launch plus an 8–12 page site, advanced automations, email nurture, lapsed-client reactivation, content engine, full local SEO, review generation, CRM, and social optimization.
 ELITE — $698 down + $208/month ongoing; everything in Growth plus priority build, ongoing SEO, strategy calls, A/B testing, new pages, direct access, and quarterly brand audits.
 RETAINER — $35/month for light maintenance of an existing brand or website, including health checks, booking monitoring, small copy updates, bug fixes, and Google Business Profile check-ins.
-A $97 deposit applies to build packages and is credited toward the total. Do not promise specific client counts, revenue, rankings, or outcomes. If a visitor is ready, refer them to the relevant package page or the free roadmap. If you do not know an answer, say so and suggest the roadmap form for follow-up.`;
+A $40 deposit applies to build packages and is credited toward the total. Do not promise specific client counts, revenue, rankings, or outcomes. If a visitor is ready, refer them to the relevant package page or the free roadmap. If you do not know an answer, say so and suggest the roadmap form for follow-up.`;
 
 const MAX_MESSAGES = 24;
 const MAX_MESSAGE_CHARS = 2000;
