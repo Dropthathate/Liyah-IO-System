@@ -196,7 +196,7 @@ h2 .gold{color:var(--gold);}
 .compare-signal-row{display:grid;grid-template-columns:29px 1fr;gap:11px;padding:11px 0;border-top:1px solid rgba(255,255,255,.08);}
 .compare-signal-row:first-of-type{border-top:0;padding-top:0;}.compare-signal-row span{font-family:'Syne',sans-serif;font-size:.62rem;font-weight:800;color:var(--teal);}.compare-signal-row b{display:block;font-size:.76rem;color:var(--text);margin-bottom:2px;}.compare-signal-row small{display:block;font-size:.68rem;color:var(--muted);line-height:1.45;}
 
-/* OCTOBER SPECIAL — limited offer with a motion-ready signal */
+/* CURRENT PRICING ANNOUNCEMENT — clear offer and next step */
 .october-band{position:relative;overflow:hidden;padding:27px 0;background:linear-gradient(95deg,rgba(0,210,200,.1),rgba(122,92,255,.08) 55%,rgba(200,168,75,.08));border-top:1px solid rgba(0,210,200,.2);border-bottom:1px solid rgba(0,210,200,.2);}
 .october-band::before{content:'';position:absolute;inset:0;background:linear-gradient(110deg,transparent 25%,rgba(255,255,255,.08) 42%,transparent 58%);transform:translateX(-100%);animation:octShine 7s ease-in-out infinite;pointer-events:none;}
 @keyframes octShine{0%,38%{transform:translateX(-100%)}68%,100%{transform:translateX(100%)}}
@@ -264,7 +264,7 @@ h2 .gold{color:var(--gold);}
 .t-counter .lbl{font-size:.62rem;color:var(--muted);letter-spacing:.04em;}
 
 /* PACKAGE STRIP */
-.pkg-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin-top:8px;}
+.pkg-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin-top:8px;}
 .pkg-mini{background:linear-gradient(155deg,rgba(17,28,34,.96),rgba(8,12,18,.96));border:1px solid rgba(255,255,255,.07);padding:18px 14px;text-decoration:none;transition:transform .25s ease,border-color .25s ease,box-shadow .25s ease;}
 .pkg-mini:hover{transform:translateY(-5px);border-color:rgba(0,210,200,.34);box-shadow:0 14px 30px rgba(0,0,0,.24),0 0 24px rgba(0,210,200,.05);}
 .pm-tag{font-family:'Syne',sans-serif;font-size:.52rem;font-weight:700;letter-spacing:.1em;color:var(--teal);text-transform:uppercase;margin-bottom:6px;}
@@ -353,15 +353,11 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   <a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
   <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
   <div class="nav-links" id="nl">
-    <a href="/october-special.html" style="color:var(--gold-bright);">October / 3 Slots</a>
+    <a href="/packages.html" style="color:var(--gold-bright);">Packages</a>
+    <a href="/packages.html#previews">Product Previews</a>
     <a href="/ellis-case-study.html">Case Study</a>
     <a href="/brand-sketch.html">Brand Sketch</a>
     <a href="/clinical-workbench.html" style="color:var(--teal);">Clinical Workbench</a>
-    <a href="/founding.html">Founding</a>
-    <a href="/launch.html">Launch</a>
-    <a href="/growth.html">Growth</a>
-    <a href="/elite.html">Elite</a>
-    <a href="/retainer.html">Retainer</a>
     <a href="/deposit.html" class="nav-cta">$40 Deposit →</a>
   </div>
 </nav>
@@ -375,7 +371,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
       <p class="hero-sub"><strong>Trying to decide whether to work for a spa under someone else—or work for yourself?</strong> I know the hassle of deciding. That’s why I built the backend system that lets your vision come to life without juggling a pile of disconnected tools.</p>
       <div class="hero-ctas">
         <a href="/brand-sketch.html" class="btn btn-primary">Start My Practice Sketch →</a>
-        <a href="/roadmap.html" class="btn btn-ghost">See The Roadmap</a>
+        <a href="/packages.html" class="btn btn-ghost">Compare Packages + Previews</a>
       </div>
       <div class="hero-note">Your work. Your brand. A system shaped around you.</div>
       <a href="#proof" class="scroll-cue"><span>Scroll to see it live</span><span class="line"></span></a>
@@ -415,11 +411,11 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
         <p>Map the domain, services and pages clients need to understand your practice and decide how to book.</p>
         <span class="station-link">Use the free roadmap →</span>
       </a>
-      <a class="station-card reveal-up" href="/launch.html">
+      <a class="station-card reveal-up" href="/packages.html#packages">
         <span class="station-number">Station 03 · Connect</span>
         <h3>Plan discovery and booking</h3>
         <p>Consider a Google Business Profile, online booking, intake, reminders and follow-up around your own workflow.</p>
-        <span class="station-link">Explore Launch systems →</span>
+        <span class="station-link">See the three package paths →</span>
       </a>
       <a class="station-card reveal-up" href="/book.html">
         <span class="station-number">Station 04 · Bring it together</span>
@@ -434,11 +430,11 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <section class="october-band" aria-labelledby="october-home-title">
   <div class="wrap october-grid">
     <div>
-      <div class="october-label" id="october-home-title">October 2026 · Three therapist build slots</div>
-      <div class="october-copy">Foundation, Launch, or Growth — exact scope, exact price.<span>Every slot includes the October motion/brand bonus.</span></div>
-      <div class="october-slots" aria-label="Three October slots open"><span class="october-slot open"></span><span class="october-slot open"></span><span class="october-slot open"></span></div>
+      <div class="october-label" id="october-home-title">New one-time package pricing</div>
+      <div class="october-copy">Launch $175 · Growth $225 · Complete $300.<span>$40 non-refundable deposit is credited; two invoices cover the remainder.</span></div>
+      <div class="october-slots" aria-label="Launch, Growth, and Complete package prices"><span class="october-slot open"></span><span class="october-slot open"></span><span class="october-slot open"></span></div>
     </div>
-    <a class="october-cta" href="/october-special.html">See the October menu →</a>
+    <a class="october-cta" href="/packages.html#packages">Compare the three packages →</a>
   </div>
 </section>
 
@@ -545,8 +541,8 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
         <div class="t-dot">03</div>
         <div>
           <div class="t-title">Leah runs the backend behind your brand</div>
-          <div class="t-body">Booking, confirmations, reminders, intake, rebooking, client retention, and administrative follow-up run in one connected system—so you can focus on your clients.</div>
-          <div class="t-counter"><span class="num">24/7</span><span class="lbl">quiet operational coverage behind the practice</span></div>
+          <div class="t-body">Booking, confirmations, reminders, intake, rebooking, and administrative follow-up can be configured where included, after the practice-specific tools and policies are reviewed.</div>
+          <div class="t-counter"><span class="num">By design</span><span class="lbl">configured to the agreed tools, hours, and policies</span></div>
         </div>
       </div>
       <div class="t-step">
@@ -561,11 +557,9 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 
     <div class="eyebrow" style="margin-top:50px;">Choose Your Path</div>
     <div class="pkg-strip">
-      <a href="/founding.html" class="pkg-mini reveal-up"><div class="pm-tag">Founding</div><div class="pm-name">Just Starting</div><div class="pm-price">$138 + $68/mo</div></a>
-      <a href="/launch.html" class="pkg-mini reveal-up"><div class="pm-tag">Launch</div><div class="pm-name">Essentials</div><div class="pm-price">$622 total</div></a>
-      <a href="/growth.html" class="pkg-mini reveal-up"><div class="pm-tag">Growth</div><div class="pm-name">Most Popular</div><div class="pm-price">$972 total</div></a>
-      <a href="/elite.html" class="pkg-mini reveal-up"><div class="pm-tag">Elite</div><div class="pm-name">Full Partner</div><div class="pm-price">$698 + $208/mo</div></a>
-      <a href="/retainer.html" class="pkg-mini reveal-up"><div class="pm-tag">Retainer</div><div class="pm-name">Already Built</div><div class="pm-price">$35/mo</div></a>
+      <a href="/packages.html#packages" class="pkg-mini reveal-up"><div class="pm-tag">Launch</div><div class="pm-name">Essential brand + web entry</div><div class="pm-price">$175 one-time</div></a>
+      <a href="/packages.html#packages" class="pkg-mini reveal-up"><div class="pm-tag">Growth</div><div class="pm-name">Expanded pages + booking</div><div class="pm-price">$225 one-time</div></a>
+      <a href="/packages.html#packages" class="pkg-mini reveal-up"><div class="pm-tag">Complete</div><div class="pm-name">Broader launch kit</div><div class="pm-price">$300 one-time</div></a>
     </div>
   </div>
 </section>
@@ -611,6 +605,7 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <footer>
   <div class="f-brand">DROPTHEHATE THE NETWORK™</div>
   <div class="f-links">
+    <a href="/packages.html">Packages + previews</a>
     <a href="/brand-sketch.html">Brand sketch</a>
     <a href="https://somasyncai.com/">SomaSync AI</a>
     <a href="/roadmap.html">Massage practice roadmap</a>
@@ -697,7 +692,7 @@ if (hero && heroVisual && !reduceMotion) {
     <button type="button" id="aal-chat-close" onclick="aalToggleChat()" aria-label="Close chat">✕</button>
   </div>
   <div id="aal-chat-messages" role="log" aria-live="polite" aria-relevant="additions text">
-    <div class="aal-msg bot">Hi, I'm Leah. I can answer questions about Founding, Launch, Growth, Elite, or Retainer. I was created by my father, Nate “DropTheHate” Santos, the founder of SomaSync AI. I do not share family details.</div>
+    <div class="aal-msg bot">Hi, I'm Leah. I can answer questions about Launch ($175), Growth ($225), Complete ($300), or the optional $50/month support retainer. I was created by my father, Nate “DropTheHate” Santos, the founder of SomaSync AI. I do not share family details.</div>
   </div>
   <div id="aal-chat-typing">typing…</div>
   <div id="aal-chat-lead">

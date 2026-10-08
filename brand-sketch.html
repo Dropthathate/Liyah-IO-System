@@ -76,11 +76,17 @@
     .choice-card small{display:block;margin-top:2px;color:var(--dim);font-size:.66rem}
     .choice input:checked+.choice-card{border-color:var(--teal);background:rgba(0,210,200,.08)}
     .choice input:focus-visible+.choice-card{outline:3px solid var(--gold);outline-offset:2px}
-    .palette-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
-    .palette-card{min-height:82px;padding:9px}
+    .palette-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .palette-card{min-height:90px;padding:9px}
     .palette-swatches{height:22px;border-radius:5px;overflow:hidden;display:flex;margin-bottom:8px}
     .palette-swatches i{display:block;flex:1}
-    .mark-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .mark-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+    .mark-glyph{display:block;color:var(--teal);font-size:1.25rem;line-height:1;margin-bottom:5px}
+    .custom-colors{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:11px;padding:12px;border:1px solid rgba(0,210,200,.18);border-radius:10px;background:rgba(0,210,200,.035)}
+    .custom-colors[hidden]{display:none}
+    .custom-color{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.7rem}
+    .custom-color input{width:39px;height:31px;padding:2px;border:1px solid rgba(255,255,255,.16);border-radius:6px;background:#080d12}
+    @media(max-width:600px){.palette-grid,.mark-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
     .builder-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:20px}
     .btn{display:inline-flex;justify-content:center;align-items:center;gap:8px;min-height:43px;padding:10px 14px;border:1px solid rgba(0,210,200,.3);border-radius:9px;background:rgba(0,210,200,.1);color:var(--teal);font-weight:700;font-size:.76rem;text-decoration:none;cursor:pointer;transition:background .2s,transform .2s}
     .btn:hover{background:rgba(0,210,200,.17);transform:translateY(-1px)}
@@ -93,7 +99,7 @@
     .badge{font-family:Syne,sans-serif;font-size:.56rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);border:1px solid rgba(200,168,75,.35);padding:6px 8px;border-radius:999px;white-space:nowrap}
     .art-wrap{padding:22px}
     #concept-svg{display:block;width:100%;height:auto;border-radius:12px;box-shadow:0 18px 50px rgba(0,0,0,.3)}
-    .color-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;padding:0 22px 20px}
+    .color-summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;padding:0 22px 20px}
     .color-chip{min-width:0;display:flex;align-items:center;gap:8px;padding:9px;border:1px solid rgba(255,255,255,.08);border-radius:9px;background:rgba(255,255,255,.025)}
     .color-dot{width:17px;height:17px;flex:none;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
     .color-chip span:last-child{font-size:.65rem;color:var(--muted);min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -126,7 +132,7 @@
       <a class="brand" href="/index.html">Leah + SomaSync AI</a>
       <nav class="toplinks" aria-label="Main navigation">
         <a href="/roadmap.html">Free roadmap</a>
-        <a href="/founding.html">Packages</a>
+        <a href="/packages.html">Packages</a>
         <a class="top-cta" href="/book.html">Talk with Leah</a>
       </nav>
     </div>
@@ -180,20 +186,37 @@
           </fieldset>
 
           <fieldset>
-            <legend class="legend">Pick a color starting point</legend>
+            <legend class="legend">Pick a palette—or set your own colors</legend>
             <div class="choice-grid palette-grid">
               <label class="choice"><input type="radio" name="palette" value="sage" checked><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#243a31"></i><i style="background:#647d6a"></i><i style="background:#d5ad72"></i><i style="background:#f3f1e8"></i></span><strong>Sage + linen</strong></span></label>
               <label class="choice"><input type="radio" name="palette" value="coastal"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#17363c"></i><i style="background:#2d8886"></i><i style="background:#c79b5a"></i><i style="background:#eaf2ef"></i></span><strong>Coastal teal</strong></span></label>
               <label class="choice"><input type="radio" name="palette" value="clay"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#4e3531"></i><i style="background:#b66a56"></i><i style="background:#d2a866"></i><i style="background:#f5ece7"></i></span><strong>Clay + blush</strong></span></label>
+              <label class="choice"><input type="radio" name="palette" value="lavender"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#332e47"></i><i style="background:#7d6f9f"></i><i style="background:#d1a583"></i><i style="background:#f3f0f8"></i></span><strong>Lavender + sand</strong></span></label>
+              <label class="choice"><input type="radio" name="palette" value="forest"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#203a2d"></i><i style="background:#5f8164"></i><i style="background:#c2a66a"></i><i style="background:#edf1e8"></i></span><strong>Forest + moss</strong></span></label>
+              <label class="choice"><input type="radio" name="palette" value="ocean"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#1f3448"></i><i style="background:#4e7d9b"></i><i style="background:#d6ad74"></i><i style="background:#edf4f8"></i></span><strong>Ocean + fog</strong></span></label>
+              <label class="choice"><input type="radio" name="palette" value="citrus"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#3c3523"></i><i style="background:#b58d3e"></i><i style="background:#df785c"></i><i style="background:#faf5e8"></i></span><strong>Citrus + clay</strong></span></label>
+              <label class="choice"><input type="radio" name="palette" value="mono"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#1b2024"></i><i style="background:#626c70"></i><i style="background:#aab0aa"></i><i style="background:#f1f2ee"></i></span><strong>Quiet monochrome</strong></span></label>
+              <label class="choice"><input type="radio" name="palette" value="custom"><span class="choice-card palette-card"><span class="palette-swatches" aria-hidden="true"><i style="background:#243a31"></i><i style="background:#647d6a"></i><i style="background:#d5ad72"></i><i style="background:#f3f1e8"></i></span><strong>Custom colors</strong><small>Choose each role</small></span></label>
+            </div>
+            <div class="custom-colors" id="custom-colors" hidden>
+              <label class="custom-color" for="custom-ink">Primary ink <input id="custom-ink" type="color" value="#243a31" aria-label="Choose primary ink color"></label>
+              <label class="custom-color" for="custom-accent">Accent <input id="custom-accent" type="color" value="#647d6a" aria-label="Choose accent color"></label>
+              <label class="custom-color" for="custom-warm">Warm detail <input id="custom-warm" type="color" value="#d5ad72" aria-label="Choose warm detail color"></label>
+              <label class="custom-color" for="custom-ground">Background <input id="custom-ground" type="color" value="#f3f1e8" aria-label="Choose background color"></label>
             </div>
           </fieldset>
 
           <fieldset>
             <legend class="legend">Choose a simple mark style</legend>
             <div class="choice-grid mark-grid">
-              <label class="choice"><input type="radio" name="mark" value="leaf" checked><span class="choice-card"><strong>Leaf</strong><small>Organic lines</small></span></label>
-              <label class="choice"><input type="radio" name="mark" value="wave"><span class="choice-card"><strong>Wave</strong><small>Flow + motion</small></span></label>
-              <label class="choice"><input type="radio" name="mark" value="sun"><span class="choice-card"><strong>Sun</strong><small>Warmth + renewal</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="leaf" checked><span class="choice-card"><span class="mark-glyph" aria-hidden="true">◖</span><strong>Leaf</strong><small>Organic lines</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="wave"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">≈</span><strong>Wave</strong><small>Flow + motion</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="sun"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">✳</span><strong>Sun</strong><small>Warmth + renewal</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="lotus"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">✿</span><strong>Lotus</strong><small>Balance + care</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="mountain"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">⌃</span><strong>Mountain</strong><small>Steady + strong</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="arch"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">∩</span><strong>Arch</strong><small>Space + shelter</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="flower"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">❀</span><strong>Flower</strong><small>Growth + renewal</small></span></label>
+              <label class="choice"><input type="radio" name="mark" value="orbit"><span class="choice-card"><span class="mark-glyph" aria-hidden="true">◎</span><strong>Orbit</strong><small>Connection + rhythm</small></span></label>
             </div>
           </fieldset>
 
@@ -227,6 +250,7 @@
         <div class="color-summary" aria-label="Selected color roles">
           <div class="color-chip"><span class="color-dot" id="dot-ink"></span><span>Ink<code id="hex-ink"></code></span></div>
           <div class="color-chip"><span class="color-dot" id="dot-accent"></span><span>Accent<code id="hex-accent"></code></span></div>
+          <div class="color-chip"><span class="color-dot" id="dot-warm"></span><span>Warm<code id="hex-warm"></code></span></div>
           <div class="color-chip"><span class="color-dot" id="dot-ground"></span><span>Background<code id="hex-ground"></code></span></div>
         </div>
         <div class="preview-actions">
@@ -245,7 +269,7 @@
       <p>Later stations turn your direction into a practical plan. This page only sketches an idea; it does not register a domain, create a Google Business Profile, publish a site, or connect a live calendar.</p>
       <div class="next-grid">
         <article class="next-card"><span class="tag">Station 02 · Plan</span><h3>Domain + the right pages</h3><p>Choose a working name, map the pages clients need, and set a clear path from discovery to booking.</p><a href="/roadmap.html">See the free practice roadmap →</a></article>
-        <article class="next-card"><span class="tag">Station 03 · Be findable</span><h3>Local presence</h3><p>Plan accurate business details and a Google Business Profile if your practice meets Google's eligibility rules.</p><a href="/launch.html">See what Launch includes →</a></article>
+        <article class="next-card"><span class="tag">Station 03 · Be findable</span><h3>Local presence</h3><p>Plan accurate business details and a Google Business Profile if your practice meets Google's eligibility rules.</p><a href="/packages.html">Compare the package paths →</a></article>
         <article class="next-card"><span class="tag">Station 04 · Run smoothly</span><h3>Booking + follow-up</h3><p>Explore connected booking, intake, reminders and rebooking workflows. Set-up choices are confirmed with you.</p><a href="/book.html">Talk through your workflow →</a></article>
         <article class="next-card"><span class="tag">Station 05 · Bring it together</span><h3>One practice system</h3><p>Bring the brand, client-facing pages and behind-the-scenes operations into one plan shaped around your practice.</p><a href="/ellis-case-study.html">See a real practice example →</a></article>
       </div>
@@ -263,7 +287,12 @@
     const palettes = {
       sage: {name:'Sage + linen',ink:'#243a31',accent:'#647d6a',warm:'#d5ad72',ground:'#f3f1e8',soft:'#dce4d9',label:'#526258'},
       coastal: {name:'Coastal teal',ink:'#17363c',accent:'#2d8886',warm:'#c79b5a',ground:'#eaf2ef',soft:'#c9dfdb',label:'#3f6665'},
-      clay: {name:'Clay + blush',ink:'#4e3531',accent:'#b66a56',warm:'#d2a866',ground:'#f5ece7',soft:'#ead2c8',label:'#725850'}
+      clay: {name:'Clay + blush',ink:'#4e3531',accent:'#b66a56',warm:'#d2a866',ground:'#f5ece7',soft:'#ead2c8',label:'#725850'},
+      lavender: {name:'Lavender + sand',ink:'#332e47',accent:'#7d6f9f',warm:'#d1a583',ground:'#f3f0f8',soft:'#ded8eb',label:'#5c536d'},
+      forest: {name:'Forest + moss',ink:'#203a2d',accent:'#5f8164',warm:'#c2a66a',ground:'#edf1e8',soft:'#d8e1d0',label:'#4c6350'},
+      ocean: {name:'Ocean + fog',ink:'#1f3448',accent:'#4e7d9b',warm:'#d6ad74',ground:'#edf4f8',soft:'#d4e2eb',label:'#48657a'},
+      citrus: {name:'Citrus + clay',ink:'#3c3523',accent:'#b58d3e',warm:'#df785c',ground:'#faf5e8',soft:'#eee2c8',label:'#6c5a32'},
+      mono: {name:'Quiet monochrome',ink:'#1b2024',accent:'#626c70',warm:'#aab0aa',ground:'#f1f2ee',soft:'#dfe2de',label:'#50585a'}
     };
     const focusLabels = {
       'Massage therapy':'MASSAGE THERAPY',
@@ -274,24 +303,45 @@
     const markDrawings = {
       leaf: '<path d="M48 101C22 67 34 28 87 12c3 52-9 84-39 89Z"/><path d="M49 99c1-27 13-48 31-67"/><path d="M55 72c-10-4-17-10-22-17"/>',
       wave: '<path d="M10 51c21-35 49-35 70 0s49 35 70 0"/><path d="M10 76c21-35 49-35 70 0s49 35 70 0"/><path d="M10 26c21-35 49-35 70 0s49 35 70 0"/>',
-      sun: '<circle cx="85" cy="56" r="27"/><path d="M85 9v17M85 87v17M38 56H21M149 56h-17M52 23 40 11M130 101l-12-12M118 23l12-12M40 101l12-12"/>'
+      sun: '<circle cx="85" cy="56" r="27"/><path d="M85 9v17M85 87v17M38 56H21M149 56h-17M52 23 40 11M130 101l-12-12M118 23l12-12M40 101l12-12"/>',
+      lotus: '<path d="M85 103C63 79 58 46 85 13c27 33 22 66 0 90Z"/><path d="M82 100C48 85 24 63 18 34c35 1 57 19 67 66Z"/><path d="M88 100c34-15 58-37 64-66-35 1-57 19-67 66Z"/><path d="M31 108h108"/>',
+      mountain: '<path d="M8 100 50 34l24 38 17-25 71 53Z"/><path d="m50 34 15 22-14-5-12 8"/><path d="M12 110h146"/>',
+      arch: '<path d="M27 104V69a58 58 0 0 1 116 0v35"/><path d="M49 104V71a36 36 0 0 1 72 0v33"/><path d="M72 104V73a13 13 0 0 1 26 0v31"/>',
+      flower: '<ellipse cx="85" cy="33" rx="15" ry="29"/><ellipse cx="85" cy="79" rx="15" ry="29"/><ellipse cx="62" cy="56" rx="15" ry="29" transform="rotate(-90 62 56)"/><ellipse cx="108" cy="56" rx="15" ry="29" transform="rotate(-90 108 56)"/><circle cx="85" cy="56" r="8"/>',
+      orbit: '<ellipse cx="85" cy="56" rx="63" ry="29" transform="rotate(-26 85 56)"/><ellipse cx="85" cy="56" rx="63" ry="29" transform="rotate(26 85 56)"/><circle cx="85" cy="56" r="7"/>'
     };
     const nameInput = document.getElementById('practice-name');
     const focusInput = document.getElementById('practice-focus');
     const taglineInput = document.getElementById('tagline');
     const svg = document.getElementById('concept-svg');
     const status = document.getElementById('status');
+    const customPaletteControls = document.getElementById('custom-colors');
+    const customColorInputs = {
+      ink: document.getElementById('custom-ink'),
+      accent: document.getElementById('custom-accent'),
+      warm: document.getElementById('custom-warm'),
+      ground: document.getElementById('custom-ground')
+    };
 
     const escapeXml = (value) => value.replace(/[&<>"']/g, (char) => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&apos;'}[char]));
     const selected = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
     const getName = () => nameInput.value.trim().slice(0,48) || 'Your Practice';
-    const palette = () => palettes[selected('palette')];
+    const palette = () => {
+      const key = selected('palette');
+      if (key !== 'custom') return palettes[key];
+      const ink = customColorInputs.ink.value;
+      const accent = customColorInputs.accent.value;
+      const warm = customColorInputs.warm.value;
+      const ground = customColorInputs.ground.value;
+      return {name:'Custom colors',ink,accent,warm,ground,soft:ground,label:accent};
+    };
     const getMood = () => selected('mood');
     const getMark = () => selected('mark');
     const getTagline = () => taglineInput.value.trim().slice(0,72) || 'A first idea, made yours.';
 
     function render() {
       const colors = palette();
+      customPaletteControls.hidden = selected('palette') !== 'custom';
       const practiceName = escapeXml(getName());
       const focus = escapeXml((focusLabels[focusInput.value] || focusInput.value).toUpperCase());
       const tag = escapeXml(getTagline());
@@ -314,9 +364,11 @@
       svg.setAttribute('aria-label', `${getName()}, ${mood.toLowerCase()} brand direction with a ${colors.name} palette and ${mark} mark`);
       document.getElementById('dot-ink').style.backgroundColor = colors.ink;
       document.getElementById('dot-accent').style.backgroundColor = colors.accent;
+      document.getElementById('dot-warm').style.backgroundColor = colors.warm;
       document.getElementById('dot-ground').style.backgroundColor = colors.ground;
       document.getElementById('hex-ink').textContent = colors.ink.toUpperCase();
       document.getElementById('hex-accent').textContent = colors.accent.toUpperCase();
+      document.getElementById('hex-warm').textContent = colors.warm.toUpperCase();
       document.getElementById('hex-ground').textContent = colors.ground.toUpperCase();
     }
 
@@ -336,6 +388,7 @@
     }
 
     [nameInput, focusInput, taglineInput].forEach((el) => el.addEventListener('input', render));
+    Object.values(customColorInputs).forEach((el) => el.addEventListener('input', render));
     document.querySelectorAll('input[type="radio"]').forEach((el) => el.addEventListener('change', render));
 
     document.getElementById('download-svg').addEventListener('click', () => {
@@ -380,6 +433,10 @@
       document.querySelector('input[name="mood"][value="Grounded"]').checked = true;
       document.querySelector('input[name="palette"][value="sage"]').checked = true;
       document.querySelector('input[name="mark"][value="leaf"]').checked = true;
+      customColorInputs.ink.value = '#243a31';
+      customColorInputs.accent.value = '#647d6a';
+      customColorInputs.warm.value = '#d5ad72';
+      customColorInputs.ground.value = '#f3f1e8';
       status.textContent = 'The sketch is back to its starting settings.';
       render();
       nameInput.focus();
