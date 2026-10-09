@@ -297,6 +297,37 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 .f-copy{font-size:.68rem;color:var(--dim);}
 .footer-byline{font-size:.68rem;color:var(--muted);margin-top:6px;}
 
+
+/* Personal, editorial moments — same teal, gold and midnight palette */
+.personal-note{position:relative;z-index:1;padding:54px 0 76px;overflow:hidden;}
+.personal-note::before{content:"";position:absolute;width:410px;height:410px;right:-230px;top:-30px;border-radius:50%;background:radial-gradient(circle,rgba(122,92,255,.12),transparent 68%);pointer-events:none;}
+.personal-grid{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);align-items:center;gap:clamp(34px,7vw,92px);}
+.personal-art{position:relative;margin:0;isolation:isolate;overflow:hidden;border:1px solid rgba(0,210,200,.19);background:#0b1118;box-shadow:0 30px 80px rgba(0,0,0,.33);}
+.personal-art::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 47%,rgba(6,10,15,.78));pointer-events:none;}
+.personal-art img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;animation:art-drift 16s ease-in-out infinite alternate;}
+.personal-art figcaption{position:absolute;z-index:1;left:22px;right:20px;bottom:18px;font-family:'Syne',sans-serif;font-size:.78rem;letter-spacing:.03em;color:#fff;}
+.art-spark{display:inline-block;color:var(--gold-bright);margin-right:8px;animation:sparkle 4s ease-in-out infinite;}
+@keyframes art-drift{from{transform:scale(1.015) translateY(0)}to{transform:scale(1.07) translateY(-5px)}}
+@keyframes sparkle{0%,100%{transform:rotate(0) scale(1);opacity:.8}50%{transform:rotate(28deg) scale(1.18);opacity:1}}
+.personal-copy{position:relative;z-index:1;}
+.personal-copy h2{max-width:560px;}
+.personal-copy .lead{margin-bottom:16px;}
+.personal-body{max-width:580px;color:var(--muted);font-size:.9rem;line-height:1.8;margin-bottom:22px;}
+.personal-link{display:inline-flex;align-items:center;gap:10px;color:var(--teal);font-family:'Syne',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(0,210,200,.25);padding:0 0 7px;transition:gap .2s,color .2s,border-color .2s;}
+.personal-link:hover{gap:15px;color:var(--teal-bright);border-color:var(--teal);}
+.studio-breath{position:relative;z-index:1;padding:22px 0 76px;}
+.studio-breath-inner{position:relative;min-height:246px;display:flex;align-items:center;overflow:hidden;border:1px solid rgba(200,168,75,.16);background:linear-gradient(100deg,rgba(6,10,15,.98) 0%,rgba(6,10,15,.91) 42%,rgba(6,10,15,.14) 100%);}
+.studio-breath-copy{position:relative;z-index:2;padding:36px 42px;max-width:640px;}
+.studio-kicker{display:block;font-family:'Syne',sans-serif;font-size:.59rem;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-bright);margin-bottom:12px;}
+.studio-breath-copy p{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2vw,1.6rem);line-height:1.42;color:var(--muted);}
+.studio-breath-copy strong{color:#fff;}
+.studio-breath-art{position:absolute;z-index:0;right:0;top:0;width:59%;height:100%;object-fit:cover;object-position:center 58%;mask-image:linear-gradient(90deg,transparent 0%,rgba(0,0,0,.45) 19%,#000 51%);animation:art-breathe 12s ease-in-out infinite alternate;}
+@keyframes art-breathe{from{transform:scale(1.01);filter:saturate(.86)}to{transform:scale(1.055);filter:saturate(1.06)}}
+/* Keep the page lively without motion for visitors who request reduced movement. */
+@media (prefers-reduced-motion: reduce){.personal-art img,.art-spark,.studio-breath-art{animation:none!important}.personal-link{transition:none}}
+@media(max-width:760px){.personal-grid{grid-template-columns:1fr;gap:28px}.personal-art{max-width:560px}.studio-breath-inner{min-height:340px;align-items:flex-start}.studio-breath-art{width:100%;height:100%;opacity:.52;mask-image:linear-gradient(180deg,rgba(0,0,0,.12),#000 60%)}.studio-breath-copy{padding:32px 24px;}}
+@media(max-width:600px){.personal-note{padding:34px 0 56px}.studio-breath{padding:8px 0 58px}.studio-breath-copy p{font-size:1.16rem}.personal-art figcaption{font-size:.7rem;left:16px;bottom:14px}}
+
 @media(max-width:760px){
   .hero{min-height:auto;padding:106px 28px 62px;}
   .hero-layout{grid-template-columns:1fr;gap:42px;max-width:620px;}
@@ -354,12 +385,11 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   <a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a>
   <button class="nav-toggle" onclick="document.getElementById('nl').classList.toggle('open')" aria-label="Menu">MENU ☰</button>
   <div class="nav-links" id="nl">
+    <a href="#our-approach">Our approach</a>
+    <a href="/roadmap.html">How it works</a>
+    <a href="/ellis-case-study.html">See a real build</a>
     <a href="/packages.html" style="color:var(--gold-bright);">Packages</a>
-    <a href="/packages.html#previews">Product Previews</a>
-    <a href="/ellis-case-study.html">Case Study</a>
-    <a href="/brand-sketch.html">Brand Sketch</a>
-    <a href="/clinical-workbench.html" style="color:var(--teal);">Clinical Workbench</a>
-    <a href="/deposit.html" class="nav-cta">$40 Deposit →</a>
+    <a href="/book.html" class="nav-cta">Talk through my idea →</a>
   </div>
 </nav>
 
@@ -368,14 +398,14 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   <div class="hero-layout">
     <div class="hero-copy">
       <div class="brand-mark">ΛΛLIYΛH+SOMΛSYNC AI™</div>
-      <h1>Hey, massage<br>therapist.<br><span class="gradient-text">Build your<br>own practice.</span></h1>
-      <p class="hero-sub"><strong>Trying to decide whether to work for a spa under someone else—or work for yourself?</strong> I know the hassle of deciding. That’s why I built the backend system that lets your vision come to life without juggling a pile of disconnected tools.</p>
+      <h1>Hey, massage<br>therapist.<br><span class="gradient-text">Make your<br>practice yours.</span></h1>
+      <p class="hero-sub"><strong>Thinking about building a practice of your own?</strong> You don’t have to figure out the name, website, booking, and client follow-up all at once. Start with the work you want to do. We’ll help you connect the pieces around it.</p>
       <div class="hero-ctas">
-        <a href="/brand-sketch.html" class="btn btn-primary">Start My Practice Sketch →</a>
-        <a href="/packages.html" class="btn btn-ghost">Compare Packages + Previews</a>
+        <a href="/brand-sketch.html" class="btn btn-primary">Let’s sketch your vision →</a>
+        <a href="/roadmap.html" class="btn btn-ghost">See the simple 4-step path</a>
       </div>
       <div class="hero-note">Your work. Your brand. A system shaped around you.</div>
-      <a href="#proof" class="scroll-cue"><span>Scroll to see it live</span><span class="line"></span></a>
+      <a href="#our-approach" class="scroll-cue"><span>Scroll to see how it works</span><span class="line"></span></a>
     </div>
     <div class="hero-visual" aria-label="A calm, independent massage therapy studio">
       <div class="hero-orbit" aria-hidden="true"></div>
@@ -397,8 +427,8 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <section class="section-pad station-overview" aria-labelledby="station-heading">
   <div class="wrap">
     <div class="eyebrow">One thing at a time</div>
-    <h2 id="station-heading">Start with a direction.<br><span class="teal">Then connect the practice.</span></h2>
-    <p class="lead">A simple path from an idea to a practice that can run smoothly—without asking you to choose every tool on day one.</p>
+    <h2 id="station-heading">Start where you are.<br><span class="teal">Build at your own pace.</span></h2>
+    <p class="lead">No giant setup checklist. Just one thoughtful next step at a time—from “I have an idea” to a practice that feels ready to welcome people.</p>
     <div class="station-grid">
       <a class="station-card reveal-up" href="/brand-sketch.html">
         <span class="station-number">Station 01 · Start here</span>
@@ -424,6 +454,23 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
         <p>Bring the brand and the behind-the-scenes tools together, with choices and setup reviewed with you.</p>
         <span class="station-link">Talk it through with Leah →</span>
       </a>
+    </div>
+  </div>
+</section>
+
+
+<section class="personal-note" id="our-approach" aria-labelledby="personal-heading">
+  <div class="personal-grid wrap">
+    <figure class="personal-art reveal-up">
+      <img src="/assets/practice-journal-art.webp" alt="An open practice-planning journal beside a teal pen and leafy sprig" loading="lazy">
+      <figcaption><span class="art-spark" aria-hidden="true">✳</span> A little space to imagine what’s next.</figcaption>
+    </figure>
+    <div class="personal-copy reveal-up">
+      <div class="eyebrow gold">A more human way to build</div>
+      <h2 id="personal-heading">Your practice should feel like <span class="teal">you.</span></h2>
+      <p class="lead">Maybe you’re finishing school. Maybe you’re ready to leave the spa schedule behind. Either way, your next chapter doesn’t have to begin with a perfect plan.</p>
+      <p class="personal-body">Leah is the AI guide that helps you explore the options. Nate Santos and the SomaSync team are behind the work. We start by listening to what matters to you—then make sure the tools and choices fit before anything is set in motion.</p>
+      <a class="personal-link" href="/roadmap.html">See how the steps come together <span aria-hidden="true">→</span></a>
     </div>
   </div>
 </section>
@@ -459,8 +506,8 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <section id="proof" class="section-pad">
   <div class="wrap">
     <div class="eyebrow">A Different Way To Build</div>
-    <h2>No more app overload.<br><span class="teal">One system, built around you.</span></h2>
-    <p class="lead">You should not have to juggle separate booking subscriptions, CRMs, graphic designers, web developers, reminder tools, and spreadsheets just to run your own practice. Leah and SomaSync AI give you a customized, branded backend built around your hours, services, clients, and way of working.</p>
+    <h2>Less time juggling tabs.<br><span class="teal">More room for your people.</span></h2>
+    <p class="lead">Your booking, brand, website, and follow-up shouldn’t feel like four separate jobs. We help shape the practical pieces around your hours, services, and the way you want clients to feel when they find you.</p>
 
     <div class="proof-card reveal-up">
       <div class="scan-sweep"></div>
@@ -518,8 +565,8 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <section class="section-pad" style="background:rgba(255,255,255,.012);">
   <div class="wrap">
     <div class="eyebrow gold">The Leah + SomaSync AI Roadmap</div>
-    <h2>From your vision<br>to <span class="gold">your own system.</span></h2>
-    <p class="lead">You bring the hands, the experience, and the vision. We build the infrastructure that helps you operate like the owner of a real practice.</p>
+    <h2>From “maybe someday”<br>to <span class="gold">a plan that feels doable.</span></h2>
+    <p class="lead">You bring the care and the vision. We’ll help make the behind-the-scenes steps easier to see—and easier to take in an order that makes sense for you.</p>
 
     <div class="timeline" id="timeline">
       <div class="path-line"></div>
@@ -565,11 +612,22 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
   </div>
 </section>
 
+
+<section class="studio-breath" aria-label="A calm, personal practice, supported by thoughtful systems">
+  <div class="studio-breath-inner wrap">
+    <div class="studio-breath-copy reveal-up">
+      <span class="studio-kicker">Your way of working comes first</span>
+      <p>Thoughtful systems in the background.<br><strong>You, fully here for the client in front of you.</strong></p>
+    </div>
+    <img class="studio-breath-art reveal-up" src="/assets/your-practice-illustration.webp" alt="A warmly lit treatment room with a massage table, folded towel, candle, and leafy plant" loading="lazy">
+  </div>
+</section>
+
 <section class="section-pad faq-section" id="questions">
   <div class="wrap">
     <div class="eyebrow">For massage therapists &amp; practitioners</div>
     <h2>Clear support for the work<br><span class="teal">behind your practice.</span></h2>
-    <p class="lead">Leah + SomaSync AI build the business systems around massage and neuromuscular/manual therapy work—from a new graduate shaping an independent practice to an established therapist ready to simplify their tools.</p>
+    <p class="lead">A little clarity goes a long way. Here’s what this service does, who’s behind it, and how it supports your massage or neuromuscular practice—without getting in the way of your own judgment and care.</p>
     <div class="faq-grid">
       <article class="faq-card reveal-up">
         <h3>Do you offer massage school or a massage core program?</h3>
@@ -594,11 +652,11 @@ footer{border-top:1px solid var(--border);padding:24px 28px;display:flex;align-i
 <section class="final-cta reveal-up">
   <div class="wrap">
     <div class="eyebrow" style="justify-content:center;"><span style="flex:none;"></span></div>
-    <h2>Ready to stop wondering<br>and start building?</h2>
-    <p class="lead">See the Ellis case study. Then bring us your vision and let Leah handle the system behind it.</p>
+    <h2>Curious what your practice<br>could look like?</h2>
+    <p class="lead">Bring the idea you have so far—even if it’s just a feeling. We can start with that and figure out the next step together.</p>
     <div class="hero-ctas" style="justify-content:center;">
-      <a href="/deposit.html" class="btn btn-primary">Start Building My Practice →</a>
-      <a href="/roadmap.html" class="btn btn-ghost">See The Free Roadmap</a>
+      <a href="/book.html" class="btn btn-primary">Talk through my idea →</a>
+      <a href="/roadmap.html" class="btn btn-ghost">Explore the free roadmap</a>
     </div>
   </div>
 </section>
