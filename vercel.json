@@ -1,0 +1,25 @@
+{
+  "redirects": [
+    { "source": "/founding.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/launch.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/growth.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/elite.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/retainer.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/october-special.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/apply.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/clients.html", "destination": "/packages.html", "permanent": true },
+    { "source": "/payment-options.html", "destination": "/packages.html", "permanent": true }
+  ],
+  "headers": [
+    {
+      "source": "/verification-return.html",
+      "headers": [
+        { "key": "Cache-Control", "value": "private, no-store, no-cache, must-revalidate" },
+        { "key": "Referrer-Policy", "value": "no-referrer" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "X-Frame-Options", "value": "DENY" },
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
+      ]
+    }
+  ]
+}

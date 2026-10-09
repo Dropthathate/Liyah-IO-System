@@ -64,8 +64,10 @@ export default async function handler(req, res) {
   const apiKey = process.env.DIDIT_API_KEY;
   const workflowId = process.env.DIDIT_ELLIS_WORKFLOW_ID;
   const callerToken = process.env.ELLIS_DIDIT_REQUEST_TOKEN;
+  const environment = process.env.DIDIT_ELLIS_ENVIRONMENT?.trim().toLowerCase();
 
-  if (!apiKey || !workflowId || !callerToken || Buffer.byteLength(callerToken, 'utf8') < MIN_CALLER_TOKEN_BYTES) {
+  if (!apiKey || !workflowId || !callerToken || Buffer.byteLength(callerToken, 'utf8') < MIN_CALLER_TOKEN_BYTES
+      || !['live', 'sandbox'].includes(environment)) {
     return respond(res, 503, { error: 'Ellis identity verification is not configured.' });
   }
 
@@ -154,7 +156,13 @@ export default async function handler(req, res) {
     }
 
     const session = await diditResponse.json();
-    if (typeof session?.session_id !== 'string' || !isAllowedHostedUrl(session?.url)) {
+    const expectedVendorData = `${PRACTICE_SLUG}:${bookingReference}`;
+    if (typeof session?.session_id !== 'string'
+        || !BOOKING_REFERENCE_PATTERN.test(session.session_id)
+        || typeof session?.workflow_id !== 'string'
+        || session.workflow_id.toLowerCase() !== workflowId.toLowerCase()
+        || session.vendor_data !== expectedVendorData
+        || !isAllowedHostedUrl(session?.url)) {
       console.error('Didit returned an invalid session response.');
       return respond(res, 502, { error: 'Could not start identity verification.' });
     }
