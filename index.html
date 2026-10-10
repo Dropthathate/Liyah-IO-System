@@ -751,7 +751,7 @@ if (hero && heroVisual && !reduceMotion) {
     <button type="button" id="aal-chat-close" onclick="aalToggleChat()" aria-label="Close chat">✕</button>
   </div>
   <div id="aal-chat-messages" role="log" aria-live="polite" aria-relevant="additions text">
-    <div class="aal-msg bot">Hi, I'm Leah. I can answer questions about Launch ($175), Growth ($225), Complete ($300), or the optional $50/month support retainer. I was created by my father, Nate “DropTheHate” Santos, the founder of SomaSync AI. I do not share family details.</div>
+    <div class="aal-msg bot">Hi, I’m Leah, SomaSync AI’s AI guide. I can answer questions about Launch ($175), Growth ($225), Complete ($300), the $40 project deposit, or optional $50/month support. I was created by Nate Santos, founder of SomaSync AI.</div>
   </div>
   <div id="aal-chat-typing">typing…</div>
   <div id="aal-chat-lead">
@@ -812,7 +812,9 @@ async function aalSendMessage(){
     aalHistory.push({role:'assistant', content:reply});
     if (aalHistory.length > 20) aalHistory = aalHistory.slice(-20);
   }catch(error){
-    aalAddMessage("Chat is temporarily unavailable. You can still request a consultation from the booking link in the footer, or leave your details here for a follow-up.", 'bot');
+    aalAddMessage("Chat is temporarily unavailable. If you’d like a person to follow up, the contact form is available below, or you can use the consultation request form.", 'bot');
+    document.getElementById('aal-chat-lead').classList.add('show');
+    aalLeadShown = true;
   }finally{
     document.getElementById('aal-chat-typing').style.display = 'none';
     sendButton.disabled = false;
