@@ -73,13 +73,13 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
 <nav><a href="/index.html" class="nav-brand">ΛΛLIYΛH<span>+</span>SOMΛSYNC AI™</a></nav>
 
 <section><div class="page">
-  <div class="eyebrow f1">Step Two — After Your Deposit</div>
-  <h1 class="f2">Book Your<br><span class="teal">Consultation Call</span></h1>
-  <p class="sub f3">30 minutes, one-on-one. We talk through your vision, confirm the right package, and map out your build. Send your details below and we will email available consultation times.</p>
+  <div class="eyebrow f1">Direct project support</div>
+  <h1 class="f2">Text for help<br><span class="teal">anytime, 24/7</span></h1>
+  <p class="sub f3">Text <a href="sms:+12096715060">(209) 671-5060</a> any time, day or night, and I’ll follow up by email to help bring your vision to life. No appointment is needed. If you prefer a call, you can request one below.</p>
 
   <div class="notice-bar f3">
     <span>◈</span>
-    <span>Calls are scheduled manually and one at a time. <strong>Your request is not a confirmed appointment</strong> until you receive an email with a time.</span>
+    <span><strong>Optional call requests</strong> are scheduled manually, one at a time, and confirmed by email. Texting is the direct support route; you do not need to book a call.</span>
   </div>
 
   <div class="error-msg" id="errorMsg"></div>
@@ -112,7 +112,7 @@ footer{border-top:1px solid var(--border);padding:22px 28px;display:flex;align-i
         <label for="bnotes">Anything you want me to know beforehand?</label>
         <textarea id="bnotes" placeholder="Optional — your vision, questions, current setup..."></textarea>
       </div>
-      <button class="submit-btn" id="submitBtn" onclick="submitBooking(event)">Confirm My Consultation →</button>
+      <button class="submit-btn" id="submitBtn" onclick="submitBooking(event)">Request an Optional Call →</button>
       <div class="form-note">We will email available consultation times after reviewing your request.</div>
     </div>
   </div>
@@ -166,7 +166,7 @@ async function submitBooking(e) {
       errorMsg.textContent = data.error || 'We could not send your request. Please try again.';
       errorMsg.classList.add('show');
       btn.disabled = false;
-      btn.textContent = 'Confirm My Consultation →';
+      btn.textContent = 'Request an Optional Call →';
       return;
     }
 
@@ -176,7 +176,7 @@ async function submitBooking(e) {
     errorMsg.textContent = 'Something went wrong. Please try again or email drophategrx@gmail.com.';
     errorMsg.classList.add('show');
     btn.disabled = false;
-    btn.textContent = 'Confirm My Consultation →';
+    btn.textContent = 'Request an Optional Call →';
   }
 }
 </script>
