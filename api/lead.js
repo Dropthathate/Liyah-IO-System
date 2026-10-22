@@ -1,6 +1,6 @@
 const LEAD_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx4UEtWIfzW63X3DNj7f19ROw4GgQoDufOqjTZdIZlTY6JWuVTURtrDGQSVKOAN7MUxzw/exec';
 const VALID_STAGES = new Set(['student', 'new', 'established', 'scaling']);
-const VALID_SOURCES = new Set(['aaliyah-roadmap', 'aaliyah-booking-request', 'aaliyah-tool-selection']);
+const VALID_SOURCES = new Set(['aaliyah-roadmap', 'aaliyah-booking-request', 'aaliyah-tool-selection', 'aaliyah-landing-studio']);
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 function parseBody(body) {
