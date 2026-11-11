@@ -5,3 +5,6 @@
 
 # Vercel local project metadata
 .vercel/
+
+# Cloudflare Pages preview build output
+/dist/
